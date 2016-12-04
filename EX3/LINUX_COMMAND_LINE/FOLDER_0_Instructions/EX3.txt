@@ -7,3 +7,5 @@
 [6a] OK (if the program has correct syntx)
 [6b] FAIL (otherwise)
 [7] Don't forget to set the permissions to 707 on all files and directories
+
+
