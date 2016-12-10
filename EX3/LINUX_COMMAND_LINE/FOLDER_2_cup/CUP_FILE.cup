@@ -98,7 +98,7 @@ precedence right ASSIGN;
 precedence left LT, LTE, GT, GTE, EQUAL, NEQUAL;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
-
+precedence left LPAREN;
 
 /************************/
 /* START WITH: program */
@@ -119,6 +119,7 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+					| call:c SEMICOLON	                                        {: RESULT = new AST_STMT_CALL(c); :}
 					| RETURN SEMICOLON	                                        {: RESULT = new AST_STMT_RETURN(null); :}
 					| RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
@@ -132,6 +133,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| QUOTE:q                           {: RESULT = new AST_EXP_STRING(q);       :}
 					| NULL                              {: RESULT = new AST_EXP_VAR(null);       :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
+					| call:c	                        {: RESULT = new AST_EXP_CALL(c); :} 	%prec LPAREN
 					| NEW CLASS_ID:c LPAREN RPAREN		{: RESULT = new AST_EXP_NEW_INSTANCE(c);   :}
 					| NEW type:t LBRACK exp:e RBRACK	{: RESULT = new AST_EXP_NEW_ARRAY(t,e);   :}
 					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.PLUS);:}
