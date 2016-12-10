@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_CLASS_BODY extends AST_NODE
+public class AST_CLASS_BODY extends AST_Node
 {
 	public AST_CLASS_BODY_ITEM first;
 	public AST_CLASS_BODY rest;

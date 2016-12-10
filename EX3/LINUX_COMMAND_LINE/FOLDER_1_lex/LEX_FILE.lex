@@ -128,12 +128,12 @@ QUOTE= \".*\"
 "void"				{ return symbol(TokenNames.VOID, "VOID");}
 "return"			{ return symbol(TokenNames.RETURN, "RETURN");}
 {ID}				{ return symbol(TokenNames.ID, new String(yytext()));}
-{CLASS_ID}			{ return symbol(TokenNames.CLASS_ID, "CLASS_ID", yytext());}
+{CLASS_ID}			{ return symbol(TokenNames.CLASS_ID, new String(yytext()));} 
 {INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {LineTerminator}	{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
-{QUOTE}				{ return symbol(TokenNames.QUOTE, new String(yytext());}
+{QUOTE}				{ return symbol(TokenNames.QUOTE, new String(yytext()));}
 .|\n       		  	{ throw new Error("Unrecognized string in line " + (yyline+1) + ": \"" + yytext() + "\""); }
 
 }

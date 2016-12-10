@@ -3,6 +3,8 @@
 /*************/
 import java_cup.runtime.*;
 import AST.*;
+import java.util.ArrayList;
+import java.util.List;
 
 parser code 
 {:
@@ -95,7 +97,7 @@ non terminal AST_PROGRAM program;
 /* OPERATOR PRECEDENCE */
 /***********************/
 precedence right ASSIGN;
-precedence left LT, LTE, GT, GTE, EQUAL, NEQUAL;
+precedence left LT, LTE, GT, GTE, EQUAL, NEQUAL; 
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
 precedence left LPAREN;
@@ -125,9 +127,9 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
 					| LBRACE stmtList:body RBRACE	                            {: RESULT = new AST_STMT_BLOCK(body); :}
-					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(type, name, e); :}
+					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(t, name, e); :}
 					;
-
+ 
 
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| QUOTE:q                           {: RESULT = new AST_EXP_STRING(q);       :}
@@ -166,8 +168,8 @@ type        ::=     TYPE_INT                            {: RESULT = new AST_TYPE
 formal      ::=     type:t ID:name                      {: RESULT = new AST_FORMAL(t, name); :}
                     ;
 
-formals     ::=     formal:f                            {: RESULT = new AST_FORMAL_LIST(f) :}
-                    | formals:fs COMMA formal:f1         {: RESULT = new AST_FORMAL_LIST(f1,fs) :}
+formals     ::=     formal:f                            {: RESULT = new AST_FORMAL_LIST(f); :}
+                    | formals:fs COMMA formal:f1         {: RESULT = new AST_FORMAL_LIST(f1,fs); :}
                     ;
 
 method      ::=     LPAREN VOID RPAREN ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, null); :}
@@ -184,13 +186,13 @@ field       ::=     type:t fieldNames:f SEMICOLON				{: RESULT = new AST_FIELD(t
                     ;
 
 fieldNames  ::=     ID:name                                 {: List<String> names = new ArrayList<String>(); names.add(name); RESULT = names; :}
-                    | fieldNames:f COMMA ID:name			{: List<String> ArrayList names = new ArrayList<String>(); names.addAll(f); RESULT = names; :}
+                    | fieldNames:f COMMA ID:name			{: List<String> names = new ArrayList<String>(); names.addAll(f); RESULT = names; :}
                     ;
 
 classBody   ::=     field:f                                 {: RESULT = new AST_CLASS_BODY(f, null); :}
                     | method:m				                {: RESULT = new AST_CLASS_BODY(m, null); :}
-                    | classBody:b field:f				    {: ListRESULT = new AST_CLASS_BODY(f,b); :}
-                    | classBody:b method:m				    {: RESULT = new AST_CLASS_BODY(f,b); :}
+                    | classBody:b field:f				    {: RESULT = new AST_CLASS_BODY(f,b); :}
+                    | classBody:b method:m				    {: RESULT = new AST_CLASS_BODY(m,b); :}
                     ;
 
 classDeclaration   ::=    CLASS CLASS_ID:name LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, null, body); :}

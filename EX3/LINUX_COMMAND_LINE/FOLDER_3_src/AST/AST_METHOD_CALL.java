@@ -11,6 +11,6 @@ public class AST_METHOD_CALL extends AST_Node
 	public AST_METHOD_CALL(AST_VAR var,AST_EXP_LIST exps)
 	{
 		this.var = var;
-		this exps = exps;
+		this.exps = exps;
 	}
 }

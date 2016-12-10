@@ -1,7 +1,9 @@
+package AST;
+
 public enum BINOPS {
     PLUS,
     MINUS,
-    TIMES;
+    TIMES,
     DIVIDE,
     LTE,
     LT,

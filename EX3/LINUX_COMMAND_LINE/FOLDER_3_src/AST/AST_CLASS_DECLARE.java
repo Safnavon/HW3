@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_CLASS_DECLARE extends AST_NODE
+public class AST_CLASS_DECLARE extends AST_Node
 {
 	public String name;
 	public String extend;
