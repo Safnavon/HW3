@@ -41,7 +41,6 @@ terminal DOT;
 terminal PLUS;
 terminal MINUS;
 terminal TIMES;
-terminal WHILE;
 terminal DIVIDE;
 terminal LPAREN;
 terminal RPAREN;
@@ -51,32 +50,60 @@ terminal LBRACE;
 terminal RBRACE;
 terminal SEMICOLON;
 terminal ASSIGN;
+terminal GT;
+terminal GTE;
+terminal LT;
+terminal LTE;
+terminal EQUAL;
+terminal NEQUAL;
+terminal COMMA;
+terminal NULL;
+terminal NEW;
+terminal CLASS;
+terminal EXTENDS;
+terminal WHILE;
+terminal TYPE_INT;
+terminal TYPE_STRING;
+terminal VOID;
+terminal RETURN;
 
 /*************/
 /* TERMINALS */
 /*************/
 terminal Integer INT;
 terminal String ID;
-terminal UMINUS;
+terminal String CLASS_ID;
+terminal String QUOTE;
 
 non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
+non terminal AST_EXP_LIST expList;
+non terminal AST_METHOD_CALL call;
+non terminal AST_TYPE type;
+non terminal AST_FORMAL formal;
+non terminal AST_FORMAL_LIST formals;
+non terminal AST_METHOD_DECLARE method;
+non terminal AST_FIELD field;
+non terminal List<String> fieldNames;
+non terminal AST_CLASS_BODY classBody;
+non terminal AST_CLASS_DECLARE classDeclaration;
+non terminal AST_PROGRAM program;
 
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
-precedence left PLUS;
-precedence left MINUS;
-precedence left TIMES;
-precedence left DIVIDE;
-precedence left UMINUS;
+precedence right ASSIGN;
+precedence left LT, LTE, GT, GTE, EQUAL, NEQUAL;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+
 
 /************************/
-/* START WITH: stmtList */
+/* START WITH: program */
 /************************/
-start with stmtList;
+start with program;
 
 /********************/
 /* DERIVATION RULES */
@@ -87,17 +114,87 @@ stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
-					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
-					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
+					| exp:e DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(e,fieldName); :}
+					| exp:e1 LBRACK exp:e2 RBRACK		{: RESULT = new AST_VAR_SUBSCRIPT(e1,e2);     :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+					| RETURN SEMICOLON	                                        {: RESULT = new AST_STMT_RETURN(null); :}
+					| RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
 					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+					| LBRACE stmtList:body RBRACE	                            {: RESULT = new AST_STMT_BLOCK(body); :}
+					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(type, name, e); :}
 					;
 
+
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
+					| QUOTE:q                           {: RESULT = new AST_EXP_STRING(q);       :}
+					| NULL                              {: RESULT = new AST_EXP_VAR(null);       :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
-					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
-					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
+					| NEW CLASS_ID:c LPAREN RPAREN		{: RESULT = new AST_EXP_NEW_INSTANCE(c);   :}
+					| NEW type:t LBRACK exp:e RBRACK	{: RESULT = new AST_EXP_NEW_ARRAY(t,e);   :}
+					| exp:e1 PLUS  exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.PLUS);:}
+					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.MINUS);:}
+					| exp:e1 TIMES exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.TIMES);:}
+					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.DIVIDE);:}
+					| exp:e1 LTE exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.LTE);:}
+					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.LT);:}
+					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.GT);:}
+					| exp:e1 GTE exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.GTE);:}
+					| exp:e1 EQUAL exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.EQUAL);:}
+					| exp:e1 NEQUAL exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.NEQUAL);:}
+					| LPAREN exp:e RPAREN               {: RESULT = e; :}
+					;
+
+expList     ::=     exp:e								{: RESULT = new AST_EXP_LIST(e,null); :}
+                    | expList:l exp:e					{: RESULT = new AST_EXP_LIST(e,l); :}
+                    ;
+
+call        ::=       exp:e DOT ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_FIELD(e, name), l); :}
+                    | ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
+                    ;
+
+type        ::=     TYPE_INT                            {: RESULT = new AST_TYPE_TERM(TYPES.INT); :}
+                    | TYPE_STRING                        {: RESULT = new AST_TYPE_TERM(TYPES.STRING); :}
+                    | CLASS_ID:name                      {: RESULT = new AST_TYPE_CLASS(name); :}
+                    | type:t LBRACK RBRACK               {: RESULT = new AST_TYPE_ARRAY(t); :}
+                    ;
+
+formal      ::=     type:t ID:name                      {: RESULT = new AST_FORMAL(t, name); :}
+                    ;
+
+formals     ::=     formal:f                            {: RESULT = new AST_FORMAL_LIST(f) :}
+                    | formals:fs COMMA formal:f1         {: RESULT = new AST_FORMAL_LIST(f1,fs) :}
+                    ;
+
+method      ::=     LPAREN VOID RPAREN ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, null); :}
+                    | LPAREN VOID RPAREN ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, l); :}
+                    | LPAREN VOID RPAREN ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, null); :}
+                    | LPAREN VOID RPAREN ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, l); :}
+                    | LPAREN type:t RPAREN ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, null); :}
+                    | LPAREN type:t RPAREN ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, l); :}
+                    | LPAREN type:t RPAREN ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, null); :}
+                    | LPAREN type:t RPAREN ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, l); :}
+                    ;
+
+field       ::=     type:t fieldNames:f SEMICOLON				{: RESULT = new AST_FIELD(t,f.toArray(new String[0])); :}
+                    ;
+
+fieldNames  ::=     ID:name                                 {: List<String> names = new ArrayList<String>(); names.add(name); RESULT = names; :}
+                    | fieldNames:f COMMA ID:name			{: List<String> ArrayList names = new ArrayList<String>(); names.addAll(f); RESULT = names; :}
+                    ;
+
+classBody   ::=     field:f                                 {: RESULT = new AST_CLASS_BODY(f, null); :}
+                    | method:m				                {: RESULT = new AST_CLASS_BODY(m, null); :}
+                    | classBody:b field:f				    {: ListRESULT = new AST_CLASS_BODY(f,b); :}
+                    | classBody:b method:m				    {: RESULT = new AST_CLASS_BODY(f,b); :}
+                    ;
+
+classDeclaration   ::=    CLASS CLASS_ID:name LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, null, body); :}
+                          | CLASS CLASS_ID:name EXTENDS CLASS_ID:sup LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, sup, body); :}
+                          ;
+                          
+program		::=		classDeclaration:d						{: RESULT = new AST_PROGRAM(d, null); :}
+					| program:p classDeclaration:d			{: RESULT = new AST_PROGRAM(d, p); :}
 					;

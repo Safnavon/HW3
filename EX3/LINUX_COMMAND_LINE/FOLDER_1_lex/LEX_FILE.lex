@@ -74,6 +74,9 @@ LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-z]+
+CLASS_ID= [A-Z][a-zA-Z0-9_]*
+ID= [a-z][a-zA-Z0-9_]*
+QUOTE= \".*\"
    
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -99,7 +102,14 @@ ID				= [a-z]+
 "-"					{ return symbol(TokenNames.MINUS);}
 "*"					{ return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
+"<="				{ return symbol(TokenNames.LTE, "LTE");}
+"<"					{ return symbol(TokenNames.LT, "LT");}
+">"					{ return symbol(TokenNames.GT, "GT");}
+">="				{ return symbol(TokenNames.GTE, "GTE");}
+"=="				{ return symbol(TokenNames.EQUAL, "EQUAL");}
+"!="				{ return symbol(TokenNames.NEQUAL, "NEQUAL");}
 ":="				{ return symbol(TokenNames.ASSIGN);}
+"="				    { return symbol(TokenNames.ASSIGN);}
 "("					{ return symbol(TokenNames.LPAREN);}
 ")"					{ return symbol(TokenNames.RPAREN);}
 "["					{ return symbol(TokenNames.LBRACK);}
@@ -107,9 +117,23 @@ ID				= [a-z]+
 "{"					{ return symbol(TokenNames.LBRACE);}
 "}"					{ return symbol(TokenNames.RBRACE);}
 ";"					{ return symbol(TokenNames.SEMICOLON);}
+","					{ return symbol(TokenNames.COMMA, "COMMA");}
+"null"				{ return symbol(TokenNames.NULL, "NULL");}
+"new"				{ return symbol(TokenNames.NEW, "NEW");}
+"class"				{ return symbol(TokenNames.CLASS, "CLASS");}
+"extends"			{ return symbol(TokenNames.EXTENDS, "EXTENDS");}
+"while"				{ return symbol(TokenNames.WHILE, "WHILE");}
+"int"			    { return symbol(TokenNames.TYPE_INT, "TYPE_INT");}
+"string"			{ return symbol(TokenNames.TYPE_STRING, "TYPE_STRING");}
+"void"				{ return symbol(TokenNames.VOID, "VOID");}
+"return"			{ return symbol(TokenNames.RETURN, "RETURN");}
 {ID}				{ return symbol(TokenNames.ID, new String(yytext()));}
+{CLASS_ID}			{ return symbol(TokenNames.CLASS_ID, "CLASS_ID", yytext());}
 {INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {LineTerminator}	{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
+{QUOTE}				{ return symbol(TokenNames.QUOTE, new String(yytext());}
+.|\n       		  	{ throw new Error("Unrecognized string in line " + (yyline+1) + ": \"" + yytext() + "\""); }
+
 }
