@@ -13,19 +13,19 @@
 //}
 
 class Quicksort {
-    int[] a;
+    int[] a ;
 
-    int partition(int low, int high) {
+    int partition(int low , int high) {
     int pivot = a[low];
     int i = low;
     int j = high;
-    int tmp;
+   // int tmp;
 
     while (true) {
         while (a[i] < pivot) i = i+1;
         while (a[j] > pivot) j = j-1;
 
-        if (i >= j) break;
+       // if (i >= j) break;
 
         tmp = a[i];
         a[i] = a[j];
@@ -65,7 +65,7 @@ class Quicksort {
     Library.print("\n");
     }
 
-    static void main(string[] args) {
+     void main(string[] args) {
     int n;
 
     if (args.length != 1) {

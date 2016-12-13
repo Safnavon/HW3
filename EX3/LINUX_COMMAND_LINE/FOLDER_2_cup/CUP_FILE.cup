@@ -1,18 +1,18 @@
 /*************/
-/* IMPORT(S) */
-/*************/
+/* IMPORT(S) */ 
+/*************/ 
 import java_cup.runtime.*;
-import AST.*;
+import AST.*; 
 import java.util.ArrayList;
 import java.util.List;
 
-parser code 
+parser code  
 {:
-	public Lexer lexer;
+	public Lexer lexer; 
 
-	public Parser(Lexer lexer)
+	public Parser(Lexer lexer) 
 	{
-		super(lexer);
+		super(lexer); 
 		this.lexer = lexer;
 	}
 :}
@@ -24,14 +24,14 @@ scan with
 {:
 	Symbol s;
 	s = lexer.next_token();
-	System.out.print(s.sym);
-	//System.out.print("(");
-	//if (s.value != null)
-	{
-		//System.out.print(s.value);
-	}
-	//System.out.print(")");
-	System.out.print("\n");
+	//System.out.print(s.sym);
+//	System.out.print("(");
+//	if (s.value != null)
+//	{
+//		System.out.print(s.value);
+//	}
+//	System.out.print(")");
+//	System.out.print("\n");
 	return s; 
 :};
 
@@ -121,13 +121,14 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					;
 					
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| call:c SEMICOLON	                                        {: RESULT = new AST_STMT_CALL(c); :}
+					| exp:e SEMICOLON	                                        {: RESULT = new AST_STMT_CALL(null); :}
 					| RETURN SEMICOLON	                                        {: RESULT = new AST_STMT_RETURN(null); :}
 					| RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
-					| IF    LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_IF(   cond,body); :}
-					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-					| LBRACE stmtList:body RBRACE	                            {: RESULT = new AST_STMT_BLOCK(body); :}
+					| IF    LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_IF(   cond,s); :}
+					| WHILE LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_WHILE(cond,s); :}
+					| LBRACE stmtList:s RBRACE									{: RESULT = new AST_STMT_LIST(null,s.tail); :}
 					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(t, name, e); :}
+					| type:t ID:name SEMICOLON            				        {: RESULT = new AST_STMT_DECLARE(t, name, null); :}					
 					;
  
 
@@ -152,11 +153,14 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					;
 
 expList     ::=     exp:e								{: RESULT = new AST_EXP_LIST(e,null); :}
-                    | expList:l exp:e					{: RESULT = new AST_EXP_LIST(e,l); :}
+                    | expList:l COMMA exp:e					{: RESULT = new AST_EXP_LIST(e,l); :}
+                    |										{: RESULT = null; :}
                     ;
 
 call        ::=       exp:e DOT ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_FIELD(e, name), l); :}
                     | ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
+                    | CLASS_ID:name DOT ID:name2 LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
+                    
                     ;
 
 type        ::=     TYPE_INT                            {: RESULT = new AST_TYPE_TERM(TYPES.INT); :}
@@ -172,14 +176,14 @@ formals     ::=     formal:f                            {: RESULT = new AST_FORM
                     | formals:fs COMMA formal:f1         {: RESULT = new AST_FORMAL_LIST(f1,fs); :}
                     ;
 
-method      ::=     LPAREN VOID RPAREN ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, null); :}
-                    | LPAREN VOID RPAREN ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, l); :}
-                    | LPAREN VOID RPAREN ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, null); :}
-                    | LPAREN VOID RPAREN ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, l); :}
-                    | LPAREN type:t RPAREN ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, null); :}
-                    | LPAREN type:t RPAREN ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, l); :}
-                    | LPAREN type:t RPAREN ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, null); :}
-                    | LPAREN type:t RPAREN ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, l); :}
+method      ::=      VOID  ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, null); :}
+                    |  VOID  ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, null, l); :}
+                    |  VOID  ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, null); :}
+                    |  VOID  ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(null, name, f, l); :}
+                    |  type:t  ID:name LPAREN RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, null); :}
+                    |  type:t  ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, null, l); :}
+                    |  type:t  ID:name LPAREN formals:f RPAREN LBRACE RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, null); :}
+                    |  type:t  ID:name LPAREN formals:f RPAREN LBRACE stmtList:l RBRACE   {: RESULT = new AST_METHOD_DECLARE(t, name, f, l); :}
                     ;
 
 field       ::=     type:t fieldNames:f SEMICOLON				{: RESULT = new AST_FIELD(t,f.toArray(new String[0])); :}

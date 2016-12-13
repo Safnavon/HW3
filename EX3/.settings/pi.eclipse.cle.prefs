@@ -1,0 +1,11 @@
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-compact-red=false
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-debug=false
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-expected-conflicts=0
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-no-positions=false
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-no-scanner=false
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-non-terms=false
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-output=LINUX_COMMAND_LINE/FOLDER_3_src
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-parser-class=Parser
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-symbols-class=TokenNames
+//LINUX_COMMAND_LINE/FOLDER_2_cup/CUP_FILE.cup/cup-symbols-if=true
+eclipse.preferences.version=1

@@ -27,7 +27,8 @@ public class Main
 			/* [2] Initialize a file writer */
 			/********************************/
 			file_writer = new PrintWriter(outputFilename);
-			
+
+
 			/******************************/
 			/* [3] Initialize a new lexer */
 			/******************************/
@@ -41,24 +42,38 @@ public class Main
 			/********************************/
 			/* [5] Main reading tokens loop */
 			/********************************/
-			AST_STMT_LIST stmtList = (AST_STMT_LIST) p.parse().value;
+			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
 			
-			while (stmtList != null)
+			while (program != null)
 			{
-				System.out.print(stmtList.PrintMe());
-				System.out.print("\n");				
-				stmtList = stmtList.tail;
+			//	System.out.print(program.PrintMe());
+				//System.out.print("\n");				
+				program = program.rest;
 			}
 			
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
+
+			file_writer.print("OK");
 			file_writer.close();
+			
+
+			
     	}
 			     
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			try{
+			file_writer = new PrintWriter(outputFilename);		
+			file_writer.print("fail");
+			file_writer.close();
+
+			}
+			catch(Exception d){
+				d.printStackTrace();
+
+			}
 		}
 	}
 }

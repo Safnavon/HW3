@@ -1,6 +1,6 @@
 package AST;
 
-public class AST_STMT_LIST extends AST_Node
+public class AST_STMT_LIST extends AST_STMT
 {
 	/****************/
 	/* DATA MEMBERS */

@@ -7,8 +7,8 @@
 /***************************/
 
 /*************/
-/* USER CODE */
-/*************/
+/* USER CODE */ 
+/*************/   
    
 import java_cup.runtime.*;
 
@@ -71,7 +71,7 @@ import java_cup.runtime.*;
 /* MACRO DECALARATIONS */
 /***********************/
 LineTerminator	= \r|\n|\r\n
-WhiteSpace		= {LineTerminator} | [ \t\f]
+WhiteSpace		= {LineTerminator} | [ \t\f] | \/\*(.|[\r\n])*?\*\/ | \/\/.*
 INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-z]+
 CLASS_ID= [A-Z][a-zA-Z0-9_]*
@@ -120,6 +120,7 @@ QUOTE= \".*\"
 ","					{ return symbol(TokenNames.COMMA, "COMMA");}
 "null"				{ return symbol(TokenNames.NULL, "NULL");}
 "new"				{ return symbol(TokenNames.NEW, "NEW");}
+"class"				{ return symbol(TokenNames.CLASS, "CLASS");}  
 "class"				{ return symbol(TokenNames.CLASS, "CLASS");}
 "extends"			{ return symbol(TokenNames.EXTENDS, "EXTENDS");}
 "while"				{ return symbol(TokenNames.WHILE, "WHILE");}
