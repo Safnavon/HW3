@@ -7,7 +7,7 @@ class SymbolTable {
     private static HashMap<String, LinkedList<SymbolNode>> symbols;
     private static LinkedList<SymbolNode> scopeStack;
 
-    void init() {
+    public static void init() {
     	symbols = new HashMap<String, LinkedList<SymbolNode>>();
     	scopeStack = new LinkedList<SymbolNode>();
     }
@@ -33,13 +33,14 @@ class SymbolTable {
     	LinkedList<SymbolNode> lst = symbols.get(name);
         if (lst == null) {
            lst = new LinkedList<SymbolNode>();
+           symbols.put(name, lst);
         }
         lst.addFirst(newSymbol);
         scopeStack.addFirst(newSymbol);
     }
     
     private static void remove(SymbolNode symbol) {
-    	symbols.remove(symbol);
+    	symbols.get(symbol.name).remove(symbol);
     }
 
     public static void openScope() {
@@ -54,6 +55,11 @@ class SymbolTable {
     		remove(first);
     		first = scopeStack.pop();
     	}
+    }
+    
+    public static void print() {
+    	System.out.println(symbols);
+    	System.out.println(scopeStack);
     }
     
 }
