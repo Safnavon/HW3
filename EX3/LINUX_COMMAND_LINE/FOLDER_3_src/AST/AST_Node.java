@@ -1,11 +1,9 @@
 package AST;
 
+
 public abstract class AST_Node 
 {
-	public int SerialNumber;
+
+	public abstract AST_TYPE isValid();
 	
-	public int PrintMe()
-	{
-		return 700;
-	}
 }

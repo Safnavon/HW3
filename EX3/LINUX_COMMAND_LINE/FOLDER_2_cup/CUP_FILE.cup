@@ -83,7 +83,7 @@ non terminal AST_STMT stmt;
 non terminal AST_STMT_LIST stmtList;
 non terminal AST_EXP_LIST expList;
 non terminal AST_METHOD_CALL call;
-non terminal AST_TYPE type;
+non terminal AST_TYPE type; 
 non terminal AST_FORMAL formal;
 non terminal AST_FORMAL_LIST formals;
 non terminal AST_METHOD_DECLARE method;

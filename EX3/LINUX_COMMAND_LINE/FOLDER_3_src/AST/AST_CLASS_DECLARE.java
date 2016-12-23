@@ -12,4 +12,13 @@ public class AST_CLASS_DECLARE extends AST_Node
 		this.extend = extend;
 		this.body = body;
 	}
+
+	@Override
+	public AST_TYPE isValid() {
+		
+
+		body.isValid();
+		
+		return null;
+	}
 }

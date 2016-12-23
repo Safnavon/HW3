@@ -15,4 +15,11 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.right = right;
 		this.OP = op;
 	}
+
+	@Override
+	public AST_TYPE isValid() {
+		left.isValid();
+		right.isValid();
+		return null;
+	}
 }

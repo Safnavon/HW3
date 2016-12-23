@@ -9,4 +9,18 @@ public class AST_CLASS_BODY extends AST_Node
 		this.first = first;
 		this.rest = rest;
 	}
+
+	@Override
+	public AST_TYPE isValid() {
+		if (this.first!=null){
+			first.isValid();
+			rest.isValid();
+			
+		}
+		return null;
+		
+		
+	}
+	
+	
 }

@@ -11,4 +11,9 @@ public class AST_EXP_CALL extends AST_EXP
 	{
 		this.call = call;
 	}
+
+	@Override
+	public AST_TYPE isValid() {
+		return call.isValid();
+	}
 }
