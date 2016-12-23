@@ -1,6 +1,6 @@
 import java.util.HashMap;
 import java.util.LinkedList;
-import AST.AST_Node;
+import AST.AST_TYPE;
 
 class SymbolTable {
 
@@ -23,13 +23,13 @@ class SymbolTable {
 		return null;
     }
     
-    public static AST_Node get(String name) {
+    public static AST_TYPE get(String name) {
     	SymbolNode symbol = getSymbolNode(name);
-    	return symbol != null ? symbol.node : null;
+    	return symbol != null ? symbol.type : null;
     }
 
-    public static void put(String name, AST_Node node) {
-    	SymbolNode newSymbol = new SymbolNode(name, node);
+    public static void put(String name, AST_TYPE type) {
+    	SymbolNode newSymbol = new SymbolNode(name, type);
     	LinkedList<SymbolNode> lst = symbols.get(name);
         if (lst == null) {
            lst = new LinkedList<SymbolNode>();
@@ -66,9 +66,9 @@ class SymbolTable {
 
 class SymbolNode {
 	String name;
-	AST_Node node;
-	SymbolNode(String name, AST_Node node) {
+	AST_TYPE type;
+	SymbolNode(String name, AST_TYPE type) {
 		this.name = name;
-		this.node = node;
+		this.type = type;
 	}
 }
