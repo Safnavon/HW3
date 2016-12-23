@@ -1,4 +1,5 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST; import src.ClassChecker;
+import src.SymbolTable;
 
 public class AST_FORMAL extends AST_Node
 {

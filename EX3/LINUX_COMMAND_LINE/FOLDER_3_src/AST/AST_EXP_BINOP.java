@@ -1,4 +1,5 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST; import src.ClassChecker;
+import src.SymbolTable;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
@@ -17,9 +18,36 @@ public class AST_EXP_BINOP extends AST_EXP
 	}
 
 	@Override
-	public AST_TYPE isValid() {
-		left.isValid();
-		right.isValid();
-		return null;
+	public AST_TYPE isValid() throws Exception {
+		AST_TYPE leftType =left.isValid();
+		AST_TYPE rightType = right.isValid();
+		AST_TYPE_TERM leftTypeTerm;
+		AST_TYPE_TERM rightTypeTerm;
+
+		if(leftType.getClass().equals(AST_TYPE_TERM.class))
+			leftTypeTerm = (AST_TYPE_TERM)leftType;
+		else{
+			throw(new Exception("left expression is not term"));
+		}
+		if(rightType.getClass().equals(AST_TYPE_TERM.class))
+			rightTypeTerm = (AST_TYPE_TERM)rightType;
+		else{
+			throw(new Exception("right expression is not term"));
+
+		}
+		if(!leftTypeTerm.type.equals(rightTypeTerm.type)){
+			throw(new Exception("term types arent equal"));
+		}
+		if(!(leftTypeTerm.type.equals(TYPES.INT))){
+			if(!leftTypeTerm.type.equals(TYPES.STRING)){
+				throw(new Exception("term types arent int or string"));
+
+			}
+			if(OP!=BINOPS.PLUS ||OP!=BINOPS.EQUAL){
+				throw(new Exception("only PLUS or EQUAL operands are supported for type string"));
+			}
+		}
+		
+		return leftTypeTerm;
 	}
 }

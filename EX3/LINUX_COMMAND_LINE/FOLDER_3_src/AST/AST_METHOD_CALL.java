@@ -1,4 +1,4 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST;
 
 public class AST_METHOD_CALL extends AST_Node
 {
@@ -12,5 +12,12 @@ public class AST_METHOD_CALL extends AST_Node
 	{
 		this.var = var;
 		this.exps = exps;
+	}
+
+	@Override
+	public AST_TYPE isValid() {
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,4 +1,5 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST; import src.ClassChecker;
+import src.SymbolTable;
 
 public abstract class AST_STMT extends AST_Node
 {

@@ -1,4 +1,5 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST; import src.ClassChecker;
+import src.SymbolTable;
 
 public class AST_FIELD extends AST_CLASS_BODY_ITEM
 {

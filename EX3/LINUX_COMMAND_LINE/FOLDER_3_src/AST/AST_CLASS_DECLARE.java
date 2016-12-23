@@ -1,4 +1,5 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST; import src.ClassChecker;
+import src.SymbolTable;
 
 public class AST_CLASS_DECLARE extends AST_Node
 {
@@ -14,7 +15,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 	}
 
 	@Override
-	public AST_TYPE isValid() {
+	public AST_TYPE isValid() throws Exception {
 		
 
 		body.isValid();

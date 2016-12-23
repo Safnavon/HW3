@@ -1,6 +1,8 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST;
 
-public abstract class AST_CLASS_BODY_ITEM extends AST_Node
-{
+import src.ClassChecker;
+import src.SymbolTable;
+
+public abstract class AST_CLASS_BODY_ITEM extends AST_Node {
 
 }

@@ -1,6 +1,6 @@
-package AST; import SymbolTable; import ClassChecker;
-
-import AST.AST_EXP;
+package AST; import AST.AST_EXP;
+import src.ClassChecker;
+import src.SymbolTable;
 
 
 public class AST_EXP_STRING extends AST_EXP {

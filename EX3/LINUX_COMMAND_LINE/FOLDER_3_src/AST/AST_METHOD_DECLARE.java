@@ -1,4 +1,4 @@
-package AST; import SymbolTable; import ClassChecker;
+package AST;
 
 public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 {
@@ -16,5 +16,11 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 		this.name = name;
 		this.formals = formals;
 		this.stmts = exps;
+	}
+
+	@Override
+	public AST_TYPE isValid() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,8 +1,9 @@
+package src;
 import java.util.HashMap;
 import java.util.LinkedList;
 import AST.AST_TYPE;
 
-class SymbolTable {
+public class SymbolTable {
 
     private static HashMap<String, LinkedList<SymbolNode>> symbols;
     private static LinkedList<SymbolNode> scopeStack;
