@@ -27,14 +27,12 @@ public static class ClassChecker {
 	}
 	public class Class {
 		public String name;
+		public Class parent;
 
-		boolean isSuperChild(Class superParent){
-			//TODO
-		}
 
-		public Class(AST_CLASS_DECLARE cDec){
+		public Class(AST_CLASS_DECLARE cDec, Class parent){
 			this.name = cDec.name;
-
+			this.parent = parent;
 		}
 	}
 
@@ -47,7 +45,11 @@ public static class ClassChecker {
 		return this.map.get(name);
 	}
 	public void put(String name, AST_CLASS_DECLARE classDec){
-		Class c = new Class(classDec);
+		Class parent = null;
+		if(classDec.extend != null){
+			parent = this.map.get(classDec.extend);
+		}
+		Class c = new Class(classDec,parent);
 		this.map.put(name, c);
 	}
 
