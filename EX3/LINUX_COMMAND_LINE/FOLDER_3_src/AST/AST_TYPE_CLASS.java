@@ -1,10 +1,9 @@
-package AST;
-import ClassChecker;
+package AST; import SymbolTable; import ClassChecker;
 
 public class AST_TYPE_CLASS extends AST_TYPE
 {
 	public String name;
-	
+
 	public AST_TYPE_CLASS(String name){
 		this.name = name;
 	}
@@ -20,12 +19,12 @@ public class AST_TYPE_CLASS extends AST_TYPE
 					return true;
 				}
 				subClassName = ClassChecker.get(subClassName).extend;
-				
+
 			} while(subClassName != null);
 			return false;
 		}
 	}
-	
+
 	public boolean equals(Object other){
 		if(! other instanceof AST_TYPE_CLASS){
 			return false;

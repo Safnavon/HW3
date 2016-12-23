@@ -2,11 +2,11 @@
 public static class ClassChecker {
 	public class Function{
 		public AST_METHOD_DECLARE method;
-		
+
 		public Function(AST_METHOD_DECLARE method){
 			this.method = method;
 		}
-		
+
 		public boolean isSameArgsTypes(List<AST_TYPE> types){
 			AST_FORMAL_LIST myRest = this.formals;
 			AST_FORMAL myCurr;
@@ -27,31 +27,34 @@ public static class ClassChecker {
 	}
 	public class Class {
 		public String name;
-		public Class parent;
-		LinkedList<Function> functions;
-		LinkedList<Property> properties;
-		
+
 		boolean isSuperChild(Class superParent){
 			//TODO
 		}
+
+		public Class(AST_CLASS_DECLARE cDec){
+			this.name = cDec.name;
+
+		}
 	}
-	
+
 	public ClassChecker(){
-		
+
 	}
-	
-	private HashMap<String, AST_CLASS_DECLARE> map = new HashMap<String, AST_CLASS_DECLARE>(); 
-	public AST_CLASS_DECLARE get(String name){
+
+	private HashMap<String, Class> map = new HashMap<String, Class>();
+	public Class get(String name){
 		return this.map.get(name);
 	}
 	public void put(String name, AST_CLASS_DECLARE classDec){
-		this.map.put(name, classDec);
+		Class c = new Class(classDec);
+		this.map.put(name, c);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 }
