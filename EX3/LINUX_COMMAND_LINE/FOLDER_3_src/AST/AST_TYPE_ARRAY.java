@@ -1,4 +1,4 @@
-package AST;
+package AST; import SymbolTable; import ClassChecker;
 
 public class AST_TYPE_ARRAY extends AST_TYPE
 {

@@ -1,4 +1,4 @@
-package AST;
+package AST; import SymbolTable; import ClassChecker;
 
 public class AST_STMT_DECLARE extends AST_STMT
 {
@@ -15,3 +15,8 @@ public class AST_STMT_DECLARE extends AST_STMT
 		this.exp = exp;
 	}
 }
+
+
+int x; x = a.foo();
+y=8;
+z= x+y;

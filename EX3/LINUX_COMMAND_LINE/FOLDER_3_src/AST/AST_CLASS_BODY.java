@@ -1,4 +1,4 @@
-package AST;
+package AST; import SymbolTable; import ClassChecker;
 
 public class AST_CLASS_BODY extends AST_Node
 {

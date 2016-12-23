@@ -1,4 +1,4 @@
-package AST;
+package AST; import SymbolTable; import ClassChecker;
 
 public class AST_FIELD extends AST_CLASS_BODY_ITEM
 {
