@@ -3,11 +3,11 @@ package AST; import SymbolTable; import ClassChecker;
 public class AST_TYPE_TERM extends AST_TYPE
 {
 	public TYPES type;
-	
+
 	public AST_TYPE_TERM(TYPES type){
 		this.type = type;
 	}
-	
+
 	public boolean isExtending(AST_TYPE other){
 		AST_TYPE_TERM _other;
 		if(other instanceof AST_TYPE_TERM){
@@ -17,6 +17,13 @@ public class AST_TYPE_TERM extends AST_TYPE
 		else{
 			return false;
 		}
-		
+
+	}
+
+	public boolean equals(Object other){
+		if(! other instanceof AST_TYPE_TERM){
+			return false;
+		}
+		return this.isExtending((AST_TYPE_TERM) other);
 	}
 }

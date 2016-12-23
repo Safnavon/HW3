@@ -2,8 +2,8 @@ package AST; import SymbolTable; import ClassChecker;
 
 public class AST_TYPE_ARRAY extends AST_TYPE
 {
-	public AST_TYPE type; 
-	
+	public AST_TYPE type;
+
 	public boolean isExtending(AST_TYPE other){
 		if(! other instanceof AST_TYPE_ARRAY){
 			return false;
@@ -22,8 +22,15 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 			}
 		}
 	}
-	
+
 	public AST_TYPE_ARRAY(AST_TYPE type){
 		this.type = type;
+	}
+
+	public boolean equals(Object other){
+		if(! other instanceof AST_TYPE_ARRAY){
+			return false;
+		}
+		return this.isExtending((AST_TYPE_ARRAY) other);
 	}
 }

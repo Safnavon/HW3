@@ -5,7 +5,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	BINOPS OP;
 	public AST_EXP left;
 	public AST_EXP right;
-	
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
