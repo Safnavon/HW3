@@ -46,7 +46,7 @@ public class ClassChecker {
 
 			this.type = type;
 			this.name = name;
-		} 
+		}
 
 		public boolean equals(Object other){
 			if(!(other instanceof Field)){
@@ -142,16 +142,34 @@ public class ClassChecker {
 		}
 		c.addFields(fields);
 	}
-	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception{
-		String cName;
+	private static AST_TYPE isValidMethodInSpecificClass(String className, String fName, List<AST_TYPE> argTypes){
+		Class c = map.get(className);
+		if(c == null){
+			throw new Exception("Cant find class " + className);
+		}
+		return c.hasFunction(fName,argTypes);
+	}
+
+	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes){
 		if(! (classType instanceof AST_TYPE_CLASS)){
 			throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
 		}
-			Class c = map.get(((AST_TYPE_CLASS) classType).name);
-		if(c == null){
-			throw new Exception("Cant find class " + cName);
+		AST_TYPE t = null;
+		for(String c = ((AST_TYPE_CLASS)classType).name; c != null; c = map.get(c).parent.name){
+			try{
+				t = isValidMethodInSpecificClass(c, fName, argTypes);
+			}
+			catch(Exception e){
+				continue;
+			};
+			break;
 		}
-		return c.hasFunction(fName,argTypes);
+		if(t != null){
+			return t;
+		}
+		else{
+			throw new Exception("Cant find method " + fName + " on class " +((AST_TYPE_CLASS)classType).name+ " or its parents." );
+		}
 	}
 
 	public static AST_TYPE isValidField(String cName, String fName, AST_TYPE type) throws Exception{
