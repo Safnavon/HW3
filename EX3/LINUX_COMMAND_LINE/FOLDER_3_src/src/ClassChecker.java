@@ -48,7 +48,7 @@ public class ClassChecker {
 
 			this.type = type;
 			this.name = name;
-		}
+		} 
 
 		public boolean equals(Object other){
 			if(!(other instanceof Field)){
