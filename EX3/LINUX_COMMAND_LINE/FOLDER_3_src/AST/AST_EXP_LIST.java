@@ -11,4 +11,11 @@ public class AST_EXP_LIST extends AST_Node {
 		this.first = first;
 		this.rest = rest;
 	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		first.isValid();
+		rest.isValid();
+		return null;
+	}
 }

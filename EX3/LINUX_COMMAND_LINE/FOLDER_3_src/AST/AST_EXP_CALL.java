@@ -14,7 +14,7 @@ public class AST_EXP_CALL extends AST_EXP
 	}
 
 	@Override
-	public AST_TYPE isValid() {
+	public AST_TYPE isValid() throws Exception {
 		
 		return call.isValid();
 		

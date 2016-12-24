@@ -13,4 +13,12 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
 		this.size = e;
 	}
 
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		if (!size.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
+			throw new Exception("invalid array size type");
+		}
+		return new AST_TYPE_ARRAY(type);				
+	}
+	
 }

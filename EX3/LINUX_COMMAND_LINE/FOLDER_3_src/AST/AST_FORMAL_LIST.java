@@ -15,4 +15,11 @@ public class AST_FORMAL_LIST extends AST_Node
 		this.first = first;
 		this.rest = null;
 	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		first.isValid();
+		rest.isValid();
+		return null;
+	}
 }

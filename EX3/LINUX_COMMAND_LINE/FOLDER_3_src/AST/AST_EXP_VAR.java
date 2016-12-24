@@ -9,4 +9,9 @@ public class AST_EXP_VAR extends AST_EXP
 	{
 		this.var = var;
 	}
+	
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		return var.isValid();
+	}
 }

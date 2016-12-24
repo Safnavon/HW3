@@ -1,5 +1,7 @@
 package AST;
 
+import src.SymbolTable;
+
 public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 {
 	public AST_TYPE type; // if null if means the return value should be void
@@ -19,8 +21,9 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 	}
 
 	@Override
-	public AST_TYPE isValid() {
-		// TODO Auto-generated method stub
+	public AST_TYPE isValid() throws Exception {
+		SymbolTable.openScope();
+		ClassChecker.
 		return null;
 	}
 }

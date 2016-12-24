@@ -12,4 +12,9 @@ public class AST_EXP_INT extends AST_EXP
 	{
 		this.value = value;
 	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		return new AST_TYPE_TERM(TYPES.INT);
+	}
 }

@@ -7,8 +7,6 @@ import AST.AST_FORMAL_LIST;
 import AST.AST_METHOD_DECLARE;
 import AST.AST_TYPE;
 import AST.AST_TYPE_CLASS;
-import AST.AST_TYPE_CLASS;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -74,7 +72,7 @@ public class ClassChecker {
 			this.funcs.add(func);
 		}
 
-		AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes){
+		AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes) throws Exception{
 			//TODO validate types are all good because i was tired
 			Function f = null;
 			ListIterator<Function> iter = this.funcs.listIterator(0);
@@ -100,7 +98,7 @@ public class ClassChecker {
 			}
 		}
 
-		AST_TYPE hasField(String name, AST_TYPE type){
+		AST_TYPE hasField(String name, AST_TYPE type) throws Exception{
 			Field f = null;
 			ListIterator<Field> iter = this.fields.listIterator(0);
 			for(; iter.hasNext(); f = iter.next()){
@@ -137,14 +135,14 @@ public class ClassChecker {
 		}
 		c.addFunction(func);
 	}
-	public static void addFields(String className, AST_FIELD fields){
+	public static void addFields(String className, AST_FIELD fields) throws Exception{
 		Class c = map.get(className);
 		if(c == null){
 			throw new Exception("Cant find class " + className);
 		}
 		c.addFields(fields);
 	}
-	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes){
+	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception{
 		String cName;
 		if(! (classType instanceof AST_TYPE_CLASS)){
 			throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
@@ -156,7 +154,7 @@ public class ClassChecker {
 		return c.hasFunction(fName,argTypes);
 	}
 
-	public static AST_TYPE isValidField(String cName, String fName, AST_TYPE type){
+	public static AST_TYPE isValidField(String cName, String fName, AST_TYPE type) throws Exception{
 		Class c = map.get(cName);
 		if(c == null){
 			throw new Exception("Cant find class " + cName);

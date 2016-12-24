@@ -10,4 +10,10 @@ public class AST_FORMAL extends AST_Node
 		this.type = type;
 		this.name = name;
 	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		SymbolTable.put(name, type);
+		return null;
+	}
 }

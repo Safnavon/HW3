@@ -10,4 +10,9 @@ public class AST_EXP_STRING extends AST_EXP {
 	public AST_EXP_STRING(String q) {
 		this.value = q;
 	}
+	
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		return new AST_TYPE_TERM(TYPES.STRING);
+	}
 }
