@@ -126,7 +126,7 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					| RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
 					| IF    LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_IF(   cond,s); :}
 					| WHILE LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_WHILE(cond,s); :}
-					| LBRACE stmtList:s RBRACE									{: RESULT = new AST_STMT_LIST(null,s.tail); :}
+					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_BLOCK(body); :}
 					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(t, name, e); :}
 					| type:t ID:name SEMICOLON            				        {: RESULT = new AST_STMT_DECLARE(t, name, null); :}					
 					;
@@ -159,7 +159,6 @@ expList     ::=     exp:e								{: RESULT = new AST_EXP_LIST(e,null); :}
 
 call        ::=       exp:e DOT ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_FIELD(e, name), l); :}
                     | ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
-                    
                     ;
 
 type        ::=     TYPE_INT                            {: RESULT = new AST_TYPE_TERM(TYPES.INT); :}
