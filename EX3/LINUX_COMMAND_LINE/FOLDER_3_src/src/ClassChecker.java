@@ -129,7 +129,6 @@ public class ClassChecker {
 		Class c = new ClassChecker.Class(classDec,parent);
 		map.put(c.name, c);
 	}
-
 	public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception{
 		Class c = map.get(className);
 		if(c == null){
