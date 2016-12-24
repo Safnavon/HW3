@@ -7,6 +7,7 @@ import AST.AST_FORMAL_LIST;
 import AST.AST_METHOD_DECLARE;
 import AST.AST_TYPE;
 import AST.AST_TYPE_CLASS;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -142,7 +143,7 @@ public class ClassChecker {
 		}
 		c.addFields(fields);
 	}
-	private static AST_TYPE isValidMethodInSpecificClass(String className, String fName, List<AST_TYPE> argTypes){
+	private static AST_TYPE isValidMethodInSpecificClass(String className, String fName, List<AST_TYPE> argTypes) throws Exception{
 		Class c = map.get(className);
 		if(c == null){
 			throw new Exception("Cant find class " + className);
@@ -150,7 +151,7 @@ public class ClassChecker {
 		return c.hasFunction(fName,argTypes);
 	}
 
-	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes){
+	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception{
 		if(! (classType instanceof AST_TYPE_CLASS)){
 			throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
 		}
