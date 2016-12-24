@@ -2,8 +2,10 @@ package AST;
 
 public class AST_TYPE_METHOD extends AST_TYPE {
 
-	public AST_TYPE_METHOD() {
-		// TODO Auto-generated constructor stub
+	AST_METHOD_DECLARE declaration;
+	
+	public AST_TYPE_METHOD(AST_METHOD_DECLARE declaration) {
+		this.declaration = declaration;
 	}
 	
 	@Override

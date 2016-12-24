@@ -43,13 +43,28 @@ public class AST_METHOD_CALL extends AST_Node
 			if(x==null || x.getClass()!=AST_TYPE_METHOD.class){
 				throw(new Exception("no method found for name"+this.var.getClass().getName()));
 			}
-						
+			AST_METHOD_DECLARE m = ((AST_TYPE_METHOD) x).declaration;
+			
+			do{
+				a=declaration.formals.first;
+				b=exps.rest;
+				expressions.add(a);
+			}
+
+			while(b!=null);
+			
+			AST_TYPE c;	
+			while((c =types.iterator().next())!=null){
+				if (!c.getClass().equals(m.declaration.formals))
+			}
+			return 	m.declaration.type;
 		}//TODO add return values equal to call return value
 		
 		if(this.var.getClass().equals(AST_VAR_FIELD.class) ){
 			AST_VAR_FIELD varField =(AST_VAR_FIELD) var;
-			ClassChecker.isValidMethod(varField.fieldName,varField);
+			return ClassChecker.isValidMethod(varField.fieldName,varField);
 		}
+		
 		return null;
 	}
 }

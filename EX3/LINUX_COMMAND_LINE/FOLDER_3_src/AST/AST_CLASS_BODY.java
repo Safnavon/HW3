@@ -16,7 +16,9 @@ public class AST_CLASS_BODY extends AST_Node
 	public AST_TYPE isValid() throws Exception {
 		if (this.first!=null){
 			first.isValid();
-			rest.isValid();
+			if ( rest != null ) {
+				rest.isValid();
+			}
 
 		}
 		return null;
