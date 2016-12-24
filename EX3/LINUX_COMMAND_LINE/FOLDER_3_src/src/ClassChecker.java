@@ -100,7 +100,7 @@ public class ClassChecker {
       }
     }
 
-    AST_TYPE hasField(String name, AST_TYPE type){
+    AST_TYPE hasField(String name){
       Field f = null;
       ListIterator<Field> iter = this.fields.listIterator(0);
       for(; iter.hasNext(); f = iter.next()) {
@@ -108,8 +108,7 @@ public class ClassChecker {
           break;
         }
       }
-      //return f !=null && f.type.equals(type);
-      if(f== null) {
+      if(f == null) {
         throw new Exception("Class "+Class.this.name+" doesnt have field "+name+" with this type");
       }
       return f.type;
@@ -117,7 +116,7 @@ public class ClassChecker {
   }
 
   private static HashMap<String, Class> map = new HashMap<String, Class>();
-
+  private static String currentClassName = null;
   public static Class get(String name){
     return map.get(name);
   }
@@ -130,6 +129,13 @@ public class ClassChecker {
     map.put(c.name, c);
   }
   public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception {
+    if(className == null) {
+      if(currentClassName == null) {
+        throw new Exception("Compiler Error: currentClassName is null");
+      }
+      addFunction(currentClassName,func);
+      return;
+    }
     Class c = map.get(className);
     if(c == null) {
       throw new Exception("Cant find class " + className);
@@ -137,6 +143,12 @@ public class ClassChecker {
     c.addFunction(func);
   }
   public static void addFields(String className, AST_FIELD fields){
+    if(className == null) {
+      if(currentClassName == null) {
+        throw new Exception("Compiler Error: currentClassName is null");
+      }
+      return addFields(currentClassName,fields);
+    }
     Class c = map.get(className);
     if(c == null) {
       throw new Exception("Cant find class " + className);
@@ -172,13 +184,30 @@ public class ClassChecker {
       throw new Exception("Cant find method " + fName + " on class " +((AST_TYPE_CLASS)classType).name+ " or its parents." );
     }
   }
-
-  public static AST_TYPE isValidField(String cName, String fName, AST_TYPE type){
+  private static AST_TYPE isValidFieldInSpecificClass(String cName, String fName){
     Class c = map.get(cName);
     if(c == null) {
       throw new Exception("Cant find class " + cName);
     }
-    return c.hasField(fName,type);
+    return c.hasField(fName);
+  }
+  public static AST_TYPE isValidField(String cName, String fName){
+    AST_TYPE t = null;
+    for(String c = map.get(cName).name; c != null; c = map.get(c).parent.name) {
+      try{
+        t = isValidFieldInSpecificClass(c, fName);
+      }
+      catch(Exception e) {
+        continue;
+      };
+      break;
+    }
+    if(t != null) {
+      return t;
+    }
+    else{
+      throw new Exception("Cant find field " + fName + " on class " + cName + " or its parents." );
+    }
   }
 
 
