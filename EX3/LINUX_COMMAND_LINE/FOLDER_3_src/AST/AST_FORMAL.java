@@ -13,6 +13,9 @@ public class AST_FORMAL extends AST_Node
 
 	@Override
 	public AST_TYPE isValid() throws Exception {
+		if (SymbolTable.isInCurrentScope(name)) {
+			throw new Exception("input parameter  " + name + " is already declared");				
+		}
 		SymbolTable.put(name, type);
 		return null;
 	}

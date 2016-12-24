@@ -14,4 +14,19 @@ public class AST_STMT_WHILE extends AST_STMT
 		this.cond = cond;
 		this.body = body;
 	}
+	
+	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+		if (! cond.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
+			throw new Exception("while statement condition must be an integer");
+		}
+		SymbolTable.openScope();
+		body.isValid(expectedReturnValue);
+		SymbolTable.closeScope();
+	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

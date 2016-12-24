@@ -41,11 +41,11 @@ public class AST_METHOD_CALL extends AST_Node
 			types.add(a.isValid());
 		}
 		if(this.var.getClass().equals(AST_VAR_SIMPLE.class) ){
-			AST_TYPE x =SymbolTable.get(var.getClass().getName());
-			if(x==null || x.getClass()!=AST_TYPE_METHOD.class){
+			AST_TYPE varType =SymbolTable.get(((AST_VAR_SIMPLE) var).name);
+			if(varType==null || !varType.getClass().equals(AST_TYPE_METHOD.class)){
 				throw(new Exception("no method found for name"+this.var.getClass().getName()));
 			}
-			AST_METHOD_DECLARE m = ((AST_TYPE_METHOD) x).declaration;
+			AST_METHOD_DECLARE m = ((AST_TYPE_METHOD) varType).declaration;
 			if (m.formals == null) {
 				if (types.size() != 0) {
 					throw(new Exception("illegal number of parameters to method "+ m.name));

@@ -15,4 +15,13 @@ public class AST_STMT_DECLARE extends AST_STMT
 		this.name = name;
 		this.exp = exp;
 	}
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+		
+	}
 }

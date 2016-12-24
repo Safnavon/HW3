@@ -12,4 +12,13 @@ public class AST_STMT_CALL extends AST_STMT
 	{
 		this.call = call;
 	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		return null;
+	}
+	
+	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+		call.isValid();
+	}
 }

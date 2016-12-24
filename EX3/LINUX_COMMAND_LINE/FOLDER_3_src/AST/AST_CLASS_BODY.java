@@ -12,18 +12,20 @@ public class AST_CLASS_BODY extends AST_Node
 		this.rest = rest;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
+	public AST_TYPE isValid(String className) throws Exception {
 		if (this.first!=null){
+			first.className = className;
 			first.isValid();
 			if ( rest != null ) {
 				rest.isValid();
 			}
-
 		}
 		return null;
-
-
+	}
+	
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		return null;
 	}
 
 

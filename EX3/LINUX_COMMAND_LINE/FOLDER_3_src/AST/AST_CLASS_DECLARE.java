@@ -23,7 +23,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 		SymbolTable.openScope();
 		SymbolTable.put(name, new AST_TYPE_CLASS(name));
 		ClassChecker.newClass(this);
-		body.isValid();
+		body.isValid(name);
 		SymbolTable.closeScope();
 		
 		return new AST_TYPE_CLASS(name);
