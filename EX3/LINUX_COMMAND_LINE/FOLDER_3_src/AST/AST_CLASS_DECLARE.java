@@ -17,9 +17,15 @@ public class AST_CLASS_DECLARE extends AST_Node
 	@Override
 	public AST_TYPE isValid() throws Exception {
 		
-
+		if(SymbolTable.get(name)!=null){
+			throw(new Exception("Duplicate class declaration"));
+		}
+		SymbolTable.openScope();
+		SymbolTable.put(name, new AST_TYPE_CLASS(name));
+		ClassChecker.newClass(this);
 		body.isValid();
+		SymbolTable.closeScope();
 		
-		return null;
+		return new AST_TYPE_CLASS(name);
 	}
 }

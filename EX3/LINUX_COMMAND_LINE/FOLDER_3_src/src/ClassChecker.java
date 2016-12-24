@@ -98,13 +98,13 @@ public class ClassChecker {
 	/*public Class get(String name){
 		return this.map.get(name);
 	}*/
-	public static void newClass(String name, AST_CLASS_DECLARE classDec){
+	public static void newClass(AST_CLASS_DECLARE classDec){
 		Class parent = null;
 		if(classDec.extend != null){
 			parent = map.get(classDec.extend);
 		}
 		Class c = new ClassChecker.Class(classDec,parent);
-		map.put(name, c);
+		map.put(c.name, c);
 	}
 
 	public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception{

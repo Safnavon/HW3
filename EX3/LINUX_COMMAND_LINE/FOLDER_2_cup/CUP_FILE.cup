@@ -159,7 +159,6 @@ expList     ::=     exp:e								{: RESULT = new AST_EXP_LIST(e,null); :}
 
 call        ::=       exp:e DOT ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_FIELD(e, name), l); :}
                     | ID:name LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
-                    | CLASS_ID:name DOT ID:name2 LPAREN expList:l RPAREN   {: RESULT = new AST_METHOD_CALL(new AST_VAR_SIMPLE(name), l); :}
                     
                     ;
 
