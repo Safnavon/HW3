@@ -1,6 +1,7 @@
 package AST;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.concurrent.ExecutionException;
 
 import src.ClassChecker;
@@ -24,20 +25,16 @@ public class AST_METHOD_CALL extends AST_Node
 	public AST_TYPE isValid() throws Exception {
 		LinkedList<AST_EXP> expressions = new LinkedList<AST_EXP>();
 		LinkedList<AST_TYPE> types=new LinkedList<AST_TYPE>();
-		AST_EXP_LIST b=null;
 		AST_EXP a;
 		AST_FORMAL_LIST d=null;
 		AST_FORMAL c;
 		
-		do{
-			a=exps.first;
-			b=exps.rest;
-			expressions.add(a);
+		for(AST_EXP_LIST b=exps; b!= null; b = b.rest) {
+			expressions.add(b.first);
 		}
-
-		while(b!=null);
-		
-		while((a=expressions.iterator().next())!=null){
+		ListIterator expIterator = expressions.listIterator();
+		while(expIterator.hasNext()){
+			a=(AST_EXP) expIterator.next();
 			types.add(a.isValid());
 		}
 		if(this.var.getClass().equals(AST_VAR_SIMPLE.class) ){
