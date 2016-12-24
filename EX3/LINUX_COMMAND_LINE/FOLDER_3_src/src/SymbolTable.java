@@ -62,6 +62,11 @@ public class SymbolTable {
     	System.out.println(symbols);
     	System.out.println(scopeStack);
     }
+
+	public static boolean isInCurrentScope(String string) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }
 
