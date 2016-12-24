@@ -1,6 +1,8 @@
 package src;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.ListIterator;
+
 import AST.AST_TYPE;
 
 public class SymbolTable {
@@ -15,11 +17,13 @@ public class SymbolTable {
 
   private static SymbolNode getSymbolNode(String key) {
     LinkedList<SymbolNode> matches = (LinkedList<SymbolNode>)symbols.get(key);
-    SymbolNode symbol;
-    for(int i=0; i < matches.size(); i++) {
-      if((symbol = matches.get(i)).name.equals(key)) {
-        return symbol;
-      }
+    if (matches != null) {
+    	SymbolNode symbol;
+    	for(int i=0; i < matches.size(); i++) {
+	      if((symbol = matches.get(i)).name.equals(key)) {
+	        return symbol;
+	      }
+	    }
     }
     return null;
   }
@@ -64,13 +68,13 @@ public class SymbolTable {
   }
 
   public static boolean isInCurrentScope(String string) {
-    ListIterator<SymbolNode> iter = scopeStack.ListIterator(0);
+    ListIterator<SymbolNode> iter = scopeStack.listIterator(0);
     String name = null;
     do {
       if(!iter.hasNext()) {
         break;
       }
-      String name = iter.next().name;
+      name = iter.next().name;
       if(name.equals(string)) {
         return true;
       }

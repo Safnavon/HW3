@@ -74,7 +74,7 @@ public class ClassChecker {
       this.funcs.add(func);
     }
 
-    AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes){
+    AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes) throws Exception{
       //TODO validate types are all good because i was tired
       Function f = null;
       ListIterator<Function> iter = this.funcs.listIterator(0);
@@ -100,7 +100,7 @@ public class ClassChecker {
       }
     }
 
-    AST_TYPE hasField(String name){
+    AST_TYPE hasField(String name) throws Exception{
       Field f = null;
       ListIterator<Field> iter = this.fields.listIterator(0);
       for(; iter.hasNext(); f = iter.next()) {
@@ -142,12 +142,13 @@ public class ClassChecker {
     }
     c.addFunction(func);
   }
-  public static void addFields(String className, AST_FIELD fields){
+  public static void addFields(String className, AST_FIELD fields) throws Exception{
     if(className == null) {
       if(currentClassName == null) {
         throw new Exception("Compiler Error: currentClassName is null");
       }
-      return addFields(currentClassName,fields);
+      addFields(currentClassName,fields);
+      return;
     }
     Class c = map.get(className);
     if(c == null) {
@@ -155,7 +156,7 @@ public class ClassChecker {
     }
     c.addFields(fields);
   }
-  private static AST_TYPE isValidMethodInSpecificClass(String className, String fName, List<AST_TYPE> argTypes){
+  private static AST_TYPE isValidMethodInSpecificClass(String className, String fName, List<AST_TYPE> argTypes) throws Exception{
     Class c = map.get(className);
     if(c == null) {
       throw new Exception("Cant find class " + className);
@@ -163,7 +164,7 @@ public class ClassChecker {
     return c.hasFunction(fName,argTypes);
   }
 
-  public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes){
+  public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception{
     if(!(classType instanceof AST_TYPE_CLASS)) {
       throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
     }
@@ -184,14 +185,14 @@ public class ClassChecker {
       throw new Exception("Cant find method " + fName + " on class " +((AST_TYPE_CLASS)classType).name+ " or its parents." );
     }
   }
-  private static AST_TYPE isValidFieldInSpecificClass(String cName, String fName){
+  private static AST_TYPE isValidFieldInSpecificClass(String cName, String fName) throws Exception{
     Class c = map.get(cName);
     if(c == null) {
       throw new Exception("Cant find class " + cName);
     }
     return c.hasField(fName);
   }
-  public static AST_TYPE isValidField(String cName, String fName){
+  public static AST_TYPE isValidField(String cName, String fName) throws Exception{
     AST_TYPE t = null;
     for(String c = map.get(cName).name; c != null; c = map.get(c).parent.name) {
       try{
