@@ -1,6 +1,7 @@
 
 package AST; import src.ClassChecker;
 import src.SymbolTable;
+import src.ClassChecker;
 
 
 public class AST_TYPE_CLASS extends AST_TYPE
@@ -12,7 +13,7 @@ public class AST_TYPE_CLASS extends AST_TYPE
 	}
 
 	public boolean isExtending(AST_TYPE other){
-		if(! other instanceof AST_TYPE_CLASS){
+		if(! (other instanceof AST_TYPE_CLASS)){
 			return false;
 		}
 		else {
@@ -22,15 +23,14 @@ public class AST_TYPE_CLASS extends AST_TYPE
 				if(this.name.equals(subClassName)){
 					return true;
 				}
-				subClassName = ClassChecker.get(subClassName).extend;
-
+				subClassName = ClassChecker.get(subClassName).extend;	
 			} while(subClassName != null);
 			return false;
 		}
 	}
 
 	public boolean equals(Object other){
-		if(! other instanceof AST_TYPE_CLASS){
+		if(! (other instanceof AST_TYPE_CLASS)){
 			return false;
 		}
 		else{
@@ -38,5 +38,7 @@ public class AST_TYPE_CLASS extends AST_TYPE
 			return this.name.equals(_other.name);
 		}
 	}
+	public AST_TYPE isValid() throws Exception{
+		return null;
+	}
 }
-
