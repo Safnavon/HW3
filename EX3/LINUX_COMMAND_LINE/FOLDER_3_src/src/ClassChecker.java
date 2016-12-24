@@ -45,7 +45,7 @@ public class ClassChecker {
 		public Field(AST_TYPE type, String name){
 			this.type = type;
 			this.name = name;
-		}
+		} 
 
 		public boolean equals(Object other){
 			if(!(other instanceof Field)){
