@@ -1,9 +1,7 @@
-   
+import AST.*;
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
-import AST.*;
-
 public class Main
 {
 	static public void main(String argv[])
@@ -15,7 +13,7 @@ public class Main
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		
+
 		try
 		{
 			/********************************/
@@ -33,7 +31,7 @@ public class Main
 			/* [3] Initialize a new lexer */
 			/******************************/
 			l = new Lexer(file_reader);
-			
+
 			/*******************************/
 			/* [4] Initialize a new parser */
 			/*******************************/
@@ -43,29 +41,29 @@ public class Main
 			/* [5] Main reading tokens loop */
 			/********************************/
 			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
-			
+
 			while (program != null)
 			{
 			//	System.out.print(program.PrintMe());
-				//System.out.print("\n");				
+				//System.out.print("\n");
 				program = program.rest;
 			}
-			
+
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
 
 			file_writer.print("OK");
 			file_writer.close();
-			
 
-			
+
+
     	}
-			     
+
 		catch (Exception e)
 		{
 			try{
-			file_writer = new PrintWriter(outputFilename);		
+			file_writer = new PrintWriter(outputFilename);
 			file_writer.print("fail");
 			file_writer.close();
 
@@ -77,5 +75,3 @@ public class Main
 		}
 	}
 }
-
-

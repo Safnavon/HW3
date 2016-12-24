@@ -1,16 +1,18 @@
 package src;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-
 import AST.AST_CLASS_DECLARE;
 import AST.AST_FIELD;
 import AST.AST_FORMAL;
 import AST.AST_FORMAL_LIST;
 import AST.AST_METHOD_DECLARE;
 import AST.AST_TYPE;
+import AST.AST_TYPE_CLASS;
+import AST.AST_TYPE_CLASS;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class ClassChecker {
 
@@ -43,6 +45,7 @@ public class ClassChecker {
 		AST_TYPE type;
 		String name;
 		public Field(AST_TYPE type, String name){
+
 			this.type = type;
 			this.name = name;
 		}
@@ -71,7 +74,8 @@ public class ClassChecker {
 			this.funcs.add(func);
 		}
 
-		boolean hasFunction(AST_TYPE retType, String name, List<AST_TYPE> argTypes){
+		AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes){
+			//TODO validate types are all good because i was tired
 			Function f = null;
 			ListIterator<Function> iter = this.funcs.listIterator(0);
 			for(; iter.hasNext(); f = iter.next()){
@@ -79,11 +83,15 @@ public class ClassChecker {
 						break;
 					}
 			}
-			if(f == null ||
-					!f.method.type.equals(retType)){
-				return false;
+			if(f == null){
+				throw new Exception("Class "+Class.this.name+" doesnt have function "+name+" with these args");
 			}
-			return f.isSameArgsTypes(argTypes);
+			if(f.isSameArgsTypes(argTypes)){
+				return f.method.type;
+			}
+			else{
+				throw new Exception("Class "+Class.this.name+" doesnt have function "+name+" with these args");
+			}
 		}
 
 		void addFields(AST_FIELD fs){
@@ -91,13 +99,28 @@ public class ClassChecker {
 				this.fields.add(new Field(fs.type, fs.names[i]));
 			}
 		}
+
+		AST_TYPE hasField(String name, AST_TYPE type){
+			Field f = null;
+			ListIterator<Field> iter = this.fields.listIterator(0);
+			for(; iter.hasNext(); f = iter.next()){
+					if(f.name.equals(name)){
+						break;
+					}
+			}
+			//return f !=null && f.type.equals(type);
+			if(f== null){
+				throw new Exception("Class "+Class.this.name+" doesnt have field "+name+" with this type");
+			}
+			return f.type;
+		}
 	}
 
 	private static HashMap<String, Class> map = new HashMap<String, Class>();
 
-	/*public Class get(String name){
-		return this.map.get(name);
-	}*/
+	public static Class get(String name){
+		return map.get(name);
+	}
 	public static void newClass(AST_CLASS_DECLARE classDec){
 		Class parent = null;
 		if(classDec.extend != null){
@@ -114,8 +137,32 @@ public class ClassChecker {
 		}
 		c.addFunction(func);
 	}
+	public static void addFields(String className, AST_FIELD fields){
+		Class c = map.get(className);
+		if(c == null){
+			throw new Exception("Cant find class " + className);
+		}
+		c.addFields(fields);
+	}
+	public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes){
+		String cName;
+		if(! (classType instanceof AST_TYPE_CLASS)){
+			throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
+		}
+			Class c = map.get(((AST_TYPE_CLASS) classType).name);
+		if(c == null){
+			throw new Exception("Cant find class " + cName);
+		}
+		return c.hasFunction(fName,argTypes);
+	}
 
-
+	public static AST_TYPE isValidField(String cName, String fName, AST_TYPE type){
+		Class c = map.get(cName);
+		if(c == null){
+			throw new Exception("Cant find class " + cName);
+		}
+		return c.hasField(fName,type);
+	}
 
 
 
