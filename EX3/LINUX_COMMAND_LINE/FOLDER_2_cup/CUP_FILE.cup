@@ -3,7 +3,7 @@
 /*************/ 
 import java_cup.runtime.*;
 import AST.*; 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 parser code  
@@ -24,14 +24,14 @@ scan with
 {:
 	Symbol s;
 	s = lexer.next_token();
-	//System.out.print(s.sym);
-//	System.out.print("(");
-//	if (s.value != null)
-//	{
-//		System.out.print(s.value);
-//	}
-//	System.out.print(")");
-//	System.out.print("\n");
+	System.out.print(s.sym);
+	System.out.print("(");
+	if (s.value != null)
+	{
+		System.out.print(s.value);
+	}
+	System.out.print(")");
+	System.out.print("\n");
 	return s; 
 :};
 
