@@ -101,12 +101,12 @@ public class ClassChecker {
     }
 
     AST_TYPE hasField(String name) throws Exception {
-    
+
       ListIterator<Field> iter = this.fields.listIterator(0);
       //Field f = iter.hasNext()?iter.next():null;
       boolean x =iter.hasNext();
       Field f = iter.next();
-      
+
       while (f!=null) {
         if(f.name.equals(name)) {
           break;
@@ -132,6 +132,7 @@ public class ClassChecker {
       parent = map.get(classDec.extend);
     }
     Class c = new ClassChecker.Class(classDec,parent);
+    currentClassName = c.name;
     map.put(c.name, c);
   }
   public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception {
