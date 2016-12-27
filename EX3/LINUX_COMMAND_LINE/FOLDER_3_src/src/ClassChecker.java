@@ -6,13 +6,18 @@ import AST.AST_FORMAL;
 import AST.AST_FORMAL_LIST;
 import AST.AST_METHOD_DECLARE;
 import AST.AST_TYPE;
+import AST.AST_TYPE_ARRAY;
 import AST.AST_TYPE_CLASS;
+import AST.AST_TYPE_TERM;
+import AST.TYPES;
 import AST.AST_TYPE_CLASS;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 public class ClassChecker {
 
@@ -27,7 +32,7 @@ public class ClassChecker {
       AST_FORMAL_LIST myRest = this.method.formals;
       AST_FORMAL myCurr;
       for(int i = 0; i < types.size(); i++) {
-        if(myRest.first != null) {
+        if(myRest != null) {
           myCurr = myRest.first;
           myRest = myRest.rest;
           if(!types.get(i).isExtending(myCurr.type)) {
@@ -38,7 +43,7 @@ public class ClassChecker {
           return i + 1 == types.size();          //same size of data structures
         }
       }
-      return myRest == null ? types.size() == 0 : myRest.first == null;      //same size of data structures
+      return myRest == null;      //same size of data structures
     }
   }
   public static class Field {
@@ -164,18 +169,20 @@ public class ClassChecker {
     }
     AST_TYPE t = null;
     AST_TYPE_CLASS cType = (AST_TYPE_CLASS) classType;
+    boolean found = false;
     for(String c = map.get(cType.name)!=null ? map.get(cType.name).name : null;
         c != null;
         c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidMethodInSpecificClass(c, fName, argTypes);
+        found = true;
       }
       catch(Exception e) {
         continue;
       };
       break;
     }
-    if(t != null) {
+    if(found) {
       return t;
     }
     else{
@@ -192,16 +199,18 @@ public class ClassChecker {
   public static AST_TYPE isValidField(String cName, String fName) throws Exception {
     AST_TYPE t = null;
     throwIfNotClass(cName);
+    boolean found = false;
     for(String c = map.get(cName).name; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidFieldInSpecificClass(c, fName);
+        found = true;
       }
       catch(Exception e) {
         continue;
       };
       break;
     }
-    if(t != null) {
+    if(found) {
       return t;
     }
     else{
@@ -215,6 +224,35 @@ public class ClassChecker {
     }
   }
 
+  public static void ensureOneMain() throws Exception {
+    List<AST_TYPE> args = new ArrayList<AST_TYPE>();
+    args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
+    boolean found = false;
+    Exception e = new Exception("Must declare exactly one void main(String[]) in program");
+    for(Map.Entry<String,Class> classTuple : map.entrySet()) {
+      Class c = classTuple.getValue();
+      try{
+        AST_TYPE retType = c.hasFunction("main", args);
+        if(retType != null){
+          continue;
+        }
+        //if we're here it was found on a previous iteration
+        if(found) {
+          throw e;
+        }
+        else{//first time we see it
+          found = true;
+        }
+      }
+      catch(Exception er) {
+        continue;
+      }
+    }
+    if(!found){
+      throw e;
+    }
+    //found exactly one
+  }
 
 
 

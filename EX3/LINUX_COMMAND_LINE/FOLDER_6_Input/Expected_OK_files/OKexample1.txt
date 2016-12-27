@@ -21,4 +21,8 @@ class B extends A{
 		int x = a.f();
 		return;
 	}
+	void foo(){int x=2;}
+	
+	void bar(){foo();}
+	
 }

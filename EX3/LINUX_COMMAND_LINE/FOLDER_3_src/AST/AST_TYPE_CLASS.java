@@ -22,7 +22,7 @@ public class AST_TYPE_CLASS extends AST_TYPE
 				if(this.name.equals(subClassName)){
 					return true;
 				}
-				subClassName = ClassChecker.get(subClassName).parent == null ? null : ClassChecker.get(subClassName).parent.name;	
+				subClassName = ClassChecker.get(subClassName).parent == null ? null : ClassChecker.get(subClassName).parent.name;
 			} while(subClassName != null);
 			return false;
 		}
