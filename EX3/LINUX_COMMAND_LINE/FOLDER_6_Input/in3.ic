@@ -1,0 +1,29 @@
+class Foo {
+  int x;
+
+  int foo() {
+    return x;
+  }
+}
+
+class Main {
+
+  Foo f = new Foo();
+  Main m = new Main;
+  Main bar(){
+    return m;
+  }
+
+  Main baz(){
+    return new Main();
+  }
+
+  Main foobar(){
+    return m.m;
+  }
+
+  Foo barfoo(){
+    return m.m.f;
+  }
+
+}

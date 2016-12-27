@@ -15,7 +15,7 @@ class Main {
   Foo f;
 
   int bar(){
-    f.foo();
+    Foo.foo();
     return f.x;
   }
 
