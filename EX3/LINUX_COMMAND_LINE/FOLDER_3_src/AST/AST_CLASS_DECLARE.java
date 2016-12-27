@@ -20,7 +20,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 		if(SymbolTable.get(name)!=null){
 			throw(new Exception("Duplicate class declaration"));
 		}
-		if(extend != null && SymbolTable.get(name) == null) {
+		if(extend != null && SymbolTable.get(extend) == null) {
 			throw new Exception("class " + extend + " has not been declared yet");
 		}
 		

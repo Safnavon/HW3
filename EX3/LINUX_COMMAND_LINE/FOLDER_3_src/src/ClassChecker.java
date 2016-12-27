@@ -79,13 +79,13 @@ public class ClassChecker {
       ListIterator<Function> iter = this.funcs.listIterator(0);
       Function f = null;
       while(iter.hasNext()) {
-    	  f =iter.next();
-    	  if(f.method.name.equals(name)) {
-    		  break;
-    	  }
-    	  else{
-    		  f = null;
-    	  }
+        f =iter.next();
+        if(f.method.name.equals(name)) {
+          break;
+        }
+        else{
+          f = null;
+        }
       }
       if(f == null) {
         throw new Exception("Class "+Class.this.name+" doesnt have function "+name+" with these args");
@@ -105,22 +105,12 @@ public class ClassChecker {
     }
 
     AST_TYPE hasField(String name) throws Exception {
-
-      ListIterator<Field> iter = this.fields.listIterator(0);
-      //Field f = iter.hasNext()?iter.next():null;
-      boolean x =iter.hasNext();
-      Field f = iter.next();
-
-      while (f!=null) {
+      for (Field f : this.fields) {
         if(f.name.equals(name)) {
-          break;
+          return f.type;
         }
       }
-      //return f !=null && f.type.equals(type);
-      if(f== null) {
-        throw new Exception("Class "+Class.this.name+" doesnt have field "+name+" with this type");
-      }
-      return f.type;
+      throw new Exception("Class "+Class.this.name+" doesnt have field "+name+" with this type");
     }
   }
 
@@ -174,9 +164,9 @@ public class ClassChecker {
     }
     AST_TYPE t = null;
     AST_TYPE_CLASS cType = (AST_TYPE_CLASS) classType;
-    for(String c = map.get(cType.name)!=null? map.get(cType.name).name:null;
-     c != null;
-     c = ((map.get(c)!=null && map.get(c).parent!=null)? map.get(c).parent.name :null)) {
+    for(String c = map.get(cType.name)!=null ? map.get(cType.name).name : null;
+        c != null;
+        c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidMethodInSpecificClass(c, fName, argTypes);
       }
@@ -202,7 +192,7 @@ public class ClassChecker {
   public static AST_TYPE isValidField(String cName, String fName) throws Exception {
     AST_TYPE t = null;
     throwIfNotClass(cName);
-    for(String c = map.get(cName).name; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null)? map.get(c).parent.name :null)) {
+    for(String c = map.get(cName).name; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidFieldInSpecificClass(c, fName);
       }
@@ -219,8 +209,8 @@ public class ClassChecker {
     }
   }
 
-  private static void throwIfNotClass(String name) throws Exception{
-    if(map.get(name) == null){
+  private static void throwIfNotClass(String name) throws Exception {
+    if(map.get(name) == null) {
       throw new Exception("Cant find class " + name);
     }
   }
