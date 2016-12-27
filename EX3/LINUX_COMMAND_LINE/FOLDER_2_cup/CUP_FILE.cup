@@ -101,6 +101,7 @@ precedence left LT, LTE, GT, GTE, EQUAL, NEQUAL;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
 precedence left LPAREN;
+precedence left DOT;
 
 /************************/
 /* START WITH: program */
