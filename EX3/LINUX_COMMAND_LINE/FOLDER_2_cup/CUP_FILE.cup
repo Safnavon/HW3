@@ -190,7 +190,7 @@ field       ::=     type:t fieldNames:f SEMICOLON				{: RESULT = new AST_FIELD(t
                     ;
 
 fieldNames  ::=     ID:name                                 {: List<String> names = new ArrayList<String>(); names.add(name); RESULT = names; :}
-                    | fieldNames:f COMMA ID:name			{: List<String> names = new ArrayList<String>(); names.addAll(f); RESULT = names; :}
+                    | fieldNames:f COMMA ID:name			{: List<String> names = new ArrayList<String>(); names.addAll(f);names.add(name); RESULT = names; :}
                     ;
 
 classBody   ::=     field:f                                 {: RESULT = new AST_CLASS_BODY(f, null); :}
