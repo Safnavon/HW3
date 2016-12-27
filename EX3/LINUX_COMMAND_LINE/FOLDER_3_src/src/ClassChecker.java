@@ -168,7 +168,7 @@ public class ClassChecker {
       throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
     }
     AST_TYPE t = null;
-    for(String c = ((AST_TYPE_CLASS)classType).name; c != null; c = map.get(c).parent.name) {
+    for(String c = map.get(fName)!=null? map.get(fName).name:null; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null)? map.get(c).parent.name :null)) {
       try{
         t = isValidMethodInSpecificClass(c, fName, argTypes);
       }
