@@ -112,7 +112,7 @@ start with program;
 /********************/
 
 stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
-					| stmtList:l stmt:s					{: RESULT = new AST_STMT_LIST(s,l); :}
+					| stmt:s	stmtList:l 				{: RESULT = new AST_STMT_LIST(s,l); :}
 					;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
@@ -150,6 +150,7 @@ exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| exp:e1 EQUAL exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.EQUAL);:}
 					| exp:e1 NEQUAL exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, BINOPS.NEQUAL);:}
 					| LPAREN exp:e RPAREN               {: RESULT = e; :}
+
 					;
 
 expList     ::=     exp:e								{: RESULT = new AST_EXP_LIST(e,null); :}
@@ -193,8 +194,8 @@ fieldNames  ::=     ID:name                                 {: List<String> name
 
 classBody   ::=     field:f                                 {: RESULT = new AST_CLASS_BODY(f, null); :}
                     | method:m				                {: RESULT = new AST_CLASS_BODY(m, null); :}
-                    | classBody:b field:f				    {: RESULT = new AST_CLASS_BODY(f,b); :}
-                    | classBody:b method:m				    {: RESULT = new AST_CLASS_BODY(m,b); :}
+                    |  field:f	classBody:b			    {: RESULT = new AST_CLASS_BODY(f,b); :}
+                    |  method:m	classBody:b			    {: RESULT = new AST_CLASS_BODY(m,b); :}
                     ;
 
 classDeclaration   ::=    CLASS CLASS_ID:name LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, null, body); :}
@@ -202,5 +203,5 @@ classDeclaration   ::=    CLASS CLASS_ID:name LBRACE classBody:body RBRACE    {:
                           ;
                           
 program		::=		classDeclaration:d						{: RESULT = new AST_PROGRAM(d, null); :}
-					| program:p classDeclaration:d			{: RESULT = new AST_PROGRAM(d, p); :}
+					| classDeclaration:d program:p			{: RESULT = new AST_PROGRAM(d, p); :}
 					;

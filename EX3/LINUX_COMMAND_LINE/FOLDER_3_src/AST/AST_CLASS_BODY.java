@@ -17,7 +17,7 @@ public class AST_CLASS_BODY extends AST_Node
 			first.className = className;
 			first.isValid();
 			if ( rest != null ) {
-				rest.isValid();
+				rest.isValid(className);
 			}
 		}
 		return null;

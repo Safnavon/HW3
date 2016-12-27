@@ -22,7 +22,6 @@ public class AST_STMT_DECLARE extends AST_STMT
 	}
 	
 	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
-		SymbolTable.put(name, type);
 		AST_TYPE expType = exp.isValid();
 		if(!type.equals(expType)) {
 			throw new Exception("wrong value type assinged to variable '" + name + "'");

@@ -30,7 +30,7 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 		SymbolTable.put(name, type);
 		SymbolTable.openScope();	// do not swap these lines
 		formals.isValid();			// do not swap these lines
-		stmts.isValid(type);
+		if(stmts!=null) stmts.isValid(type);
 		SymbolTable.closeScope();
 		return new AST_TYPE_METHOD(this);
 	}
