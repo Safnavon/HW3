@@ -215,6 +215,35 @@ public class ClassChecker {
     }
   }
 
+  public static void ensureOneMain() throws Exception {
+    List<AST_TYPE> args = new ArrayList<AST_TYPE>();
+    args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
+    boolean found = false;
+    Exception e = new Exception("Must declare exactly one void main(String[]) in program");
+    for(Map.Entry<String,Class> classTuple : map.entrySet()) {
+      Class c = classTuple.getValue();
+      try{
+        AST_TYPE retType = c.hasFunction("main", args);
+        if(retType != null){
+          continue;
+        }
+        //if we're here it was found on a previous iteration
+        if(found) {
+          throw e;
+        }
+        else{//first time we see it
+          found = true;
+        }
+      }
+      catch(Exception er) {
+        continue;
+      }
+    }
+    if(!found){
+      throw e;
+    }
+    //found exactly one
+  }
 
 
 
