@@ -38,7 +38,7 @@ public class ClassChecker {
           return i + 1 == types.size();          //same size of data structures
         }
       }
-      return myRest.first == null;      //same size of data structures
+      return myRest == null ? types.size() == 0 : myRest.first == null;      //same size of data structures
     }
   }
   public static class Field {
@@ -76,12 +76,16 @@ public class ClassChecker {
 
     AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes) throws Exception {
       //TODO validate types are all good because i was tired
-      Function f = null;
       ListIterator<Function> iter = this.funcs.listIterator(0);
-      for(; iter.hasNext(); f = iter.next()) {
-        if(f.method.name.equals(name)) {
-          break;
-        }
+      Function f = null;
+      while(iter.hasNext()) {
+    	  f =iter.next();
+    	  if(f.method.name.equals(name)) {
+    		  break;
+    	  }
+    	  else{
+    		  f = null;
+    	  }
       }
       if(f == null) {
         throw new Exception("Class "+Class.this.name+" doesnt have function "+name+" with these args");
@@ -169,7 +173,10 @@ public class ClassChecker {
       throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
     }
     AST_TYPE t = null;
-    for(String c = ((AST_TYPE_CLASS)classType).name; c != null; c = map.get(c).parent.name) {
+    AST_TYPE_CLASS cType = (AST_TYPE_CLASS) classType;
+    for(String c = map.get(cType.name)!=null? map.get(cType.name).name:null;
+     c != null;
+     c = ((map.get(c)!=null && map.get(c).parent!=null)? map.get(c).parent.name :null)) {
       try{
         t = isValidMethodInSpecificClass(c, fName, argTypes);
       }

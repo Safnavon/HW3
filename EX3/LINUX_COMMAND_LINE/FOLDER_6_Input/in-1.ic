@@ -1,8 +1,9 @@
 class Main {
 
-int x = 5;
+int x;
 
 string foo(){
+
   return x;
 }
 
