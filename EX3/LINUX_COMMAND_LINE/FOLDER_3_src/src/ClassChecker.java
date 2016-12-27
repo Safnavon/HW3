@@ -27,7 +27,7 @@ public class ClassChecker {
       AST_FORMAL_LIST myRest = this.method.formals;
       AST_FORMAL myCurr;
       for(int i = 0; i < types.size(); i++) {
-        if(myRest.first != null) {
+        if(myRest != null) {
           myCurr = myRest.first;
           myRest = myRest.rest;
           if(!types.get(i).isExtending(myCurr.type)) {
