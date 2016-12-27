@@ -16,7 +16,20 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.right = right;
 		this.OP = op;
 	}
-
+	private AST_TYPE validateClassTypes(AST_TYPE leftClass, AST_TYPE rightClass)throws Exception{
+		AST_TYPE_CLASS l,r;
+		if(!(leftClass instanceof AST_TYPE_CLASS) || !(rightClass instanceof AST_TYPE_CLASS)){
+			throw new Exception("Expected both sides of op to be classes");
+		}
+		l = (AST_TYPE_CLASS) leftClass;
+		r = (AST_TYPE_CLASS) rightClass;
+		if(l.isExtending(r) || r.isExtending(l)){
+			return new AST_TYPE_TERM(TYPES.INT);
+		}
+		else{
+			throw new Exception("Tried to compane type "+l.name+" with type "+r.name);
+		}
+	}
 	@Override
 	public AST_TYPE isValid() throws Exception {
 		AST_TYPE leftType =left.isValid();
@@ -47,7 +60,7 @@ public class AST_EXP_BINOP extends AST_EXP
 				throw(new Exception("only PLUS or EQUAL operands are supported for type string"));
 			}
 		}
-		
+
 		return leftTypeTerm;
 	}
 }
