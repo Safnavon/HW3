@@ -15,7 +15,6 @@ class Main {
   Foo f;
 
   int bar(){
-    Foo.foo();
     return f.x;
   }
 
@@ -24,7 +23,7 @@ class Main {
   }
 
   Foo foobar(){
-    return f;
+    return f.y;
   }
 
 }
