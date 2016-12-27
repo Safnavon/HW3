@@ -164,18 +164,20 @@ public class ClassChecker {
     }
     AST_TYPE t = null;
     AST_TYPE_CLASS cType = (AST_TYPE_CLASS) classType;
+    boolean found = false;
     for(String c = map.get(cType.name)!=null ? map.get(cType.name).name : null;
         c != null;
         c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidMethodInSpecificClass(c, fName, argTypes);
+        found = true;
       }
       catch(Exception e) {
         continue;
       };
       break;
     }
-    if(t != null) {
+    if(found) {
       return t;
     }
     else{
@@ -192,16 +194,18 @@ public class ClassChecker {
   public static AST_TYPE isValidField(String cName, String fName) throws Exception {
     AST_TYPE t = null;
     throwIfNotClass(cName);
+    boolean found = false;
     for(String c = map.get(cName).name; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null) ? map.get(c).parent.name : null)) {
       try{
         t = isValidFieldInSpecificClass(c, fName);
+        found = true;
       }
       catch(Exception e) {
         continue;
       };
       break;
     }
-    if(t != null) {
+    if(found) {
       return t;
     }
     else{
