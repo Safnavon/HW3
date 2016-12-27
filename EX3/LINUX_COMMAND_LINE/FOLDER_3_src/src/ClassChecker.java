@@ -216,6 +216,11 @@ public class ClassChecker {
     }
   }
 
+  private static void classExists(String name) throws Exception{
+    if(map.get(name) == null){
+      throw new Exception("Cant find class " + name);
+    }
+  }
 
 
 
