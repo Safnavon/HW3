@@ -6,13 +6,18 @@ import AST.AST_FORMAL;
 import AST.AST_FORMAL_LIST;
 import AST.AST_METHOD_DECLARE;
 import AST.AST_TYPE;
+import AST.AST_TYPE_ARRAY;
 import AST.AST_TYPE_CLASS;
+import AST.AST_TYPE_TERM;
+import AST.TYPES;
 import AST.AST_TYPE_CLASS;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 public class ClassChecker {
 
