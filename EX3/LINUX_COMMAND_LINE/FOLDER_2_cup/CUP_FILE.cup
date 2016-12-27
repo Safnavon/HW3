@@ -135,7 +135,7 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 
 exp			::=		INT:i								{: RESULT = new AST_EXP_INT(i);          :}
 					| QUOTE:q                           {: RESULT = new AST_EXP_STRING(q);       :}
-					| NULL                              {: RESULT = new AST_EXP_VAR(null);       :}
+					| NULL                              {: RESULT = new AST_EXP_NULL();       :}
 					| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| call:c	                        {: RESULT = new AST_EXP_CALL(c); :} 	%prec LPAREN
 					| NEW CLASS_ID:c LPAREN RPAREN		{: RESULT = new AST_EXP_NEW_INSTANCE(c);   :}

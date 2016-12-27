@@ -24,7 +24,14 @@ public class AST_STMT_DECLARE extends AST_STMT
 	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
 		if (exp!=null){
 			AST_TYPE expType = exp.isValid();
-			if(!type.isExtending(expType)) {
+			if(expType == null){
+				if(!type.getClass().equals(AST_TYPE_CLASS.class)) {
+					if( !type.getClass().equals(AST_TYPE_TERM.class) || !( ((AST_TYPE_TERM)type).type.equals(TYPES.STRING) ))  {
+						throw new Exception("null value can be assigned to strings and class instances only");
+					}
+				}
+			}
+			else if(!type.isExtending(expType)) {
 				throw new Exception("wrong value type assinged to variable '" + name + "'");
 			}
 		}
