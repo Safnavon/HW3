@@ -2,6 +2,8 @@ import AST.*;
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
+import src.ClassChecker;
+import src.SymbolTable;
 public class Main
 {
 	static public void main(String argv[])
@@ -16,6 +18,7 @@ public class Main
 
 		try
 		{
+			SymbolTable.init();
 			/********************************/
 			/* [1] Initialize a file reader */
 			/********************************/
@@ -42,13 +45,13 @@ public class Main
 			/********************************/
 			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
 
-			while (program != null)
-			{
+		//	while (program != null)
+		//	{
 			//	System.out.print(program.PrintMe());
 				//System.out.print("\n");
-				program = program.rest;
-			}
-
+			//	program = program.rest;
+		//	}
+			program.isValid();
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
@@ -66,7 +69,7 @@ public class Main
 			file_writer = new PrintWriter(outputFilename);
 			file_writer.print("fail");
 			file_writer.close();
-
+			e.printStackTrace();	
 			}
 			catch(Exception d){
 				d.printStackTrace();

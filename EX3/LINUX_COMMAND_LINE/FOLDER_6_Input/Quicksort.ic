@@ -48,7 +48,7 @@ class Quicksort {
     void initArray() {
     int i = 0;
     while(i < a.length) {
-        a[i] =  Library.random(a.length*2);
+        a[i] = 5;
         i = i+1;
     }
     }
@@ -56,28 +56,28 @@ class Quicksort {
     void printArray() {
     int i = 0;
 
-    Library.print("Array elements: ");
+    //Library.print("Array elements: ");
     while(i<a.length) {
-        Library.printi(a[i]);
-        Library.print (" ");
+     //   Library.printi(a[i]);
+    //    Library.print (" ");
         i = i+1;
     }
-    Library.print("\n");
+  //  Library.print("\n");
     }
 
      void main(string[] args) {
-    int n;
+    //int n="ggg"/3;
 
-    if (args.length != 1) {
-        Library.println("Unspecified array length");
-        Library.exit(1);
-    }
+ //   if (args.length != 1) {
+    //    Library.println("Unspecified array length");
+     //   Library.exit(1);
+  //  }
 
-    n = Library.stoi(args[0],0);
-    if (n<=0) {
-        Library.println("Invalid array length");
-        Library.exit(1);
-    }
+   // n = Library.stoi(args[0],0);
+  //  if (n<=0) {
+     //   Library.println("Invalid array length");
+      //  Library.exit(1);
+  //  }
     Quicksort s = new Quicksort();
     s.a = new int[n];
 

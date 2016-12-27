@@ -22,9 +22,15 @@ public class AST_TYPE_TERM extends AST_TYPE
 	}
 
 	public boolean equals(Object other){
-		if(! other instanceof AST_TYPE_TERM){
+		if(! (other instanceof AST_TYPE_TERM)){
 			return false;
 		}
 		return this.isExtending((AST_TYPE_TERM) other);
+	}
+
+	@Override
+	public AST_TYPE isValid() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

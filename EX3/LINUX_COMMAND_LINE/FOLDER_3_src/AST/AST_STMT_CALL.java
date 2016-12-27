@@ -19,6 +19,7 @@ public class AST_STMT_CALL extends AST_STMT
 	}
 	
 	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+		if(call!=null)
 		call.isValid();
 	}
 }

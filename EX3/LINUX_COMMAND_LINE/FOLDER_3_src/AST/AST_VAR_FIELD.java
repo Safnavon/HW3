@@ -23,4 +23,5 @@ public class AST_VAR_FIELD extends AST_VAR
 		AST_TYPE_CLASS expClass = (AST_TYPE_CLASS) expType;
 		return ClassChecker.isValidField(expClass.name, this.fieldName);
 	}
+
 }
