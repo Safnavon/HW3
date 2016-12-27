@@ -19,6 +19,7 @@ public class AST_PROGRAM extends AST_Node
 	public AST_TYPE isValid() throws Exception {
 		first.isValid();
 		if(rest!= null) rest.isValid();
+<<<<<<< HEAD
 		List<AST_TYPE> args = new ArrayList<AST_TYPE>();
 		args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
 		AST_TYPE_CLASS mainClass = new AST_TYPE_CLASS("Main");
@@ -26,6 +27,9 @@ public class AST_PROGRAM extends AST_Node
 		if(mainRetType != null){
 			throw new Exception("main function in class Main must return void");
 		}
+=======
+		ClassChecker.ensureOneMain();//throws if bad
+>>>>>>> da25f482d60646b3d07ce9143a1eaab59002cda2
 		return null;
 	}
 }
