@@ -13,59 +13,61 @@
 //}
 
 class Quicksort {
-    int[] a ;
+     
+    int[] bca ;
 
-    int partition(int low , int high) {
-    int pivot = a[low];
-    int i = low;
-    int j = high;
+ //  int partition(int low , int high) {
+ //   int pivot = a[low];
+ //   int i = low;
+ //   int j = high;
    // int tmp;
 
-    while (true) {
-        while (a[i] < pivot) i = i+1;
-        while (a[j] > pivot) j = j-1;
+   // while (true) {
+   //     while (a[i] < pivot) i = i+1;
+  //      while (a[j] > pivot) j = j-1;
 
        // if (i >= j) break;
 
-        tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
-        i = i+1;
-        j = j-1;
-    }
+  //      tmp = a[i];
+  //      a[i] = a[j];
+  //      a[j] = tmp;
+  //      i = i+1;
+   //     j = j-1;
+  //  }
 
-    return j;
-    }
+  //  return j;
+ //   }
 
-    void quicksort(int low, int high) {
-    if (low < high) {
-        int mid = partition(low, high);
-        quicksort(low, mid);
-        quicksort(mid+1, high);
-    }
-    }
+  //  void quicksort(int low, int high) {
+ //   if (low < high) {
+  //      int mid = partition(low, high);
+//        quicksort(low, mid);
+ //       quicksort(mid+1, high);
+ //   }
+  //  }
 
-    void initArray() {
-    int i = 0;
-    while(i < a.length) {
-        a[i] = 5;
-        i = i+1;
-    }
-    }
+ //   void initArray() {
+ //   int i = 0;
+ //   while(i < a.length) {
+ //       a[i] = 5;
+  //      i = i+1;
+ //   }
+ //   }
 
-    void printArray() {
-    int i = 0;
+  //  void printArray() {
+  //  int i = 0;
 
     //Library.print("Array elements: ");
-    while(i<a.length) {
+  //  while(i<a.length) {
      //   Library.printi(a[i]);
     //    Library.print (" ");
-        i = i+1;
-    }
+  //      i = i+1;
+  //  }
   //  Library.print("\n");
-    }
+   // }
 
      void main(string[] args) {
+     
     //int n="ggg"/3;
 
  //   if (args.length != 1) {
@@ -78,12 +80,13 @@ class Quicksort {
      //   Library.println("Invalid array length");
       //  Library.exit(1);
   //  }
-    Quicksort s = new Quicksort();
-    s.a = new int[n];
+        Quicksort s = new Quicksort();
+  
+    s.bca = new int[5];
 
-    s.initArray();
-    s.printArray();
-    s.quicksort(0, n-1);
-    s.printArray();
+ //   s.initArray();
+  //  s.printArray();
+ //   s.quicksort(0, n-1);
+ //   s.printArray();
     }
 }

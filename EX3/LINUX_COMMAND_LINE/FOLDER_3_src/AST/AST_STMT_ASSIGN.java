@@ -20,9 +20,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		return null;
 	}
 
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
-		if(var.getClass().equals(AST_VAR_FIELD.class)){AST_VAR_FIELD x=(AST_VAR_FIELD)var; SymbolTable.put(x.fieldName, new AST_TYPE_SIMPLE(null));}
-		
+	public void isValid(AST_TYPE expectedReturnValue) throws Exception {		
 		AST_TYPE varType = var.isValid();
 		AST_TYPE expType = exp.isValid();
 		if (!varType.equals(expType)) {

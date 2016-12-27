@@ -101,9 +101,13 @@ public class ClassChecker {
     }
 
     AST_TYPE hasField(String name) throws Exception {
-      Field f = null;
+    
       ListIterator<Field> iter = this.fields.listIterator(0);
-      for(; iter.hasNext(); f = iter.next()) {
+      //Field f = iter.hasNext()?iter.next():null;
+      boolean x =iter.hasNext();
+      Field f = iter.next();
+      
+      while (f!=null) {
         if(f.name.equals(name)) {
           break;
         }
@@ -189,7 +193,7 @@ public class ClassChecker {
   }
   public static AST_TYPE isValidField(String cName, String fName) throws Exception {
     AST_TYPE t = null;
-    for(String c = map.get(cName).name; c != null; c = map.get(c).parent.name) {
+    for(String c = map.get(cName).name; c != null; c = ((map.get(c)!=null && map.get(c).parent!=null)? map.get(c).parent.name :null)) {
       try{
         t = isValidFieldInSpecificClass(c, fName);
       }
