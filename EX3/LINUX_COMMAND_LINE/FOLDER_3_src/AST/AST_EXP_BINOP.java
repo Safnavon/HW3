@@ -43,7 +43,8 @@ public class AST_EXP_BINOP extends AST_EXP
 				throw(new Exception("term types arent int or string"));
 
 			}
-			if(OP!=BINOPS.PLUS ||OP!=BINOPS.EQUAL){
+			if(!(OP.equals(BINOPS.EQUAL) || OP.equals(BINOPS.PLUS))){
+				
 				throw(new Exception("only PLUS or EQUAL operands are supported for type string"));
 			}
 		}
