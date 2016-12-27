@@ -38,7 +38,7 @@ public class ClassChecker {
           return i + 1 == types.size();          //same size of data structures
         }
       }
-      return myRest == null ? types.size() == 0 : myRest.first == null;      //same size of data structures
+      return myRest == null;      //same size of data structures
     }
   }
   public static class Field {
