@@ -46,13 +46,13 @@ class Quicksort {
  //   }
   //  }
 
- //   void initArray() {
- //   int i = 0;
- //   while(i < a.length) {
- //       a[i] = 5;
-  //      i = i+1;
- //   }
- //   }
+  void initArray(int x) {
+  int i = 0;
+  int[] a = new int[3];
+   while(i < a.length) {
+       a[i] = 5;
+  }
+ }
 
   //  void printArray() {
   //  int i = 0;
@@ -83,6 +83,8 @@ class Quicksort {
         Quicksort s = new Quicksort();
   
     s.bca = new int[5];
+    s.initArray();
+    initArray();
 
  //   s.initArray();
   //  s.printArray();
