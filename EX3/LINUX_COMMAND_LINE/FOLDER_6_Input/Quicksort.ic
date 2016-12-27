@@ -3,14 +3,14 @@
    Output: the array contents before and after sorting.
 */
 
-class Library{
-    void println(string s) {}
-    void print(string s) {}
-    void printi(int i) {}
-    int stoi(string s, int i) {}
-    int random(int n) {}
-    void exit(int n) {}
-}
+//class Library{
+//    void println(string s) {}
+//    void print(string s) {}
+//    void printi(int i) {}
+//    int stoi(string s, int i) {}
+//   int random(int n) {}
+//    void exit(int n) {}
+//}
 
 class Quicksort {
      
@@ -68,7 +68,7 @@ class Quicksort {
 
      void main(string[] args) {
      
-    int n=4;
+    //int n="ggg"/3;
 
  //   if (args.length != 1) {
     //    Library.println("Unspecified array length");
@@ -82,7 +82,7 @@ class Quicksort {
   //  }
         Quicksort s = new Quicksort();
   
-    s.bca = new int[n];
+    s.bca = new int[5];
 
  //   s.initArray();
   //  s.printArray();
