@@ -40,7 +40,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		if(leftType.getClass().equals(AST_TYPE_TERM.class))
 			leftTypeTerm = (AST_TYPE_TERM)leftType;
 		else{
-			throw(new Exception("left expression is not term"));
+			return validateClassTypes(leftType, rightType);
+			
 		}
 		if(rightType.getClass().equals(AST_TYPE_TERM.class))
 			rightTypeTerm = (AST_TYPE_TERM)rightType;
