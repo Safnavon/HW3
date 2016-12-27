@@ -27,6 +27,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
        !((AST_TYPE_TERM)indexType).type.equals(TYPES.INT)) {
       throw new Exception("Trying to access array with non integer " + indexType);
     }
-    return ((AST_TYPE_ARRAY) expType).type;
+    AST_TYPE_ARRAY res = (AST_TYPE_ARRAY)expType;
+    return res.type;
   }
 }

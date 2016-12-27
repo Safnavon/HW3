@@ -1,0 +1,30 @@
+class Foo {
+  int x;
+
+  int foo() {
+    return x;
+  }
+
+  int foo2(){
+    return foo();
+  }
+}
+
+class Main {
+
+  Foo f;
+
+  int bar(){
+    f.foo();
+    return f.x;
+  }
+
+  int baz(){
+    return f.foo2();
+  }
+
+  Foo foobar(){
+    return f;
+  }
+
+}
