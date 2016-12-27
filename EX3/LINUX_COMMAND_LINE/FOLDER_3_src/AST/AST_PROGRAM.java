@@ -19,6 +19,10 @@ public class AST_PROGRAM extends AST_Node
 		List<AST_TYPE_ARRAY> args = new ArrayList<AST_TYPE_ARRAY>();
 		args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
 		AST_TYPE_CLASS mainClass = new AST_TYPE_CLASS("Main");
-		return ClassChecker.isValidMethod(mainClass, "main", args);
+		AST_TYPE mainRetType = ClassChecker.isValidMethod(mainClass, "main", args);
+		if(mainRetType != null){
+			throw new Exception("main function in class Main must return void");
+		}
+		return null;
 	}
 }
