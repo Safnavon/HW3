@@ -47,6 +47,9 @@ public class AST_EXP_BINOP extends AST_EXP
 				
 				throw(new Exception("only PLUS or EQUAL operands are supported for type string"));
 			}
+			else{
+				return new AST_TYPE_TERM(TYPES.INT);
+			}
 		}
 		
 		return leftTypeTerm;
