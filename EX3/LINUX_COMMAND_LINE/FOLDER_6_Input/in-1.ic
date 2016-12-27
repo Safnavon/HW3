@@ -1,0 +1,9 @@
+class Main {
+
+int x = 5;
+
+string foo(){
+  return x;
+}
+
+}
