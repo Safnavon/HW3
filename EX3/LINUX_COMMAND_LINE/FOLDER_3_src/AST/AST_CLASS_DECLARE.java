@@ -23,8 +23,9 @@ public class AST_CLASS_DECLARE extends AST_Node
 		if(extend != null && SymbolTable.get(name) == null) {
 			throw new Exception("class " + extend + " has not been declared yet");
 		}
-		SymbolTable.openScope();
+		
 		SymbolTable.put(name, new AST_TYPE_CLASS(name));
+		SymbolTable.openScope();
 		ClassChecker.newClass(this);
 		body.isValid(name);
 		SymbolTable.closeScope();
