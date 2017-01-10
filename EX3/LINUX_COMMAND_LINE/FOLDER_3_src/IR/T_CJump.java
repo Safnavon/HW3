@@ -1,5 +1,5 @@
 package IR;
 
-public class T_JumpLabel implements T_Exp {
+public class T_CJump implements T_Exp {
 
 }
