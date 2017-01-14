@@ -21,6 +21,10 @@ import java.util.Map;
 
 public class ClassChecker {
 
+  public static int getFieldOffset(String name, String fieldName) {
+    return 0; //TODO implement
+  }
+
   public static class Function {
     public AST_METHOD_DECLARE method;
 

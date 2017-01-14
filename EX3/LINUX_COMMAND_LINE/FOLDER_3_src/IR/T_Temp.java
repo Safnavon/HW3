@@ -1,6 +1,6 @@
 package IR;
 
-public class T_Temp {
+public class T_Temp implements T_Exp {
     String name;
 
     public T_Temp() {
