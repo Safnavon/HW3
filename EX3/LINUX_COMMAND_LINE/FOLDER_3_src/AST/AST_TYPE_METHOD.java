@@ -14,10 +14,4 @@ public class AST_TYPE_METHOD extends AST_TYPE {
 		return false;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	} 
-
 }

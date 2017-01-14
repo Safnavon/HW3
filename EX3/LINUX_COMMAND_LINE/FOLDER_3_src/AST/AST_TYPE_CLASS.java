@@ -37,7 +37,5 @@ public class AST_TYPE_CLASS extends AST_TYPE
 			return this.name.equals(_other.name);
 		}
 	}
-	public AST_TYPE isValid() throws Exception{
-		return null;
-	}
+
 }
