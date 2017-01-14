@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_STMT_DECLARE extends AST_STMT
@@ -16,22 +17,18 @@ public class AST_STMT_DECLARE extends AST_STMT
 		this.exp = exp;
 	}
 
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		if (exp!=null){
-			AST_TYPE expType = exp.isValid();
-			if(expType == null){
+			IR_TYPE_WRAPPER expWrapper = exp.isValid();
+			if(expWrapper.type == null){
 				if(!type.getClass().equals(AST_TYPE_CLASS.class)) {
 					if( !type.getClass().equals(AST_TYPE_TERM.class) || !( ((AST_TYPE_TERM)type).type.equals(TYPES.STRING) ))  {
 						throw new Exception("null value can be assigned to strings and class instances only");
 					}
 				}
 			}
-			else if(!type.isExtending(expType)) {
+			else if(!type.isExtending(expWrapper.type)) {
 				throw new Exception("wrong value type assinged to variable '" + name + "'");
 			}
 		}
@@ -40,5 +37,6 @@ public class AST_STMT_DECLARE extends AST_STMT
 			throw new Exception(name + " is already defined in this scope");				
 		}
 		SymbolTable.put(name, type);
+		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 }

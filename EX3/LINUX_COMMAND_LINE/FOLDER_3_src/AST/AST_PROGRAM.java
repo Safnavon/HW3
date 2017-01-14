@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_PROGRAM extends AST_Node
@@ -15,11 +16,10 @@ public class AST_PROGRAM extends AST_Node
 		this.rest = rest;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		first.isValid();
 		if(rest!= null) rest.isValid();
 		ClassChecker.ensureOneMain();//throws if bad
-		return null;
+		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 }

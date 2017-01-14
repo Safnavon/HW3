@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_STMT_BLOCK extends AST_STMT
@@ -13,16 +14,11 @@ public class AST_STMT_BLOCK extends AST_STMT
 		this.stmts = stmts;
 	}
 
-	@Override
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {		
+	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		SymbolTable.openScope();
-		stmts.isValid();
+		stmts.isValid(expectedReturnValue);
 		SymbolTable.closeScope();
+		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

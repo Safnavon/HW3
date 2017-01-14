@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_STMT_LIST extends AST_STMT
@@ -18,16 +19,11 @@ public class AST_STMT_LIST extends AST_STMT
 		this.tail = tail;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		head.isValid(expectedReturnValue);
 		if(tail != null) {
 			tail.isValid(expectedReturnValue);
 		}
+		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 }
