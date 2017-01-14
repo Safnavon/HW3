@@ -13,7 +13,6 @@ public class AST_EXP_LIST extends AST_Node {
 		this.rest = rest;
 	}
 
-	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		first.isValid();
 		rest.isValid();
