@@ -1,4 +1,5 @@
-package AST; import src.ClassChecker;
+package AST; import IR.T_Const;
+import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
@@ -16,6 +17,6 @@ public class AST_EXP_INT extends AST_EXP
 
 	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT), null) ; //TODO
+		return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT), new T_Const(value)) ;
 	}
 }
