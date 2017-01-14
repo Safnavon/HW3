@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_FORMAL extends AST_Node
@@ -12,11 +13,11 @@ public class AST_FORMAL extends AST_Node
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		if (SymbolTable.isInCurrentScope(name)) {
 			throw new Exception("input parameter  " + name + " is already declared");				
 		}
 		SymbolTable.put(name, type);
-		return null;
+		return new IR_TYPE_WRAPPER(null, null); //TODO
 	}
 }

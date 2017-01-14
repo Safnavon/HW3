@@ -1,5 +1,6 @@
 package AST; import AST.AST_EXP;
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 
@@ -14,11 +15,11 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		if (!size.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
 			throw new Exception("invalid array size type");
 		}
-		return new AST_TYPE_ARRAY(type);				
+		return new IR_TYPE_WRAPPER(new AST_TYPE_ARRAY(type), null); //TODO				
 	}
 	
 }

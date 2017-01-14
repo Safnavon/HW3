@@ -1,6 +1,7 @@
 package AST;
 
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
@@ -21,8 +22,8 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 		this.stmts = exps;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
+
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		ClassChecker.addFunction(className, this);
 		if (SymbolTable.isInCurrentScope(name)) {
 			throw new Exception(name + " is already defined in this scope");				
@@ -32,6 +33,6 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 		if(formals!=null)formals.isValid();			// do not swap these lines
 		if(stmts!=null) stmts.isValid(type);
 		SymbolTable.closeScope();
-		return new AST_TYPE_METHOD(this);
+		return new IR_TYPE_WRAPPER(new AST_TYPE_METHOD(this), null);
 	}
 }

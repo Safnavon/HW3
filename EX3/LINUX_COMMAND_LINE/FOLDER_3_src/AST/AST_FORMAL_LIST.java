@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_FORMAL_LIST extends AST_Node
@@ -17,11 +18,11 @@ public class AST_FORMAL_LIST extends AST_Node
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		first.isValid();
 		if (rest != null) {
 			rest.isValid();
 		}
-		return null;
+		return new IR_TYPE_WRAPPER(null, null); //TODO
 	}
 }

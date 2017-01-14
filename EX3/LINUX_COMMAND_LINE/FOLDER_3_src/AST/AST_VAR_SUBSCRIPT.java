@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR
@@ -15,19 +16,18 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
     this.subscript = subscript;
   }
 
-  @Override
-  public AST_TYPE isValid() throws Exception {
+  public IR_TYPE_WRAPPER isValid() throws Exception {
 		//lhs
-    AST_TYPE expType = exp.isValid();
+    AST_TYPE expType = exp.isValid().type;
     if(!(expType instanceof AST_TYPE_ARRAY)) {
       throw new Exception("Trying to access non-array "+expType+" with subscript");
     }
-    AST_TYPE indexType = subscript.isValid();
+    AST_TYPE indexType = subscript.isValid().type;
     if(!(indexType instanceof AST_TYPE_TERM) ||
        !((AST_TYPE_TERM)indexType).type.equals(TYPES.INT)) {
       throw new Exception("Trying to access array with non integer " + indexType);
     }
     AST_TYPE_ARRAY res = (AST_TYPE_ARRAY)expType;
-    return res.type;
+    return new IR_TYPE_WRAPPER(res.type, null);
   }
 }

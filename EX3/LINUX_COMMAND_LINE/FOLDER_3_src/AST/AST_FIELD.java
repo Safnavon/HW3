@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_FIELD extends AST_CLASS_BODY_ITEM
@@ -12,7 +13,7 @@ public class AST_FIELD extends AST_CLASS_BODY_ITEM
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		for(int i=0; i< names.length; i++) {
 			if (SymbolTable.isInCurrentScope(names[i])) {
 				throw new Exception(names[i] + " is already defined in this scope");				
@@ -20,6 +21,6 @@ public class AST_FIELD extends AST_CLASS_BODY_ITEM
 			SymbolTable.put(names[i], type);
 		}
 		ClassChecker.addFields(className, this);
-		return null;
+		return new IR_TYPE_WRAPPER(null, null); //TODO
 	}
 }

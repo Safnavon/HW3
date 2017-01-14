@@ -1,5 +1,6 @@
 package AST; import AST.AST_EXP;
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 
@@ -12,7 +13,7 @@ public class AST_EXP_STRING extends AST_EXP {
 	}
 	
 	@Override
-	public AST_TYPE isValid() throws Exception {
-		return new AST_TYPE_TERM(TYPES.STRING);
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.STRING), null); //TODO
 	}
 }
