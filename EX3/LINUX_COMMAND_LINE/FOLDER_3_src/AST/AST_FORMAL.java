@@ -12,7 +12,7 @@ public class AST_FORMAL extends AST_Node
 		this.name = name;
 	}
 
-	@Override
+
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		if (SymbolTable.isInCurrentScope(name)) {
 			throw new Exception("input parameter  " + name + " is already declared");				

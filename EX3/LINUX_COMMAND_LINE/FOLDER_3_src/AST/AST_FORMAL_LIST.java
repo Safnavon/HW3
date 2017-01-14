@@ -17,7 +17,7 @@ public class AST_FORMAL_LIST extends AST_Node
 		this.rest = null;
 	}
 
-	@Override
+
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		first.isValid();
 		if (rest != null) {
