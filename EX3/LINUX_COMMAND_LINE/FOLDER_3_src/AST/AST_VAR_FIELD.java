@@ -14,9 +14,9 @@ public class AST_VAR_FIELD extends AST_VAR
 		this.exp = exp;
 		this.fieldName = fieldName;
 	}
-	@Override
+
 	public AST_TYPE isValid() throws Exception {
-		AST_TYPE expType = exp.isValid();
+		AST_TYPE expType = exp.isValid().type;
 		if(!(expType instanceof AST_TYPE_CLASS)){
 			throw new Exception("Cant access property of non-class type " + expType);
 		}

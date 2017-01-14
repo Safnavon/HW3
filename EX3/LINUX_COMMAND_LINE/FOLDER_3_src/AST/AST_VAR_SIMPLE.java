@@ -1,5 +1,6 @@
 package AST;
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_VAR_SIMPLE extends AST_VAR
@@ -10,12 +11,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
   {
     this.name = name;
   }
-  @Override
-  public AST_TYPE isValid() throws Exception {
+
+  public IR_TYPE_WRAPPER isValid() throws Exception {
 		AST_TYPE varType = SymbolTable.get(this.name);
 		if(varType == null){
 			throw new Exception("Cant find symbol "+this.name);
 		}
-		return varType;
+		return new IR_TYPE_WRAPPER(varType, null);
   }
 }

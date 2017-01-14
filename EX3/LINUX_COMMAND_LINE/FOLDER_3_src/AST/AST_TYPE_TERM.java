@@ -27,10 +27,4 @@ public class AST_TYPE_TERM extends AST_TYPE
 		}
 		return this.isExtending((AST_TYPE_TERM) other);
 	}
-
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

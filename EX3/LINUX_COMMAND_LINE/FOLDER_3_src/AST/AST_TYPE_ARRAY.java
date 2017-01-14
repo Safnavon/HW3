@@ -35,9 +35,4 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 		return this.isExtending((AST_TYPE_ARRAY) other);
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
