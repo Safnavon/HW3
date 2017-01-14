@@ -8,8 +8,8 @@ import IR.T_Exp;
  */
 public class IR_TYPE_WRAPPER {
 
-    AST_TYPE type;
-    T_Exp IR;
+    public AST_TYPE type;
+    public T_Exp IR;
 
     public IR_TYPE_WRAPPER(AST_TYPE type, T_Exp IR) {
         type = type;
