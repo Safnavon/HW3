@@ -15,7 +15,6 @@ public class AST_CLASS_DECLARE extends AST_Node
 		this.body = body;
 	}
 
-	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		
 		if(SymbolTable.get(name)!=null){
@@ -31,6 +30,6 @@ public class AST_CLASS_DECLARE extends AST_Node
 		body.isValid(name);
 		SymbolTable.closeScope();
 		
-		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null);
+		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null); //TODO
 	}
 }

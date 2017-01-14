@@ -11,7 +11,6 @@ public class AST_EXP_VAR extends AST_EXP
 		this.var = var;
 	}
 	
-	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		return var.isValid();
 	}
