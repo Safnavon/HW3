@@ -1,5 +1,7 @@
 package AST;
 
+import src.IR_TYPE_WRAPPER;
+
 public class AST_CLASS_BODY extends AST_Node
 {
 	public AST_CLASS_BODY_ITEM first;
@@ -24,8 +26,8 @@ public class AST_CLASS_BODY extends AST_Node
 	}
 	
 	@Override
-	public AST_TYPE isValid() throws Exception {
-		return null;
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		return new IR_TYPE_WRAPPER(null, null); //TODO
 	}
 
 

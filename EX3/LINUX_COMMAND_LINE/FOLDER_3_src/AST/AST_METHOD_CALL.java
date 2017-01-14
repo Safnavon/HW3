@@ -5,6 +5,7 @@ import java.util.ListIterator;
 import java.util.concurrent.ExecutionException;
 
 import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_METHOD_CALL extends AST_Node
@@ -22,7 +23,7 @@ public class AST_METHOD_CALL extends AST_Node
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		LinkedList<AST_EXP> expressions = new LinkedList<AST_EXP>();
 		LinkedList<AST_TYPE> types=new LinkedList<AST_TYPE>();
 		AST_EXP a;
@@ -35,7 +36,7 @@ public class AST_METHOD_CALL extends AST_Node
 		ListIterator expIterator = expressions.listIterator();
 		while(expIterator.hasNext()){
 			a=(AST_EXP) expIterator.next();
-			types.add(a.isValid());
+			types.add(a.isValid().type);
 		}
 		if(this.var.getClass().equals(AST_VAR_SIMPLE.class) ){
 			AST_TYPE varType =SymbolTable.get(((AST_VAR_SIMPLE) var).name);
@@ -47,7 +48,7 @@ public class AST_METHOD_CALL extends AST_Node
 				if (types.size() != 0) {
 					throw(new Exception("illegal number of parameters to method "+ m.name));
 				} else {
-					return m.type;
+					return new IR_TYPE_WRAPPER(m.type, null); //TODO
 				}
 			} else {
 				LinkedList<AST_TYPE> formalTypes=new LinkedList<AST_TYPE>();			
@@ -68,15 +69,15 @@ public class AST_METHOD_CALL extends AST_Node
 						throw(new Exception("illegal type of parameters to method "+ m.name));
 					}
 				}
-				return 	m.type;
+				return new IR_TYPE_WRAPPER(m.type, null); //TODO
 			}
 			
 		}//TODO add return values equal to call return value
 		
 		if(this.var.getClass().equals(AST_VAR_FIELD.class) ){
 			AST_VAR_FIELD varField =(AST_VAR_FIELD) var;
-			AST_TYPE varType = varField.exp.isValid();
-			return ClassChecker.isValidMethod(varType, varField.fieldName, types);
+			AST_TYPE varType = varField.exp.isValid().type;
+			return new IR_TYPE_WRAPPER(ClassChecker.isValidMethod(varType, varField.fieldName, types), null) ;//TODO
 		}
 		
 		throw(new Exception("invalid METHOD_CALL node"));

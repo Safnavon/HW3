@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_CLASS_DECLARE extends AST_Node
@@ -15,7 +16,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 	}
 
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		
 		if(SymbolTable.get(name)!=null){
 			throw(new Exception("Duplicate class declaration"));
@@ -30,6 +31,6 @@ public class AST_CLASS_DECLARE extends AST_Node
 		body.isValid(name);
 		SymbolTable.closeScope();
 		
-		return new AST_TYPE_CLASS(name);
+		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null);
 	}
 }

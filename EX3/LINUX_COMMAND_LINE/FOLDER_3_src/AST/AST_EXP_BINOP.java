@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_EXP_BINOP extends AST_EXP
@@ -31,16 +32,16 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 	}
 	@Override
-	public AST_TYPE isValid() throws Exception {
-		AST_TYPE leftType =left.isValid();
-		AST_TYPE rightType = right.isValid();
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		AST_TYPE leftType =left.isValid().type;
+		AST_TYPE rightType = right.isValid().type;
 		AST_TYPE_TERM leftTypeTerm;
 		AST_TYPE_TERM rightTypeTerm;
 
 		if(leftType.getClass().equals(AST_TYPE_TERM.class))
 			leftTypeTerm = (AST_TYPE_TERM)leftType;
 		else{
-			return validateClassTypes(leftType, rightType);
+			return new IR_TYPE_WRAPPER(validateClassTypes(leftType, rightType), null) ; //TODO
 			
 		}
 		if(rightType.getClass().equals(AST_TYPE_TERM.class))
@@ -62,10 +63,10 @@ public class AST_EXP_BINOP extends AST_EXP
 				throw(new Exception("only PLUS or EQUAL operands are supported for type string"));
 			}
 			else{
-				return new AST_TYPE_TERM(TYPES.INT);
+				return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT), null) ; //TODO
 			}
 		}
 
-		return leftTypeTerm;
+		return new IR_TYPE_WRAPPER(leftTypeTerm, null) ; //TODO
 	}
 }

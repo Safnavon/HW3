@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_EXP_VAR extends AST_EXP
@@ -11,7 +12,7 @@ public class AST_EXP_VAR extends AST_EXP
 	}
 	
 	@Override
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		return var.isValid();
 	}
 }
