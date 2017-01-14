@@ -15,7 +15,6 @@ public class AST_PROGRAM extends AST_Node
 		this.rest = rest;
 	}
 
-	@Override
 	public AST_TYPE isValid() throws Exception {
 		first.isValid();
 		if(rest!= null) rest.isValid();
