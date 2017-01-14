@@ -22,7 +22,6 @@ public class AST_METHOD_CALL extends AST_Node
 		this.exps = exps;
 	}
 
-	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		LinkedList<AST_EXP> expressions = new LinkedList<AST_EXP>();
 		LinkedList<AST_TYPE> types=new LinkedList<AST_TYPE>();
@@ -72,7 +71,7 @@ public class AST_METHOD_CALL extends AST_Node
 				return new IR_TYPE_WRAPPER(m.type, null); //TODO
 			}
 			
-		}//TODO add return values equal to call return value
+		}
 		
 		if(this.var.getClass().equals(AST_VAR_FIELD.class) ){
 			AST_VAR_FIELD varField =(AST_VAR_FIELD) var;

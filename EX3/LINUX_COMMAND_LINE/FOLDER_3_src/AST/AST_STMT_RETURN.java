@@ -14,12 +14,6 @@ public class AST_STMT_RETURN extends AST_STMT
 		this.exp = exp;
 	}
 
-	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		if (exp == null) {
 			if (expectedReturnValue != null) {

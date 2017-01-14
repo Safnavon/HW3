@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_VAR_FIELD extends AST_VAR
@@ -15,13 +16,13 @@ public class AST_VAR_FIELD extends AST_VAR
 		this.fieldName = fieldName;
 	}
 
-	public AST_TYPE isValid() throws Exception {
+	public IR_TYPE_WRAPPER isValid() throws Exception {
 		AST_TYPE expType = exp.isValid().type;
 		if(!(expType instanceof AST_TYPE_CLASS)){
 			throw new Exception("Cant access property of non-class type " + expType);
 		}
 		AST_TYPE_CLASS expClass = (AST_TYPE_CLASS) expType;
-		return ClassChecker.isValidField(expClass.name, this.fieldName);
+		return new IR_TYPE_WRAPPER(ClassChecker.isValidField(expClass.name, this.fieldName), null);
 	}
 
 }
