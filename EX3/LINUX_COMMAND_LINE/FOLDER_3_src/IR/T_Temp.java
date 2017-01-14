@@ -13,6 +13,7 @@ public class T_Temp implements T_Exp {
 
     public String getName() {
         if (this.name == null) {
+
             //TODO this.name = getFromTempProvider();
         }
         return this.name;
