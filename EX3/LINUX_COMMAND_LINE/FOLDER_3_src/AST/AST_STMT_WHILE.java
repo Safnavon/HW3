@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_STMT_WHILE extends AST_STMT
@@ -15,18 +16,19 @@ public class AST_STMT_WHILE extends AST_STMT
 		this.body = body;
 	}
 	
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		if (! cond.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
 			throw new Exception("while statement condition must be an integer");
 		}
 		SymbolTable.openScope();
 		body.isValid(expectedReturnValue);
 		SymbolTable.closeScope();
+		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 
-	@Override
+/*	@Override
 	public AST_TYPE isValid() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 }

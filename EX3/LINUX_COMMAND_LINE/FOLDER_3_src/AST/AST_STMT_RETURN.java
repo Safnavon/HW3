@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_STMT_RETURN extends AST_STMT
@@ -19,14 +20,14 @@ public class AST_STMT_RETURN extends AST_STMT
 		return null;
 	}
 
-	public void isValid(AST_TYPE expectedReturnValue) throws Exception {
+	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		if (exp == null) {
 			if (expectedReturnValue != null) {
 				throw new Exception("invalid return value");
 			}			
 		} else {
 			AST_TYPE expType = exp.isValid();
-			if (!expType.equals(expectedReturnValue)) {
+			if (!expType.type.equals(expectedReturnValue)) {
 				throw new Exception("invalid return value");
 			}
 		}		
