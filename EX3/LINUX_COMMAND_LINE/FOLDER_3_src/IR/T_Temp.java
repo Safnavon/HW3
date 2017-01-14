@@ -13,6 +13,7 @@ public class T_Temp {
 
     public String getName() {
         if (this.name == null) {
+
             //TODO this.name = getFromTempProvider();
         }
         return this.name;
