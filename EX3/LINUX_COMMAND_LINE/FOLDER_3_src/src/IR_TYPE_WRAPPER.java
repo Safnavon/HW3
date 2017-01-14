@@ -3,9 +3,6 @@ package src;
 import AST.AST_TYPE;
 import IR.T_Exp;
 
-/**
- * Created by nitzanh on 14/01/2017.
- */
 public class IR_TYPE_WRAPPER {
 
     public AST_TYPE type;
