@@ -1,8 +1,7 @@
 package AST;
 
-import src.ClassChecker;
+import IR.T_ExpList;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
 
 public class AST_EXP_LIST extends AST_Node {
 	public AST_EXP first;
@@ -14,8 +13,10 @@ public class AST_EXP_LIST extends AST_Node {
 	}
 
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		first.isValid();
-		rest.isValid();
-		return new IR_TYPE_WRAPPER(null, null); //TODO
+		IR_TYPE_WRAPPER firstIR=first.isValid();
+		IR_TYPE_WRAPPER restIR=rest.isValid();
+
+
+		return new IR_TYPE_WRAPPER(null, new T_ExpList(firstIR.IR,(T_ExpList) restIR.IR));
 	}
 }
