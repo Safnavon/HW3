@@ -1,6 +1,6 @@
 package IR;
 
-public class T_Temp {
+public class T_Temp implements T_Exp {
     String name;
 
     public T_Temp() {
@@ -13,6 +13,7 @@ public class T_Temp {
 
     public String getName() {
         if (this.name == null) {
+
             //TODO this.name = getFromTempProvider();
         }
         return this.name;

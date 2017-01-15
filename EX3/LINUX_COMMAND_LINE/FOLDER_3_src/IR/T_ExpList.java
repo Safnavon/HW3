@@ -1,7 +1,6 @@
 package IR;
 
 public class T_ExpList implements T_Exp {
-
 	T_Exp head;
 	T_ExpList tail;
 
