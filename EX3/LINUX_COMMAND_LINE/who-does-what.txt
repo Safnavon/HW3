@@ -9,3 +9,10 @@ AST_VAR_*
 dror
 
 asaf
+
+notes and questions:
+-can we use CJump with only boolean value?
+ create "eval" function on AST_EXP(interface and impl) that evaluates that expression's
+ boolean value (to use in "while" and "if" T_Cjump node).
+ meaning our CJump implementation should also be changed (always check if value in input T_MEM is > 0 and go to relevant label)
+-

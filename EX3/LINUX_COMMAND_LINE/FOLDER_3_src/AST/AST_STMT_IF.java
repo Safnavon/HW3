@@ -1,4 +1,5 @@
-package AST; import src.ClassChecker;
+package AST; import IR.*;
+import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
@@ -25,6 +26,12 @@ public class AST_STMT_IF extends AST_STMT
 		SymbolTable.openScope();
 		body.isValid(expectedReturnValue);
 		SymbolTable.closeScope();
-		return new IR_TYPE_WRAPPER(null,null);//TODO
+
+		T_CJump irJump;
+		irJump = new T_CJump(RELOPS.GT, cond.eval() ,new T_Const(0), "t", "f" );
+		T_Seq s2 = new T_Seq(irJump,new T_Label("t"));
+		T_Seq s1 = new T_Seq(s2 ,new T_Label("f"));
+
+		return new IR_TYPE_WRAPPER(null,s1); //TODO
 	}
 }
