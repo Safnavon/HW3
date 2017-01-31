@@ -2,7 +2,6 @@ import AST.*;
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
-import src.ClassChecker;
 import src.SymbolTable;
 public class Main
 {
@@ -51,7 +50,7 @@ public class Main
 				//System.out.print("\n");
 			//	program = program.rest;
 		//	}
-			program.isValid();
+			program.isValidProgram();
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
@@ -69,7 +68,7 @@ public class Main
 			file_writer = new PrintWriter(outputFilename);
 			file_writer.print("fail");
 			file_writer.close();
-			e.printStackTrace();	
+			e.printStackTrace();
 			}
 			catch(Exception d){
 				d.printStackTrace();

@@ -8,11 +8,11 @@ public class TempFactovider {
     static int temp_no = 1;
     static int label_no = 1;
 
-    public String newTemp() {
+    public static String newTemp() {
         return "Temp_" + temp_no++;
     }
 
-    public String newLabel(String suffix) {
+    public static String newLabel(String suffix) {
         return "Label_" + label_no++ + ((suffix != null && !suffix.isEmpty()) ? ("_" + suffix) : "");
     }
 }

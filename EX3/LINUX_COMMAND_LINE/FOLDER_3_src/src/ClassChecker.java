@@ -280,6 +280,7 @@ public class ClassChecker {
 
     public static void ensureOneMain() throws Exception {
         List<AST_TYPE> args = new ArrayList<AST_TYPE>();
+        Class mainClass = null;
         args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
         boolean found = false;
         Exception e = new Exception("Must declare exactly one void main(String[]) in program");
@@ -293,6 +294,7 @@ public class ClassChecker {
                 foundInThisIteration = false;
             }
             if (foundInThisIteration) {
+                mainClass = c;
                 if (found) {
                     throw e;
                 } else {
@@ -300,6 +302,10 @@ public class ClassChecker {
                 }
             }
         }
+        if(mainClass == null){
+            throw e;
+        }
+        //TODO return mainClass?
     }
 
     /**

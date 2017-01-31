@@ -1,7 +1,7 @@
 package IR;
 
 public class T_Label implements T_Exp {
-    String name;
+    private String name;
     public T_Label(){
         this.name = null;
     }
@@ -9,11 +9,14 @@ public class T_Label implements T_Exp {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName(String suffix) {
         if (this.name == null) {
-
-            //TODO this.name = getFromLabelProvider();
+            this.name = TempFactovider.newLabel(suffix);
         }
         return this.name;
+    }
+
+    public String getName(){
+        return  getName(null);
     }
 }

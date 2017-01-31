@@ -19,7 +19,16 @@ public class AST_PROGRAM extends AST_Node
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		first.isValid();
 		if(rest!= null) rest.isValid();
-		ClassChecker.ensureOneMain();//throws if bad
 		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
+
+	/**
+	 * avoids multiple calls to "ensureOneMain"
+	 *
+	 */
+	public void isValidProgram() throws Exception {
+		IR_TYPE_WRAPPER wrapper = this.isValid();
+		ClassChecker.ensureOneMain();//throws if bad
+	}
+
 }
