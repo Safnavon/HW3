@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class ClassChecker {
 
-    public static int getFieldOffset(String name, String fieldName) {
+    public static int getFieldOffset(String className, String fieldName) {
         return 0; //TODO implement
     }
 
