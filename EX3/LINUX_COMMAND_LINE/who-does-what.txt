@@ -15,4 +15,23 @@ notes and questions:
  create "eval" function on AST_EXP(interface and impl) that evaluates that expression's
  boolean value (to use in "while" and "if" T_Cjump node).
  meaning our CJump implementation should also be changed (always check if value in input T_MEM is > 0 and go to relevant label)
--
+-DROR:
+    CJump is not a real mips command
+    we have beq (branch equals), bne (branch not equals) and j (jump) [there are more: http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Mips/jump.html ]
+    we can do something like this:
+    translating this ic:
+        if(foo())
+            x = 1;
+        else
+            x = 2;
+        y = 1
+    into mips:
+            sw Temp_222, RESULT OF foo()
+            bne Temp_222, $zero, Label_else#56
+            // x = 1;
+            j Label_endif#56
+        Label_else#56:
+            // x = 2;
+            j Label_endif#56
+        Label_endif#56:
+            // y = 1
