@@ -10,6 +10,7 @@ import AST.AST_TYPE_ARRAY;
 import AST.AST_TYPE_CLASS;
 import AST.AST_TYPE_TERM;
 import AST.TYPES;
+import IR.T_Label;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +25,13 @@ public class ClassChecker {
 
         public AST_METHOD_DECLARE method;
         boolean inherited = false;//used for inheritance checking. this flag is changed according to context
+        //IR
+        public T_Label funcLabel;
 
-        public Function(AST_METHOD_DECLARE method) {
+        public Function(AST_METHOD_DECLARE method, String className) {
             this.method = method;
+            //IR
+            this.funcLabel = new T_Label(className + "_Function_" + method.name);
         }
 
         public boolean isSameArgsTypes(List<AST_TYPE> types) throws Exception {
@@ -52,11 +57,14 @@ public class ClassChecker {
 
         AST_TYPE type;
         String name;
+        public T_Label fieldLabel;
 
-        public Field(AST_TYPE type, String name) {
+        public Field(AST_TYPE type, String name, String className) {
 
             this.type = type;
             this.name = name;
+            //IR
+            this.fieldLabel = new T_Label(className + "_Field_" + name);
         }
 
         public boolean equals(Object other) {
@@ -67,7 +75,6 @@ public class ClassChecker {
             return this.type.equals(_other.type) &&
                     this.name.equals(_other.name);
         }
-
     }
 
     public static class Class {
@@ -76,23 +83,27 @@ public class ClassChecker {
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
         public LinkedList<Field> fields = new LinkedList<Field>();
+        //IR
+        public T_Label classTableLabel = null;
 
         public Class(AST_CLASS_DECLARE cDec, Class parent) {
             this.name = cDec.name;
             this.parent = parent;
-            if(parent != null){
+            if (parent != null) {
                 this.funcs.addAll(parent.funcs);
                 for (Function f : this.funcs) {//also changes parent functions, but that's ok
                     f.inherited = true;
                 }
                 this.fields.addAll(parent.fields);
             }
+            //IR
+            this.classTableLabel = new T_Label("ClassTable_" + this.name);
         }
 
         void addFunction(AST_METHOD_DECLARE f) throws Exception {
             final Exception dup = new Exception("Duplicate function declaration");
             final Exception typeMismatch = new Exception("Return type must be similar to parent");
-            Function func = new Function(f);
+            Function func = new Function(f, this.name);
             Function fExisting = this.getFunctionByName(func.method.name);
 
             if (fExisting != null) {
@@ -123,8 +134,8 @@ public class ClassChecker {
         }
 
         Function getFunctionByName(String name) {
-            for(Function function : this.funcs){
-                if (function.method.name.equals(name)){
+            for (Function function : this.funcs) {
+                if (function.method.name.equals(name)) {
                     return function;
                 }
             }
@@ -138,7 +149,7 @@ public class ClassChecker {
                 if (getFieldByName(name) != null) {
                     throw dup;
                 }
-                this.fields.add(new Field(fs.type, name));
+                this.fields.add(new Field(fs.type, name, this.name));
             }
         }
 
@@ -167,7 +178,7 @@ public class ClassChecker {
     private static String currentClassName;
 
     public static Class get(String className) throws Exception {
-        if(className == null){
+        if (className == null) {
             className = currentClassName;
         }
         assert className != null;
@@ -212,10 +223,10 @@ public class ClassChecker {
         AST_TYPE_CLASS cType = (AST_TYPE_CLASS) classType;
         final Exception notFound = new Exception("Cant find method " + fName + " on class " + cType.name + " or its parents.");
         Class c = map.get(cType.name);
-        if(c == null){
+        if (c == null) {
             throw notFound;
         }
-        return c.hasFunction(fName,argTypes);
+        return c.hasFunction(fName, argTypes);
 
 //        boolean found = false;
 //        for (String c = map.get(cType.name) != null ? map.get(cType.name).name : null;
@@ -248,7 +259,7 @@ public class ClassChecker {
     public static AST_TYPE isValidField(String cName, String fName) throws Exception {
         final Exception notFound = new Exception("Cant find field " + fName + " on class " + cName + " or its parents.");
         Class c = map.get(cName);
-        if(c == null){
+        if (c == null) {
             throw notFound;
         }
         return c.hasField(fName);
@@ -302,14 +313,13 @@ public class ClassChecker {
                 }
             }
         }
-        if(mainClass == null){
+        if (mainClass == null) {
             throw e;
         }
         //TODO return mainClass?
     }
 
     /**
-     *
      * @param className
      * @param fieldName
      * @return offset from field table start. assumes function table pointer in at index 0 of field table
@@ -325,7 +335,6 @@ public class ClassChecker {
     }
 
     /**
-     *
      * @param className
      * @param funcName
      * @return offset from start of function table
@@ -338,5 +347,29 @@ public class ClassChecker {
         int i = c.funcs.indexOf(f);
         assert i > -1;
         return (i) * 4;
+    }
+
+    public String generateAllTables() {
+        StringBuilder sb = new StringBuilder();
+        String nl = String.format("%n");
+        for (Class c : map.values()) {
+            boolean hasFunctions = c.funcs.size() != 0;
+            String VFTableLabel = "VFTable_"+c.name;
+            //print fields
+            sb.append(c.classTableLabel.getName() + ":" + nl)
+                    .append("\t.word " +  VFTableLabel);
+            for (Field field : c.fields) {
+                sb.append("," + nl + "\t" + field.fieldLabel.getName());
+            }
+            sb.append(nl);
+            //print VF table
+            sb.append(VFTableLabel + ":" + nl)
+                    .append(hasFunctions ? "\t.word " : "");
+            for (Function function : c.funcs) {
+                sb.append(function.funcLabel.getName() + "," + nl + "\t");
+            }
+            sb.delete(sb.lastIndexOf(","),sb.length());//remove last (,\n\t)
+        }
+        return sb.append(nl+nl).toString();
     }
 }

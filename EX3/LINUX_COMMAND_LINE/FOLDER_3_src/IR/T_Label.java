@@ -6,17 +6,13 @@ public class T_Label implements T_Exp {
         this.name = null;
     }
     public T_Label(String name) {
-        this.name = name;
+        this.name = TempFactovider.newLabel(name);
     }
 
-    public String getName(String suffix) {
+    public String getName() {
         if (this.name == null) {
-            this.name = TempFactovider.newLabel(suffix);
+            this.name = TempFactovider.newLabel(null);
         }
         return this.name;
-    }
-
-    public String getName(){
-        return  getName(null);
     }
 }
