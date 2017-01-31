@@ -29,6 +29,7 @@ public class AST_PROGRAM extends AST_Node
 	public void isValidProgram() throws Exception {
 		IR_TYPE_WRAPPER wrapper = this.isValid();
 		ClassChecker.ensureOneMain();//throws if bad
+        //TODO use ensure main to get label of program entry point
 	}
 
 }
