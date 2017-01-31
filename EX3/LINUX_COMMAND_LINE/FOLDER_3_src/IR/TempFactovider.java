@@ -13,6 +13,6 @@ public class TempFactovider {
     }
 
     public String newLabel(String suffix) {
-        return "Label_" + temp_no++ + ((suffix != null && !suffix.isEmpty()) ? ("_" + suffix) : "");
+        return "Label_" + label_no++ + ((suffix != null && !suffix.isEmpty()) ? ("_" + suffix) : "");
     }
 }

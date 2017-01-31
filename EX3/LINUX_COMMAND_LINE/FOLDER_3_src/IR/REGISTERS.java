@@ -1,7 +1,7 @@
 package IR;
 
 public enum REGISTERS {
-    //some of these nee to be appended with a number, some don't. those with one letter need a num appended to it
+    //some of these need to be appended with a number, some don't. those with one letter need a num appended to it
     ZERO("zero"),
     VALUE("$v"),
     ARGUMENT("$a"),

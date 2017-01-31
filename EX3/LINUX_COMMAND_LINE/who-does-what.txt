@@ -7,7 +7,7 @@ AST_FIELD
 AST_VAR_*
 
 dror
-
+class checker support for field and function tables - done
 asaf
 
 notes and questions:
