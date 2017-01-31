@@ -29,7 +29,7 @@ public class ClassChecker {
             this.method = method;
         }
 
-        public boolean isSameArgsTypes(List<AST_TYPE> types) {
+        public boolean isSameArgsTypes(List<AST_TYPE> types) throws Exception {
             AST_FORMAL_LIST myRest = this.method.formals;
             AST_FORMAL myCurr;
             for (int i = 0; i < types.size(); i++) {

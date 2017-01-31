@@ -5,7 +5,7 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 {
 	public AST_TYPE type;
 
-	public boolean isExtending(AST_TYPE other){
+	public boolean isExtending(AST_TYPE other) throws Exception {
 		if(! (other instanceof AST_TYPE_ARRAY)){
 			return false;
 		}
@@ -32,7 +32,11 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 		if(! (other instanceof AST_TYPE_ARRAY)){
 			return false;
 		}
-		return this.isExtending((AST_TYPE_ARRAY) other);
+		try {
+			return this.isExtending((AST_TYPE_ARRAY) other);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

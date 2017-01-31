@@ -11,7 +11,7 @@ public class AST_TYPE_CLASS extends AST_TYPE
 		this.name = name;
 	}
 
-	public boolean isExtending(AST_TYPE other){
+	public boolean isExtending(AST_TYPE other) throws Exception {
 		if(! (other instanceof AST_TYPE_CLASS)){
 			return false;
 		}
