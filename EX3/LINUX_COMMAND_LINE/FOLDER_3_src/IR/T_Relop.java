@@ -11,4 +11,9 @@ public class T_Relop implements T_Exp {
 		this.left=left;
 		this.right=right;
 	}
+
+	@Override
+	public T_Temp gen() {
+		throw new Error("unimplemented");
+	}
 }

@@ -9,4 +9,10 @@ public class T_Seq implements T_Exp {
         this.right = right;
     }
 
+    @Override
+    public T_Temp gen() {
+        this.left.gen();
+        this.right.gen();
+        return null;
+    }
 }

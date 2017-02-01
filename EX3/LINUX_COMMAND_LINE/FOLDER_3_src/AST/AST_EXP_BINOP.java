@@ -17,7 +17,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.right = right;
 		this.OP = op;
 	}
-	private AST_TYPE validateClassTypes(AST_TYPE leftClass, AST_TYPE rightClass)throws Exception{
+	private IR_TYPE_WRAPPER validateClassTypes(AST_TYPE leftClass, AST_TYPE rightClass)throws Exception{
 		AST_TYPE_CLASS l,r;
 		if(!(leftClass instanceof AST_TYPE_CLASS) || !(rightClass instanceof AST_TYPE_CLASS)){
 			throw new Exception("Expected both sides of op to be classes");
@@ -25,10 +25,10 @@ public class AST_EXP_BINOP extends AST_EXP
 		l = (AST_TYPE_CLASS) leftClass;
 		r = (AST_TYPE_CLASS) rightClass;
 		if(l.isExtending(r) || r.isExtending(l)){
-			return new AST_TYPE_TERM(TYPES.INT);
+			return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT),null);
 		}
 		else{
-			throw new Exception("Tried to compane type "+l.name+" with type "+r.name);
+			throw new Exception("Tried to compare type "+l.name+" with type "+r.name);
 		}
 	}
 	@Override
@@ -41,7 +41,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		if(leftType.getClass().equals(AST_TYPE_TERM.class))
 			leftTypeTerm = (AST_TYPE_TERM)leftType;
 		else{
-			return new IR_TYPE_WRAPPER(validateClassTypes(leftType, rightType), null) ; //TODO
+			return validateClassTypes(leftType, rightType); //TODO
 			
 		}
 		if(rightType.getClass().equals(AST_TYPE_TERM.class))

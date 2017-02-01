@@ -10,4 +10,9 @@ public class T_Function implements T_Exp{
 		this.body=body;
 		this.name=name;
 	}
+
+	@Override
+	public T_Temp gen() {
+		throw new Error("unimplemented");
+	}
 }

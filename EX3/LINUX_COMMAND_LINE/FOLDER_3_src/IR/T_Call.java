@@ -8,5 +8,9 @@ public class T_Call implements T_Exp {
 		this.name=name;
 		this.args=args;
 	}
-	
+
+	@Override
+	public T_Temp gen() {
+		throw new Error("unimplemented");
+	}
 }

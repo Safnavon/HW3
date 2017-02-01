@@ -6,4 +6,9 @@ public class T_Const implements T_Exp {
 	public T_Const(int value){
 		this.value=value;
 	}
+
+	@Override
+	public T_Temp gen() {
+		throw new Error("unimplemented");
+	}
 }

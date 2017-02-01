@@ -8,6 +8,17 @@ AST_VAR_*
 
 dror
 class checker support for field and function tables - done
+AST_PROGRAM
+
+cgen:
+T_Binop
+T_CJump
+T_Const
+T_Label
+T_Mem
+T_Seq
+T_Temp
+
 asaf
 
 notes and questions:

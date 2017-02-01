@@ -3,6 +3,9 @@ package AST;
 import java.util.ArrayList;
 import java.util.List;
 
+import IR.T_Exp;
+import IR.T_Label;
+import IR.T_Seq;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
@@ -17,18 +20,20 @@ public class AST_PROGRAM extends AST_Node {
     }
 
     public IR_TYPE_WRAPPER isValid() throws Exception {
-        IR_TYPE_WRAPPER firstWrapper = first.isValid();
-        IR_TYPE_WRAPPER restWrapper = rest != null ? rest.isValid() : null;
-        return new IR_TYPE_WRAPPER(null, null);//TODO
+        T_Exp firstIR = first.isValid().IR;
+        T_Exp restIR = rest != null ? rest.isValid().IR : null;
+        return new IR_TYPE_WRAPPER(null, new T_Seq(firstIR,restIR));//TODO
     }
 
     /**
      * avoids multiple calls to "ensureOneMain"
+     * called by Main
      */
     public void isValidProgram() throws Exception {
-        IR_TYPE_WRAPPER wrapper = this.isValid();
-        ClassChecker.ensureOneMain();//throws if bad
-        //TODO use ensure main to get label of program entry point
+        T_Seq classes = (T_Seq) this.isValid().IR;
+        T_Label mainLabel = ClassChecker.ensureOneMain();//throws if bad
+        classes.gen();
+        //TODO create label main and jump to our actual main
     }
 
 }

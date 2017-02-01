@@ -17,4 +17,14 @@ public class T_Temp implements T_Exp {
         }
         return this.name;
     }
+
+    @Override
+    public T_Temp gen() {
+        throw new Error("unimplemented");//Dror thinks this should stay like this
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
+    }
 }

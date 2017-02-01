@@ -6,4 +6,9 @@ public class T_JumpLabel implements T_Exp {
     public T_JumpLabel(T_Label label) {
         this.label = label;
     }
+
+    @Override
+    public T_Temp gen() {
+        throw new Error("unimplemented");
+    }
 }

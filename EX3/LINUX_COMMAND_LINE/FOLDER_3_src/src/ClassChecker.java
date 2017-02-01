@@ -289,7 +289,7 @@ public class ClassChecker {
 //        }
 //    }
 
-    public static void ensureOneMain() throws Exception {
+    public static T_Label ensureOneMain() throws Exception {
         List<AST_TYPE> args = new ArrayList<AST_TYPE>();
         Class mainClass = null;
         args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
@@ -316,7 +316,7 @@ public class ClassChecker {
         if (mainClass == null) {
             throw e;
         }
-        //TODO return mainClass?
+        return mainClass.classTableLabel;
     }
 
     /**
@@ -354,14 +354,7 @@ public class ClassChecker {
         String nl = String.format("%n");
         for (Class c : map.values()) {
             boolean hasFunctions = c.funcs.size() != 0;
-            String VFTableLabel = "VFTable_"+c.name;
-            //print fields
-            sb.append(c.classTableLabel.getName() + ":" + nl)
-                    .append("\t.word " +  VFTableLabel);
-            for (Field field : c.fields) {
-                sb.append("," + nl + "\t" + field.fieldLabel.getName());
-            }
-            sb.append(nl);
+            String VFTableLabel = "VFTable_"+c.name;//has to start with VFTable_ to be supported by the simulator
             //print VF table
             sb.append(VFTableLabel + ":" + nl)
                     .append(hasFunctions ? "\t.word " : "");
@@ -369,7 +362,15 @@ public class ClassChecker {
                 sb.append(function.funcLabel.getName() + "," + nl + "\t");
             }
             sb.delete(sb.lastIndexOf(","),sb.length());//remove last (,\n\t)
+            sb.append(nl);
+            //print fields
+            sb.append(c.classTableLabel.getName() + ":" + nl)
+                    .append("\t.word " +  VFTableLabel);
+            for (Field field : c.fields) {
+                sb.append("," + nl + "\t" + field.fieldLabel.getName());
+            }
+            sb.append(nl);
         }
-        return sb.append(nl+nl).toString();
+        return sb.append(nl).toString();
     }
 }
