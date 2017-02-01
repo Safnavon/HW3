@@ -28,6 +28,6 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
       throw new Exception("Trying to access array with non integer " + indexType);
     }
     AST_TYPE_ARRAY res = (AST_TYPE_ARRAY)expType;
-    return new IR_TYPE_WRAPPER(res.type, null);
+    return new IR_TYPE_WRAPPER(res.type, null);//TODO
   }
 }

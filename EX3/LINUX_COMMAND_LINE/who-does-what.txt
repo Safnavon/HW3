@@ -18,8 +18,8 @@ ast:
     AST_METHOD_CALL
     AST_METHOD_DECLARE - nitzan
     AST_Node
-    AST_PROGRAM
-    AST_STMT
+    AST_PROGRAM - dror
+    AST_STMT - dror - done
     AST_STMT_ASSIGN
     AST_STMT_BLOCK
     AST_STMT_CALL
@@ -33,8 +33,8 @@ ast:
     AST_TYPE_CLASS
     AST_TYPE_METHOD
     AST_TYPE_TERM
-    AST_VAR - nitzan
-    AST_VAR_FIELD - nitzan
+    AST_VAR - nitzan - done
+    AST_VAR_FIELD - nitzan - done
     AST_VAR_SIMPLE - nitzan
     AST_VAR_SUBSCRIPT - nitzan
 
