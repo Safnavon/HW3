@@ -8,7 +8,7 @@ public abstract class AST_CLASS_BODY_ITEM extends AST_Node {
 	String className;
 
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		throw (new Exception("isValid is not defined for AST_CLASS_BODY_ITEM"));
+		throw (new Error("isValid is not defined for AST_CLASS_BODY_ITEM"));
 		
 	}
 }
