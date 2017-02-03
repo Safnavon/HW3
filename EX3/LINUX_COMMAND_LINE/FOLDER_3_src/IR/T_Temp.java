@@ -7,10 +7,6 @@ public class T_Temp implements T_Exp {
         this.name = null;
     }
 
-    public T_Temp(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         if (this.name == null) {
             this.name = TempFactovider.newTemp();

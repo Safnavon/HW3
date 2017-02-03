@@ -1,5 +1,6 @@
 package AST;
 
+import IR.T_Exp;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
@@ -17,9 +18,7 @@ public class AST_STMT_CALL extends AST_STMT {
 
 
     public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
-        if (call != null) {
-            call.isValid();
-        }
-        return new IR_TYPE_WRAPPER(null,null);//TODO
+        T_Exp ir = call != null ? call.isValid().IR : null;
+        return new IR_TYPE_WRAPPER(null, ir);//TODO
     }
 }

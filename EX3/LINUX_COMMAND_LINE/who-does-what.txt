@@ -4,7 +4,7 @@ ast:
     AST_CLASS_DECLARE
     AST_EXP
     AST_EXP_BINOP
-    AST_EXP_CALL
+    AST_EXP_CALL - ??? - done?
     AST_EXP_INT
     AST_EXP_LIST
     AST_EXP_NEW_ARRAY
@@ -15,17 +15,17 @@ ast:
     AST_FIELD - nitzan
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
-    AST_METHOD_CALL
+    AST_METHOD_CALL - dror
     AST_METHOD_DECLARE - nitzan
     AST_Node
     AST_PROGRAM - dror
     AST_STMT - dror - done
-    AST_STMT_ASSIGN
-    AST_STMT_BLOCK
-    AST_STMT_CALL
+    AST_STMT_ASSIGN - ??? - done?
+    AST_STMT_BLOCK - dror - done
+    AST_STMT_CALL - dror - done
     AST_STMT_DECLARE - nitzan
     AST_STMT_IF
-    AST_STMT_LIST
+    AST_STMT_LIST - dror - done
     AST_STMT_RETURN
     AST_STMT_WHILE
     AST_TYPE
@@ -54,8 +54,10 @@ cgen:
     T_Relop
     T_Seq - dror - done
     T_Temp - dror - done
+    T_Malloc = dror - done
 misc:
-    class checker support for field and function tables - dror - done
+    class checker support for function tables - dror - done
+    class checker offsets - dror - done
 
 
 notes and questions:
