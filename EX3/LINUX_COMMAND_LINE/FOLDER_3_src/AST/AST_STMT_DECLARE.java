@@ -19,6 +19,8 @@ public class AST_STMT_DECLARE extends AST_STMT
 
 	
 	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
+		assert type != null : "cannot declare a variable of type null";
+		type.isValid();
 		if (exp!=null){
 			IR_TYPE_WRAPPER expWrapper = exp.isValid();
 			if(expWrapper.type == null){

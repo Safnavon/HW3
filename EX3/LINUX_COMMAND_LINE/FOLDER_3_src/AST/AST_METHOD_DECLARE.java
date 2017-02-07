@@ -24,6 +24,9 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 
 
 	public IR_TYPE_WRAPPER isValid() throws Exception {
+		if (type != null ) {
+			type.isValid();
+		}
 		ClassChecker.addFunction(className, this);
 		if (SymbolTable.isInCurrentScope(name)) {
 			throw new Exception(name + " is already defined in this scope");				

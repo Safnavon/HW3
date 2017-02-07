@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 import src.ClassChecker;
 
@@ -36,6 +37,17 @@ public class AST_TYPE_CLASS extends AST_TYPE
 			AST_TYPE_CLASS _other = (AST_TYPE_CLASS) other;
 			return this.name.equals(_other.name);
 		}
+	}
+
+	/* we need to validate that a type perceived as class type is indeed an existing class
+	 for example- without this, the following method would pass the validity check if no other method calls it:
+	 void foo(String s) {return;} --> String is not necessarily a class (and we use 'string' in IC)
+	*/
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		if(SymbolTable.get(name) == null){
+			throw(new Exception("Error: type " + name + " is not a class name nor a primitive type"));
+		}
+		return new IR_TYPE_WRAPPER(null, null);
 	}
 
 }

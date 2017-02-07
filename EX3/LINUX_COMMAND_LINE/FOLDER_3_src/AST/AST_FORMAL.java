@@ -14,6 +14,7 @@ public class AST_FORMAL extends AST_Node
 
 
 	public IR_TYPE_WRAPPER isValid() throws Exception {
+		type.isValid(); // check for non primitive types
 		if (SymbolTable.isInCurrentScope(name)) {
 			throw new Exception("input parameter  " + name + " is already declared");				
 		}

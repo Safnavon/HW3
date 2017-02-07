@@ -13,6 +13,7 @@ public class AST_FIELD extends AST_CLASS_BODY_ITEM
 	}
 
 	public IR_TYPE_WRAPPER isValid() throws Exception {
+		type.isValid();
 		for(int i=0; i< names.length; i++) {
 			if (SymbolTable.isInCurrentScope(names[i])) {
 				throw new Exception(names[i] + " is already defined in this scope");				

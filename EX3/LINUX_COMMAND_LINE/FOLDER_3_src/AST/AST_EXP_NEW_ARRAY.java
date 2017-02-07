@@ -16,6 +16,7 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
 
 	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
+		type.isValid();
 		if (!size.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
 			throw new Exception("invalid array size type");
 		}

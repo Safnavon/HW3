@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_TYPE_ARRAY extends AST_TYPE
@@ -37,6 +38,11 @@ public class AST_TYPE_ARRAY extends AST_TYPE
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		type.isValid();
+		return new IR_TYPE_WRAPPER(null, null);
 	}
 
 }
