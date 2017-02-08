@@ -18,9 +18,10 @@ public class AST_TYPE_CLASS extends AST_TYPE
 		}
 		else {
 			AST_TYPE_CLASS _other = (AST_TYPE_CLASS) other;
-			String subClassName = _other.name;
+			String superClassName = _other.name;
+			String subClassName = this.name;
 			do{
-				if(this.name.equals(subClassName)){
+				if(subClassName.equals(superClassName)){
 					return true;
 				}
 				subClassName = ClassChecker.get(subClassName).parent == null ? null : ClassChecker.get(subClassName).parent.name;

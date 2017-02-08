@@ -21,7 +21,7 @@ public class AST_STMT_RETURN extends AST_STMT
 			}			
 		} else {
 			IR_TYPE_WRAPPER expType = exp.isValid();
-			if (!expType.type.equals(expectedReturnValue)) {
+			if (!expType.type.isExtending(expectedReturnValue)) {
 				throw new Exception("invalid return value");
 			}
 		}
