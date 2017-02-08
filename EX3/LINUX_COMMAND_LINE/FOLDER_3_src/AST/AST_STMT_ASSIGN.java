@@ -28,8 +28,15 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		AST_TYPE varType = varData.type;
 		AST_TYPE expType = expData.type;
 
-		if (!varType.equals(expType)) {
-			throw new Exception("cannot assign value of type " + exp.getClass() + " to a variable of type " + varType.getClass());
+		if(exp instanceof AST_EXP_NULL){
+			if(!varType.getClass().equals(AST_TYPE_CLASS.class)) {
+				if( !varType.getClass().equals(AST_TYPE_TERM.class) || !( ((AST_TYPE_TERM)varType).type.equals(TYPES.STRING) ))  {
+					throw new Exception("null value can be assigned to strings and class instances only");
+				}
+			}
+		}
+		else if (!expType.isExtending(varType)) {
+			throw new Exception("type mismatch in assign statement");
 		}
 
 		// create IR nodes
