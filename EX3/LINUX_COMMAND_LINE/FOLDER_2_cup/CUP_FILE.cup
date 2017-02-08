@@ -201,6 +201,8 @@ classBody   ::=     field:f                                 {: RESULT = new AST_
 
 classDeclaration   ::=    CLASS CLASS_ID:name LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, null, body); :}
                           | CLASS CLASS_ID:name EXTENDS CLASS_ID:sup LBRACE classBody:body RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, sup, body); :}
+                          | CLASS CLASS_ID:name LBRACE RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, null, null); :}
+                          | CLASS CLASS_ID:name EXTENDS CLASS_ID:sup LBRACE RBRACE    {: RESULT = new AST_CLASS_DECLARE(name, sup, null); :}
                           ;
                           
 program		::=		classDeclaration:d						{: RESULT = new AST_PROGRAM(d, null); :}

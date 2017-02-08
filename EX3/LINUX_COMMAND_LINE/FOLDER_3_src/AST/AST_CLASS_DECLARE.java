@@ -27,7 +27,9 @@ public class AST_CLASS_DECLARE extends AST_Node
 		SymbolTable.put(name, new AST_TYPE_CLASS(name));
 		SymbolTable.openScope();
 		ClassChecker.newClass(this);
-		body.isValid(name);
+		if (body != null) { // ic syntax doesn't require a non empty class body
+			body.isValid(name);
+		}
 		SymbolTable.closeScope();
 		
 		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null); //TODO
