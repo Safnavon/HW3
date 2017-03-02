@@ -1,0 +1,1421 @@
+
+
+Terminals which are not used:
+
+   FLOAT
+   ID
+   PLUS
+   MINUS
+   AND
+   OR
+
+
+
+Grammar
+rule 1    program -> expList
+rule 2    expList -> exp expList
+rule 3    expList -> exp
+rule 4    exp -> labelExp
+rule 5    exp -> jumpExp
+rule 6    exp -> cjumpExp
+rule 7    exp -> loadExp
+rule 8    exp -> storeExp
+rule 9    exp -> binopExp
+rule 10   exp -> movExp
+rule 11   exp -> vfTableExp
+rule 12   exp -> strExp
+rule 13   exp -> PRINT_INT
+rule 14   exp -> PRINT_CHAR
+rule 15   exp -> ALLOCATE
+rule 16   exp -> EXIT
+rule 17   labelList -> LABEL COMMA labelList
+rule 18   labelList -> LABEL
+rule 19   vfTableExp -> VFTABLE COLON labelList
+rule 20   strExp -> STRING_VAR COLON STRING
+rule 21   labelExp -> LABEL COLON
+rule 22   jumpExp -> JUMP LABEL
+rule 23   jumpExp -> JUMP REGISTER
+rule 24   jumpExp -> JUMP_AND_LINK LABEL
+rule 25   cjumpExp -> BEQ var COMMA var COMMA LABEL
+rule 26   cjumpExp -> BNE var COMMA var COMMA LABEL
+rule 27   cjumpExp -> BGT var COMMA var COMMA LABEL
+rule 28   cjumpExp -> BLT var COMMA var COMMA LABEL
+rule 29   cjumpExp -> BGE var COMMA var COMMA LABEL
+rule 30   cjumpExp -> BLE var COMMA var COMMA LABEL
+rule 31   loadExp -> LOAD var COMMA INT LPAREN var RPAREN
+rule 32   loadExp -> LOAD_BYTE var COMMA LPAREN var RPAREN
+rule 33   loadExp -> LOAD_ADDRESS var COMMA STRING_VAR
+rule 34   loadExp -> LOAD_ADDRESS var COMMA VFTABLE
+rule 35   loadExp -> LOAD_IMMEDIATE var COMMA INT
+rule 36   storeExp -> STORE var COMMA INT LPAREN var RPAREN
+rule 37   binopExp -> ADD var COMMA var COMMA var
+rule 38   binopExp -> SUB var COMMA var COMMA var
+rule 39   binopExp -> MUL var COMMA var COMMA var
+rule 40   binopExp -> DIV var COMMA var COMMA var
+rule 41   binopExp -> ADD_IMMEDIATE var COMMA var COMMA INT
+rule 42   movExp -> MOVE var COMMA var
+rule 43   var -> TEMP
+rule 44   var -> REGISTER
+
+Terminals, with rules where they appear
+
+$ (-1)
+error (256)
+INT (258) 31 35 36 41
+FLOAT (259)
+STRING (260) 20
+VFTABLE (261) 19 34
+PRINT_INT (262) 13
+PRINT_CHAR (263) 14
+STRING_VAR (264) 20 33
+ALLOCATE (265) 15
+EXIT (266) 16
+ID (267)
+LABEL (268) 17 18 21 22 24 25 26 27 28 29 30
+COMMA (269) 17 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
+COLON (270) 19 20 21
+LOAD (271) 31
+STORE (272) 36
+LOAD_IMMEDIATE (273) 35
+LOAD_ADDRESS (274) 33 34
+LOAD_BYTE (275) 32
+ADD_IMMEDIATE (276) 41
+JUMP (277) 22 23
+JUMP_AND_LINK (278) 24
+LPAREN (279) 31 32 36
+RPAREN (280) 31 32 36
+PLUS (281)
+MINUS (282)
+ADD (283) 37
+SUB (284) 38
+MUL (285) 39
+DIV (286) 40
+TEMP (287) 43
+BEQ (288) 25
+BNE (289) 26
+BLT (290) 28
+BLE (291) 30
+BGT (292) 27
+BGE (293) 29
+REGISTER (294) 23 44
+AND (295)
+OR (296)
+MOVE (297) 42
+
+Nonterminals, with rules where they appear
+
+program (43)
+    on left: 1
+expList (44)
+    on left: 2 3, on right: 1 2
+exp (45)
+    on left: 4 5 6 7 8 9 10 11 12 13 14 15 16, on right: 2 3
+labelList (46)
+    on left: 17 18, on right: 17 19
+vfTableExp (47)
+    on left: 19, on right: 11
+strExp (48)
+    on left: 20, on right: 12
+labelExp (49)
+    on left: 21, on right: 4
+jumpExp (50)
+    on left: 22 23 24, on right: 5
+cjumpExp (51)
+    on left: 25 26 27 28 29 30, on right: 6
+loadExp (52)
+    on left: 31 32 33 34 35, on right: 7
+storeExp (53)
+    on left: 36, on right: 8
+binopExp (54)
+    on left: 37 38 39 40 41, on right: 9
+movExp (55)
+    on left: 42, on right: 10
+var (56)
+    on left: 43 44, on right: 25 26 27 28 29 30 31 32 33 34 35 36 37
+    38 39 40 41 42
+
+
+state 0
+
+    VFTABLE	shift, and go to state 1
+    PRINT_INT	shift, and go to state 2
+    PRINT_CHAR	shift, and go to state 3
+    STRING_VAR	shift, and go to state 4
+    ALLOCATE	shift, and go to state 5
+    EXIT	shift, and go to state 6
+    LABEL	shift, and go to state 7
+    LOAD	shift, and go to state 8
+    STORE	shift, and go to state 9
+    LOAD_IMMEDIATE	shift, and go to state 10
+    LOAD_ADDRESS	shift, and go to state 11
+    LOAD_BYTE	shift, and go to state 12
+    ADD_IMMEDIATE	shift, and go to state 13
+    JUMP	shift, and go to state 14
+    JUMP_AND_LINK	shift, and go to state 15
+    ADD 	shift, and go to state 16
+    SUB 	shift, and go to state 17
+    MUL 	shift, and go to state 18
+    DIV 	shift, and go to state 19
+    BEQ 	shift, and go to state 20
+    BNE 	shift, and go to state 21
+    BLT 	shift, and go to state 22
+    BLE 	shift, and go to state 23
+    BGT 	shift, and go to state 24
+    BGE 	shift, and go to state 25
+    MOVE	shift, and go to state 26
+
+    program	go to state 134
+    expList	go to state 27
+    exp 	go to state 28
+    vfTableExp	go to state 29
+    strExp	go to state 30
+    labelExp	go to state 31
+    jumpExp	go to state 32
+    cjumpExp	go to state 33
+    loadExp	go to state 34
+    storeExp	go to state 35
+    binopExp	go to state 36
+    movExp	go to state 37
+
+
+
+state 1
+
+    vfTableExp  ->  VFTABLE . COLON labelList   (rule 19)
+
+    COLON	shift, and go to state 38
+
+
+
+state 2
+
+    exp  ->  PRINT_INT .   (rule 13)
+
+    $default	reduce using rule 13 (exp)
+
+
+
+state 3
+
+    exp  ->  PRINT_CHAR .   (rule 14)
+
+    $default	reduce using rule 14 (exp)
+
+
+
+state 4
+
+    strExp  ->  STRING_VAR . COLON STRING   (rule 20)
+
+    COLON	shift, and go to state 39
+
+
+
+state 5
+
+    exp  ->  ALLOCATE .   (rule 15)
+
+    $default	reduce using rule 15 (exp)
+
+
+
+state 6
+
+    exp  ->  EXIT .   (rule 16)
+
+    $default	reduce using rule 16 (exp)
+
+
+
+state 7
+
+    labelExp  ->  LABEL . COLON   (rule 21)
+
+    COLON	shift, and go to state 40
+
+
+
+state 8
+
+    loadExp  ->  LOAD . var COMMA INT LPAREN var RPAREN   (rule 31)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 43
+
+
+
+state 9
+
+    storeExp  ->  STORE . var COMMA INT LPAREN var RPAREN   (rule 36)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 44
+
+
+
+state 10
+
+    loadExp  ->  LOAD_IMMEDIATE . var COMMA INT   (rule 35)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 45
+
+
+
+state 11
+
+    loadExp  ->  LOAD_ADDRESS . var COMMA STRING_VAR   (rule 33)
+    loadExp  ->  LOAD_ADDRESS . var COMMA VFTABLE   (rule 34)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 46
+
+
+
+state 12
+
+    loadExp  ->  LOAD_BYTE . var COMMA LPAREN var RPAREN   (rule 32)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 47
+
+
+
+state 13
+
+    binopExp  ->  ADD_IMMEDIATE . var COMMA var COMMA INT   (rule 41)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 48
+
+
+
+state 14
+
+    jumpExp  ->  JUMP . LABEL   (rule 22)
+    jumpExp  ->  JUMP . REGISTER   (rule 23)
+
+    LABEL	shift, and go to state 49
+    REGISTER	shift, and go to state 50
+
+
+
+state 15
+
+    jumpExp  ->  JUMP_AND_LINK . LABEL   (rule 24)
+
+    LABEL	shift, and go to state 51
+
+
+
+state 16
+
+    binopExp  ->  ADD . var COMMA var COMMA var   (rule 37)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 52
+
+
+
+state 17
+
+    binopExp  ->  SUB . var COMMA var COMMA var   (rule 38)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 53
+
+
+
+state 18
+
+    binopExp  ->  MUL . var COMMA var COMMA var   (rule 39)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 54
+
+
+
+state 19
+
+    binopExp  ->  DIV . var COMMA var COMMA var   (rule 40)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 55
+
+
+
+state 20
+
+    cjumpExp  ->  BEQ . var COMMA var COMMA LABEL   (rule 25)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 56
+
+
+
+state 21
+
+    cjumpExp  ->  BNE . var COMMA var COMMA LABEL   (rule 26)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 57
+
+
+
+state 22
+
+    cjumpExp  ->  BLT . var COMMA var COMMA LABEL   (rule 28)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 58
+
+
+
+state 23
+
+    cjumpExp  ->  BLE . var COMMA var COMMA LABEL   (rule 30)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 59
+
+
+
+state 24
+
+    cjumpExp  ->  BGT . var COMMA var COMMA LABEL   (rule 27)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 60
+
+
+
+state 25
+
+    cjumpExp  ->  BGE . var COMMA var COMMA LABEL   (rule 29)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 61
+
+
+
+state 26
+
+    movExp  ->  MOVE . var COMMA var   (rule 42)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 62
+
+
+
+state 27
+
+    program  ->  expList .   (rule 1)
+
+    $default	reduce using rule 1 (program)
+
+
+
+state 28
+
+    expList  ->  exp . expList   (rule 2)
+    expList  ->  exp .   (rule 3)
+
+    VFTABLE	shift, and go to state 1
+    PRINT_INT	shift, and go to state 2
+    PRINT_CHAR	shift, and go to state 3
+    STRING_VAR	shift, and go to state 4
+    ALLOCATE	shift, and go to state 5
+    EXIT	shift, and go to state 6
+    LABEL	shift, and go to state 7
+    LOAD	shift, and go to state 8
+    STORE	shift, and go to state 9
+    LOAD_IMMEDIATE	shift, and go to state 10
+    LOAD_ADDRESS	shift, and go to state 11
+    LOAD_BYTE	shift, and go to state 12
+    ADD_IMMEDIATE	shift, and go to state 13
+    JUMP	shift, and go to state 14
+    JUMP_AND_LINK	shift, and go to state 15
+    ADD 	shift, and go to state 16
+    SUB 	shift, and go to state 17
+    MUL 	shift, and go to state 18
+    DIV 	shift, and go to state 19
+    BEQ 	shift, and go to state 20
+    BNE 	shift, and go to state 21
+    BLT 	shift, and go to state 22
+    BLE 	shift, and go to state 23
+    BGT 	shift, and go to state 24
+    BGE 	shift, and go to state 25
+    MOVE	shift, and go to state 26
+
+    $default	reduce using rule 3 (expList)
+
+    expList	go to state 63
+    exp 	go to state 28
+    vfTableExp	go to state 29
+    strExp	go to state 30
+    labelExp	go to state 31
+    jumpExp	go to state 32
+    cjumpExp	go to state 33
+    loadExp	go to state 34
+    storeExp	go to state 35
+    binopExp	go to state 36
+    movExp	go to state 37
+
+
+
+state 29
+
+    exp  ->  vfTableExp .   (rule 11)
+
+    $default	reduce using rule 11 (exp)
+
+
+
+state 30
+
+    exp  ->  strExp .   (rule 12)
+
+    $default	reduce using rule 12 (exp)
+
+
+
+state 31
+
+    exp  ->  labelExp .   (rule 4)
+
+    $default	reduce using rule 4 (exp)
+
+
+
+state 32
+
+    exp  ->  jumpExp .   (rule 5)
+
+    $default	reduce using rule 5 (exp)
+
+
+
+state 33
+
+    exp  ->  cjumpExp .   (rule 6)
+
+    $default	reduce using rule 6 (exp)
+
+
+
+state 34
+
+    exp  ->  loadExp .   (rule 7)
+
+    $default	reduce using rule 7 (exp)
+
+
+
+state 35
+
+    exp  ->  storeExp .   (rule 8)
+
+    $default	reduce using rule 8 (exp)
+
+
+
+state 36
+
+    exp  ->  binopExp .   (rule 9)
+
+    $default	reduce using rule 9 (exp)
+
+
+
+state 37
+
+    exp  ->  movExp .   (rule 10)
+
+    $default	reduce using rule 10 (exp)
+
+
+
+state 38
+
+    vfTableExp  ->  VFTABLE COLON . labelList   (rule 19)
+
+    LABEL	shift, and go to state 64
+
+    labelList	go to state 65
+
+
+
+state 39
+
+    strExp  ->  STRING_VAR COLON . STRING   (rule 20)
+
+    STRING	shift, and go to state 66
+
+
+
+state 40
+
+    labelExp  ->  LABEL COLON .   (rule 21)
+
+    $default	reduce using rule 21 (labelExp)
+
+
+
+state 41
+
+    var  ->  TEMP .   (rule 43)
+
+    $default	reduce using rule 43 (var)
+
+
+
+state 42
+
+    var  ->  REGISTER .   (rule 44)
+
+    $default	reduce using rule 44 (var)
+
+
+
+state 43
+
+    loadExp  ->  LOAD var . COMMA INT LPAREN var RPAREN   (rule 31)
+
+    COMMA	shift, and go to state 67
+
+
+
+state 44
+
+    storeExp  ->  STORE var . COMMA INT LPAREN var RPAREN   (rule 36)
+
+    COMMA	shift, and go to state 68
+
+
+
+state 45
+
+    loadExp  ->  LOAD_IMMEDIATE var . COMMA INT   (rule 35)
+
+    COMMA	shift, and go to state 69
+
+
+
+state 46
+
+    loadExp  ->  LOAD_ADDRESS var . COMMA STRING_VAR   (rule 33)
+    loadExp  ->  LOAD_ADDRESS var . COMMA VFTABLE   (rule 34)
+
+    COMMA	shift, and go to state 70
+
+
+
+state 47
+
+    loadExp  ->  LOAD_BYTE var . COMMA LPAREN var RPAREN   (rule 32)
+
+    COMMA	shift, and go to state 71
+
+
+
+state 48
+
+    binopExp  ->  ADD_IMMEDIATE var . COMMA var COMMA INT   (rule 41)
+
+    COMMA	shift, and go to state 72
+
+
+
+state 49
+
+    jumpExp  ->  JUMP LABEL .   (rule 22)
+
+    $default	reduce using rule 22 (jumpExp)
+
+
+
+state 50
+
+    jumpExp  ->  JUMP REGISTER .   (rule 23)
+
+    $default	reduce using rule 23 (jumpExp)
+
+
+
+state 51
+
+    jumpExp  ->  JUMP_AND_LINK LABEL .   (rule 24)
+
+    $default	reduce using rule 24 (jumpExp)
+
+
+
+state 52
+
+    binopExp  ->  ADD var . COMMA var COMMA var   (rule 37)
+
+    COMMA	shift, and go to state 73
+
+
+
+state 53
+
+    binopExp  ->  SUB var . COMMA var COMMA var   (rule 38)
+
+    COMMA	shift, and go to state 74
+
+
+
+state 54
+
+    binopExp  ->  MUL var . COMMA var COMMA var   (rule 39)
+
+    COMMA	shift, and go to state 75
+
+
+
+state 55
+
+    binopExp  ->  DIV var . COMMA var COMMA var   (rule 40)
+
+    COMMA	shift, and go to state 76
+
+
+
+state 56
+
+    cjumpExp  ->  BEQ var . COMMA var COMMA LABEL   (rule 25)
+
+    COMMA	shift, and go to state 77
+
+
+
+state 57
+
+    cjumpExp  ->  BNE var . COMMA var COMMA LABEL   (rule 26)
+
+    COMMA	shift, and go to state 78
+
+
+
+state 58
+
+    cjumpExp  ->  BLT var . COMMA var COMMA LABEL   (rule 28)
+
+    COMMA	shift, and go to state 79
+
+
+
+state 59
+
+    cjumpExp  ->  BLE var . COMMA var COMMA LABEL   (rule 30)
+
+    COMMA	shift, and go to state 80
+
+
+
+state 60
+
+    cjumpExp  ->  BGT var . COMMA var COMMA LABEL   (rule 27)
+
+    COMMA	shift, and go to state 81
+
+
+
+state 61
+
+    cjumpExp  ->  BGE var . COMMA var COMMA LABEL   (rule 29)
+
+    COMMA	shift, and go to state 82
+
+
+
+state 62
+
+    movExp  ->  MOVE var . COMMA var   (rule 42)
+
+    COMMA	shift, and go to state 83
+
+
+
+state 63
+
+    expList  ->  exp expList .   (rule 2)
+
+    $default	reduce using rule 2 (expList)
+
+
+
+state 64
+
+    labelList  ->  LABEL . COMMA labelList   (rule 17)
+    labelList  ->  LABEL .   (rule 18)
+
+    COMMA	shift, and go to state 84
+
+    $default	reduce using rule 18 (labelList)
+
+
+
+state 65
+
+    vfTableExp  ->  VFTABLE COLON labelList .   (rule 19)
+
+    $default	reduce using rule 19 (vfTableExp)
+
+
+
+state 66
+
+    strExp  ->  STRING_VAR COLON STRING .   (rule 20)
+
+    $default	reduce using rule 20 (strExp)
+
+
+
+state 67
+
+    loadExp  ->  LOAD var COMMA . INT LPAREN var RPAREN   (rule 31)
+
+    INT 	shift, and go to state 85
+
+
+
+state 68
+
+    storeExp  ->  STORE var COMMA . INT LPAREN var RPAREN   (rule 36)
+
+    INT 	shift, and go to state 86
+
+
+
+state 69
+
+    loadExp  ->  LOAD_IMMEDIATE var COMMA . INT   (rule 35)
+
+    INT 	shift, and go to state 87
+
+
+
+state 70
+
+    loadExp  ->  LOAD_ADDRESS var COMMA . STRING_VAR   (rule 33)
+    loadExp  ->  LOAD_ADDRESS var COMMA . VFTABLE   (rule 34)
+
+    VFTABLE	shift, and go to state 88
+    STRING_VAR	shift, and go to state 89
+
+
+
+state 71
+
+    loadExp  ->  LOAD_BYTE var COMMA . LPAREN var RPAREN   (rule 32)
+
+    LPAREN	shift, and go to state 90
+
+
+
+state 72
+
+    binopExp  ->  ADD_IMMEDIATE var COMMA . var COMMA INT   (rule 41)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 91
+
+
+
+state 73
+
+    binopExp  ->  ADD var COMMA . var COMMA var   (rule 37)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 92
+
+
+
+state 74
+
+    binopExp  ->  SUB var COMMA . var COMMA var   (rule 38)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 93
+
+
+
+state 75
+
+    binopExp  ->  MUL var COMMA . var COMMA var   (rule 39)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 94
+
+
+
+state 76
+
+    binopExp  ->  DIV var COMMA . var COMMA var   (rule 40)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 95
+
+
+
+state 77
+
+    cjumpExp  ->  BEQ var COMMA . var COMMA LABEL   (rule 25)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 96
+
+
+
+state 78
+
+    cjumpExp  ->  BNE var COMMA . var COMMA LABEL   (rule 26)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 97
+
+
+
+state 79
+
+    cjumpExp  ->  BLT var COMMA . var COMMA LABEL   (rule 28)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 98
+
+
+
+state 80
+
+    cjumpExp  ->  BLE var COMMA . var COMMA LABEL   (rule 30)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 99
+
+
+
+state 81
+
+    cjumpExp  ->  BGT var COMMA . var COMMA LABEL   (rule 27)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 100
+
+
+
+state 82
+
+    cjumpExp  ->  BGE var COMMA . var COMMA LABEL   (rule 29)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 101
+
+
+
+state 83
+
+    movExp  ->  MOVE var COMMA . var   (rule 42)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 102
+
+
+
+state 84
+
+    labelList  ->  LABEL COMMA . labelList   (rule 17)
+
+    LABEL	shift, and go to state 64
+
+    labelList	go to state 103
+
+
+
+state 85
+
+    loadExp  ->  LOAD var COMMA INT . LPAREN var RPAREN   (rule 31)
+
+    LPAREN	shift, and go to state 104
+
+
+
+state 86
+
+    storeExp  ->  STORE var COMMA INT . LPAREN var RPAREN   (rule 36)
+
+    LPAREN	shift, and go to state 105
+
+
+
+state 87
+
+    loadExp  ->  LOAD_IMMEDIATE var COMMA INT .   (rule 35)
+
+    $default	reduce using rule 35 (loadExp)
+
+
+
+state 88
+
+    loadExp  ->  LOAD_ADDRESS var COMMA VFTABLE .   (rule 34)
+
+    $default	reduce using rule 34 (loadExp)
+
+
+
+state 89
+
+    loadExp  ->  LOAD_ADDRESS var COMMA STRING_VAR .   (rule 33)
+
+    $default	reduce using rule 33 (loadExp)
+
+
+
+state 90
+
+    loadExp  ->  LOAD_BYTE var COMMA LPAREN . var RPAREN   (rule 32)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 106
+
+
+
+state 91
+
+    binopExp  ->  ADD_IMMEDIATE var COMMA var . COMMA INT   (rule 41)
+
+    COMMA	shift, and go to state 107
+
+
+
+state 92
+
+    binopExp  ->  ADD var COMMA var . COMMA var   (rule 37)
+
+    COMMA	shift, and go to state 108
+
+
+
+state 93
+
+    binopExp  ->  SUB var COMMA var . COMMA var   (rule 38)
+
+    COMMA	shift, and go to state 109
+
+
+
+state 94
+
+    binopExp  ->  MUL var COMMA var . COMMA var   (rule 39)
+
+    COMMA	shift, and go to state 110
+
+
+
+state 95
+
+    binopExp  ->  DIV var COMMA var . COMMA var   (rule 40)
+
+    COMMA	shift, and go to state 111
+
+
+
+state 96
+
+    cjumpExp  ->  BEQ var COMMA var . COMMA LABEL   (rule 25)
+
+    COMMA	shift, and go to state 112
+
+
+
+state 97
+
+    cjumpExp  ->  BNE var COMMA var . COMMA LABEL   (rule 26)
+
+    COMMA	shift, and go to state 113
+
+
+
+state 98
+
+    cjumpExp  ->  BLT var COMMA var . COMMA LABEL   (rule 28)
+
+    COMMA	shift, and go to state 114
+
+
+
+state 99
+
+    cjumpExp  ->  BLE var COMMA var . COMMA LABEL   (rule 30)
+
+    COMMA	shift, and go to state 115
+
+
+
+state 100
+
+    cjumpExp  ->  BGT var COMMA var . COMMA LABEL   (rule 27)
+
+    COMMA	shift, and go to state 116
+
+
+
+state 101
+
+    cjumpExp  ->  BGE var COMMA var . COMMA LABEL   (rule 29)
+
+    COMMA	shift, and go to state 117
+
+
+
+state 102
+
+    movExp  ->  MOVE var COMMA var .   (rule 42)
+
+    $default	reduce using rule 42 (movExp)
+
+
+
+state 103
+
+    labelList  ->  LABEL COMMA labelList .   (rule 17)
+
+    $default	reduce using rule 17 (labelList)
+
+
+
+state 104
+
+    loadExp  ->  LOAD var COMMA INT LPAREN . var RPAREN   (rule 31)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 118
+
+
+
+state 105
+
+    storeExp  ->  STORE var COMMA INT LPAREN . var RPAREN   (rule 36)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 119
+
+
+
+state 106
+
+    loadExp  ->  LOAD_BYTE var COMMA LPAREN var . RPAREN   (rule 32)
+
+    RPAREN	shift, and go to state 120
+
+
+
+state 107
+
+    binopExp  ->  ADD_IMMEDIATE var COMMA var COMMA . INT   (rule 41)
+
+    INT 	shift, and go to state 121
+
+
+
+state 108
+
+    binopExp  ->  ADD var COMMA var COMMA . var   (rule 37)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 122
+
+
+
+state 109
+
+    binopExp  ->  SUB var COMMA var COMMA . var   (rule 38)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 123
+
+
+
+state 110
+
+    binopExp  ->  MUL var COMMA var COMMA . var   (rule 39)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 124
+
+
+
+state 111
+
+    binopExp  ->  DIV var COMMA var COMMA . var   (rule 40)
+
+    TEMP	shift, and go to state 41
+    REGISTER	shift, and go to state 42
+
+    var 	go to state 125
+
+
+
+state 112
+
+    cjumpExp  ->  BEQ var COMMA var COMMA . LABEL   (rule 25)
+
+    LABEL	shift, and go to state 126
+
+
+
+state 113
+
+    cjumpExp  ->  BNE var COMMA var COMMA . LABEL   (rule 26)
+
+    LABEL	shift, and go to state 127
+
+
+
+state 114
+
+    cjumpExp  ->  BLT var COMMA var COMMA . LABEL   (rule 28)
+
+    LABEL	shift, and go to state 128
+
+
+
+state 115
+
+    cjumpExp  ->  BLE var COMMA var COMMA . LABEL   (rule 30)
+
+    LABEL	shift, and go to state 129
+
+
+
+state 116
+
+    cjumpExp  ->  BGT var COMMA var COMMA . LABEL   (rule 27)
+
+    LABEL	shift, and go to state 130
+
+
+
+state 117
+
+    cjumpExp  ->  BGE var COMMA var COMMA . LABEL   (rule 29)
+
+    LABEL	shift, and go to state 131
+
+
+
+state 118
+
+    loadExp  ->  LOAD var COMMA INT LPAREN var . RPAREN   (rule 31)
+
+    RPAREN	shift, and go to state 132
+
+
+
+state 119
+
+    storeExp  ->  STORE var COMMA INT LPAREN var . RPAREN   (rule 36)
+
+    RPAREN	shift, and go to state 133
+
+
+
+state 120
+
+    loadExp  ->  LOAD_BYTE var COMMA LPAREN var RPAREN .   (rule 32)
+
+    $default	reduce using rule 32 (loadExp)
+
+
+
+state 121
+
+    binopExp  ->  ADD_IMMEDIATE var COMMA var COMMA INT .   (rule 41)
+
+    $default	reduce using rule 41 (binopExp)
+
+
+
+state 122
+
+    binopExp  ->  ADD var COMMA var COMMA var .   (rule 37)
+
+    $default	reduce using rule 37 (binopExp)
+
+
+
+state 123
+
+    binopExp  ->  SUB var COMMA var COMMA var .   (rule 38)
+
+    $default	reduce using rule 38 (binopExp)
+
+
+
+state 124
+
+    binopExp  ->  MUL var COMMA var COMMA var .   (rule 39)
+
+    $default	reduce using rule 39 (binopExp)
+
+
+
+state 125
+
+    binopExp  ->  DIV var COMMA var COMMA var .   (rule 40)
+
+    $default	reduce using rule 40 (binopExp)
+
+
+
+state 126
+
+    cjumpExp  ->  BEQ var COMMA var COMMA LABEL .   (rule 25)
+
+    $default	reduce using rule 25 (cjumpExp)
+
+
+
+state 127
+
+    cjumpExp  ->  BNE var COMMA var COMMA LABEL .   (rule 26)
+
+    $default	reduce using rule 26 (cjumpExp)
+
+
+
+state 128
+
+    cjumpExp  ->  BLT var COMMA var COMMA LABEL .   (rule 28)
+
+    $default	reduce using rule 28 (cjumpExp)
+
+
+
+state 129
+
+    cjumpExp  ->  BLE var COMMA var COMMA LABEL .   (rule 30)
+
+    $default	reduce using rule 30 (cjumpExp)
+
+
+
+state 130
+
+    cjumpExp  ->  BGT var COMMA var COMMA LABEL .   (rule 27)
+
+    $default	reduce using rule 27 (cjumpExp)
+
+
+
+state 131
+
+    cjumpExp  ->  BGE var COMMA var COMMA LABEL .   (rule 29)
+
+    $default	reduce using rule 29 (cjumpExp)
+
+
+
+state 132
+
+    loadExp  ->  LOAD var COMMA INT LPAREN var RPAREN .   (rule 31)
+
+    $default	reduce using rule 31 (loadExp)
+
+
+
+state 133
+
+    storeExp  ->  STORE var COMMA INT LPAREN var RPAREN .   (rule 36)
+
+    $default	reduce using rule 36 (storeExp)
+
+
+
+state 134
+
+    $   	go to state 135
+
+
+
+state 135
+
+    $   	go to state 136
+
+
+
+state 136
+
+    $default	accept

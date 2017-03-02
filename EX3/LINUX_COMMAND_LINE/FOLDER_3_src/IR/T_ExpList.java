@@ -8,4 +8,9 @@ public class T_ExpList implements T_Exp {
 		this.head=head;
 		this.tail=tail;
 	}
+
+	@Override
+	public T_Temp gen() {
+		throw new Error("unimplemented");
+	}
 }

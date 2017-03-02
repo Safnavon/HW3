@@ -14,7 +14,7 @@ public class AST_CLASS_BODY extends AST_Node
 		this.rest = rest;
 	}
 
-	public AST_TYPE isValid(String className) throws Exception {
+	public IR_TYPE_WRAPPER isValid(String className) throws Exception {
 		if (this.first!=null){
 			first.className = className;
 			first.isValid();
@@ -22,11 +22,11 @@ public class AST_CLASS_BODY extends AST_Node
 				rest.isValid(className);
 			}
 		}
-		return null;
+		return new IR_TYPE_WRAPPER(null,null);//todo
 	}
 	
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		return new IR_TYPE_WRAPPER(null, null); //TODO
+		throw new Error("unimplemented");
 	}
 
 

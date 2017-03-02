@@ -7,10 +7,10 @@ public abstract class AST_EXP extends AST_Node
 {
 
     public IR_TYPE_WRAPPER isValid() throws Exception {
-        return null;
+       throw new Error("unimplemented");
     }
 
     public T_Mem eval() throws Exception {
-        return null;
+        throw new Error("unimplemented");
     }
 }

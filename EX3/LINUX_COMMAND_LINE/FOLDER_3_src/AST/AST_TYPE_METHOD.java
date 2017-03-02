@@ -10,8 +10,7 @@ public class AST_TYPE_METHOD extends AST_TYPE {
 	
 	@Override
 	public boolean isExtending(AST_TYPE other) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new Error("shouldn't be used");
 	}
 
 }

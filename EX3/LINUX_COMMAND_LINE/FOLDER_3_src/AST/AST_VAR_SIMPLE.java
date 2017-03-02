@@ -16,6 +16,6 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		if(varType == null){
 			throw new Exception("Cant find symbol "+this.name);
 		}
-		return new IR_TYPE_WRAPPER(varType, null);
+		return new IR_TYPE_WRAPPER(varType, null);//TODO
   }
 }

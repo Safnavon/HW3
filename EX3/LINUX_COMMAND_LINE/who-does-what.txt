@@ -1,37 +1,87 @@
-nitzan
-AST_METHOD_DECLARE
-AST_FORMAL_LIST
-AST_EXP_STRING
-AST_STATEMENT_DECLARE
-AST_FIELD
-AST_VAR_*
+ast:
+    AST_CLASS_BODY
+    AST_CLASS_BODY_ITEM
+    AST_CLASS_DECLARE
+    AST_EXP
+    AST_EXP_BINOP
+    AST_EXP_CALL - ??? - done?
+    AST_EXP_INT
+    AST_EXP_LIST
+    AST_EXP_NEW_ARRAY
+    AST_EXP_NEW_INSTANCE
+    AST_EXP_NULL
+    AST_EXP_STRING - nitzan
+    AST_EXP_VAR
+    AST_FIELD - nitzan
+    AST_FORMAL
+    AST_FORMAL_LIST - nitzan
+    AST_METHOD_CALL - dror
+    AST_METHOD_DECLARE - nitzan
+    AST_Node
+    AST_PROGRAM - dror
+    AST_STMT - dror - done
+    AST_STMT_ASSIGN - ??? - done?
+    AST_STMT_BLOCK - dror - done
+    AST_STMT_CALL - dror - done
+    AST_STMT_DECLARE - nitzan
+    AST_STMT_IF
+    AST_STMT_LIST - dror - done
+    AST_STMT_RETURN
+    AST_STMT_WHILE
+    AST_TYPE
+    AST_TYPE_ARRAY
+    AST_TYPE_CLASS
+    AST_TYPE_METHOD
+    AST_TYPE_TERM
+    AST_VAR - nitzan - done
+    AST_VAR_FIELD - nitzan - done
+    AST_VAR_SIMPLE - nitzan
+    AST_VAR_SUBSCRIPT - nitzan
 
-dror
-class checker support for field and function tables - done
-asaf
+cgen:
+    T_Binop - dror - done
+    T_Call
+    T_CJump - dror - done
+    T_Const - dror
+    T_Exp
+    T_ExpList
+    T_Function
+    T_JumpLabel
+    T_JumpRegister
+    T_Label - dror - done
+    T_Mem - dror - done
+    T_Move
+    T_Relop
+    T_Seq - dror - done
+    T_Temp - dror - done
+    T_Malloc = dror - done
+misc:
+    class checker support for function tables - dror - done
+    class checker offsets - dror - done
+
 
 notes and questions:
--can we use CJump with only boolean value?
- create "eval" function on AST_EXP(interface and impl) that evaluates that expression's
- boolean value (to use in "while" and "if" T_Cjump node).
- meaning our CJump implementation should also be changed (always check if value in input T_MEM is > 0 and go to relevant label)
--DROR:
-    CJump is not a real mips command
-    we have beq (branch equals), bne (branch not equals) and j (jump) [there are more: http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Mips/jump.html ]
-    we can do something like this:
-    translating this ic:
-        if(foo())
-            x = 1;
-        else
-            x = 2;
-        y = 1
-    into mips:
-            sw Temp_222, RESULT OF foo()
-            bne Temp_222, $zero, Label_else#56
-            // x = 1;
-            j Label_endif#56
-        Label_else#56:
-            // x = 2;
-            j Label_endif#56
-        Label_endif#56:
-            // y = 1
+        -can we use CJump with only boolean value?
+        create "eval" function on AST_EXP(interface and impl) that evaluates that expression's
+        boolean value (to use in "while" and "if" T_Cjump node).
+        meaning our CJump implementation should also be changed (always check if value in input T_MEM is > 0 and go to relevant label)
+        -DROR:
+        CJump is not a real mips command
+        we have beq (branch equals), bne (branch not equals) and j (jump) [there are more: http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Mips/jump.html ]
+        we can do something like this:
+        translating this ic:
+            if(foo())
+                x = 1;
+            else
+                x = 2;
+            y = 1
+        into mips:
+                sw Temp_222, RESULT OF foo()
+                bne Temp_222, $zero, Label_else#56
+                // x = 1;
+                j Label_endif#56
+            Label_else#56:
+                // x = 2;
+                j Label_endif#56
+            Label_endif#56:
+                // y = 1

@@ -10,6 +10,7 @@ import AST.AST_TYPE_ARRAY;
 import AST.AST_TYPE_CLASS;
 import AST.AST_TYPE_TERM;
 import AST.TYPES;
+import IR.T_Function;
 import IR.T_Label;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ClassChecker {
 
         public AST_METHOD_DECLARE method;
         boolean inherited = false;//used for inheritance checking. this flag is changed according to context
+
         //IR
         public T_Label funcLabel;
 
@@ -50,21 +52,17 @@ public class ClassChecker {
             }
             return myRest == null;//same size of data structures
         }
-
     }
 
     public static class Field {
 
         AST_TYPE type;
         String name;
-        public T_Label fieldLabel;
 
-        public Field(AST_TYPE type, String name, String className) {
+        public Field(AST_TYPE type, String name) {
 
             this.type = type;
             this.name = name;
-            //IR
-            this.fieldLabel = new T_Label(className + "_Field_" + name);
         }
 
         public boolean equals(Object other) {
@@ -149,7 +147,7 @@ public class ClassChecker {
                 if (getFieldByName(name) != null) {
                     throw dup;
                 }
-                this.fields.add(new Field(fs.type, name, this.name));
+                this.fields.add(new Field(fs.type, name));
             }
         }
 
@@ -209,13 +207,12 @@ public class ClassChecker {
         c.addFields(fields);
     }
 
-//    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
+    //    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
 //        if (c == null) {
 //            throw new Exception("Cant find class");
 //        }
 //        return c.hasFunction(fName, argTypes);
-//    }
-
+//
     public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception {
         if (!(classType instanceof AST_TYPE_CLASS)) {
             throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
@@ -289,7 +286,7 @@ public class ClassChecker {
 //        }
 //    }
 
-    public static void ensureOneMain() throws Exception {
+    public static T_Label ensureOneMain() throws Exception {
         List<AST_TYPE> args = new ArrayList<AST_TYPE>();
         Class mainClass = null;
         args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
@@ -316,7 +313,7 @@ public class ClassChecker {
         if (mainClass == null) {
             throw e;
         }
-        //TODO return mainClass?
+        return mainClass.classTableLabel;
     }
 
     /**
@@ -349,27 +346,32 @@ public class ClassChecker {
         return (i) * 4;
     }
 
-    public String generateAllTables() {
+    public String generateAllVFTables() {
         StringBuilder sb = new StringBuilder();
         String nl = String.format("%n");
         for (Class c : map.values()) {
             boolean hasFunctions = c.funcs.size() != 0;
-            String VFTableLabel = "VFTable_"+c.name;
-            //print fields
-            sb.append(c.classTableLabel.getName() + ":" + nl)
-                    .append("\t.word " +  VFTableLabel);
-            for (Field field : c.fields) {
-                sb.append("," + nl + "\t" + field.fieldLabel.getName());
-            }
-            sb.append(nl);
+            String VFTableLabel = "VFTable_" + c.name;
             //print VF table
             sb.append(VFTableLabel + ":" + nl)
                     .append(hasFunctions ? "\t.word " : "");
             for (Function function : c.funcs) {
                 sb.append(function.funcLabel.getName() + "," + nl + "\t");
             }
-            sb.delete(sb.lastIndexOf(","),sb.length());//remove last (,\n\t)
+            sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            sb.append(nl + nl);
         }
-        return sb.append(nl+nl).toString();
+        return sb.append(nl).toString();
     }
+
+    /**
+     * @param className
+     * @return number of bytes to malloc
+     */
+    public int sizeOf(String className) {
+        Class c = map.get(className);
+        assert c != null;
+        return (c.fields.size() + 1) * 4;
+    }
+
 }
