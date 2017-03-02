@@ -11,7 +11,7 @@ ast:
     AST_EXP_NEW_INSTANCE
     AST_EXP_NULL
     AST_EXP_STRING - nitzan
-    AST_EXP_VAR
+    AST_EXP_VAR - nitzan
     AST_FIELD - nitzan
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
