@@ -40,12 +40,12 @@ ast:
 
 cgen:
     T_Binop - dror - done
-    T_Call
+    T_Call - nitzan
     T_CJump - dror - done
     T_Const - dror
     T_Exp
     T_ExpList
-    T_Function
+    T_Function - nitzan
     T_JumpLabel
     T_JumpRegister
     T_Label - dror - done
