@@ -1,4 +1,5 @@
 package AST; import src.ClassChecker;
+import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
 public class AST_TYPE_TERM extends AST_TYPE
@@ -19,6 +20,11 @@ public class AST_TYPE_TERM extends AST_TYPE
 			return false;
 		}
 
+	}
+
+	@Override
+	public IR_TYPE_WRAPPER isValid() throws Exception {
+		return null;
 	}
 
 	public boolean equals(Object other){
