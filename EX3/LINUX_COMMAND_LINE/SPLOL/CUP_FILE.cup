@@ -1,0 +1,441 @@
+import AST.*;
+import java_cup.runtime.*;
+
+
+parser code  {:
+	/** Causes the parsr to print every token it reads.
+	 * This is useful for debugging.
+	 */
+	public boolean printTokens;
+	
+	private Lexer lexer;
+
+	public Parser(Lexer lexer) {
+		super(lexer);
+		this.lexer = lexer;
+	}
+	
+	public int getLine() {
+		return lexer.getLineNumber();
+	}
+	
+	public void syntax_error(Symbol s) {
+		Token tok = (Token) s;
+		System.out.println("Line " + tok.getLine()+": Syntax error; unexpected " + tok);
+	}
+:}
+
+// This is just for debugging
+scan with {:
+	Token t = lexer.next_token();
+	if (printTokens)
+		System.out.println(t.getLine() + ":" + t);
+	return t; 
+:};
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**********************/
+/* TERMINALS (TOKENS) */
+/**********************/
+terminal ASSIGN;
+terminal BOOLEAN;
+terminal BREAK;
+terminal CLASS;
+terminal COMMA;
+terminal CONTINUE;
+terminal DIVIDE;
+terminal DOT;
+terminal EQUAL;
+terminal EXTENDS;
+terminal ELSE;
+terminal FALSE;
+terminal GT;
+terminal GTE;
+terminal IF;
+terminal INT;
+terminal LAND;
+terminal LB;
+terminal LP;
+terminal LCBR;
+terminal LENGTH;
+terminal NEW;
+terminal LNEG;
+terminal LOR;
+terminal LT;
+terminal LTE;
+terminal MINUS;
+terminal MOD;
+terminal MULTIPLY;
+terminal NEQUAL;
+terminal NULL;
+terminal PLUS;
+terminal RB;
+terminal RCBR;
+terminal RETURN;
+terminal RP;
+terminal SEMI;
+terminal STATIC;
+terminal STRING;
+terminal THIS;
+terminal TRUE;
+terminal UMINUS; 
+terminal VOID;
+terminal WHILE;
+/**********************/
+/* TERMINALS (TOKENS) */
+/**********************/
+terminal Integer	INTEGER;
+terminal String		ID;
+terminal String		CLASS_ID;
+terminal String		QUOTE;
+
+
+
+
+
+non terminal AST_PROGRAM program;
+non terminal AST_CLASS_DECL classDecl;
+non terminal AST_CLASS_ELEMENT_FIELD field;
+non terminal AST_ID_LIST id_list;
+
+non terminal AST_CLASS_ELEMENT_METHOD method;
+non terminal AST_FORMAL_LIST formals;
+non terminal AST_FORMAL formal;
+non terminal AST_TYPE type;
+non terminal AST_TYPE_PRIMITIVE primitive_type;
+non terminal AST_TYPE_CLASS class_type;
+non terminal AST_STMT stmt;
+non terminal AST_EXP expr;
+non terminal AST_EXP_CALL call;
+non terminal AST_EXP_CALL_VIRTUAL virtualCall;
+non terminal AST_EXP_VAR location;
+non terminal AST_EXP_OP_BINOP binop;
+non terminal AST_EXP_LITERAL literal;
+non terminal AST_CLASS_DECL_LIST classDecl_list;
+non terminal AST_CLASS_ELEMENT classElem;
+non terminal AST_CLASS_ELEMENT_LIST classElem_list;
+non terminal AST_STMTS_LIST stmt_list;
+non terminal AST_EXP_LIST expr_list;
+
+
+
+
+
+
+
+precedence right ASSIGN;
+precedence left LOR;
+precedence left LAND;
+precedence left EQUAL, NEQUAL;
+precedence left LT, GT, LTE, GTE;
+precedence left PLUS, MINUS;
+precedence left MULTIPLY, DIVIDE, MOD;
+precedence right LNEG, UMINUS;
+precedence left DOT, LB, RB, LP, RP;
+
+
+program ::= 
+	{: RESULT = new AST_PROGRAM(0, null); :}
+	|
+	classDecl_list:cdl
+	{: RESULT = new AST_PROGRAM(cdlleft, cdl); :}
+	|
+	error:er
+	{: System.out.println("This is a parsing error. exiting."); int x=1; if(x==1) throw new Exception(); :}
+	;
+
+classDecl_list ::=
+	classDecl:cd
+	{: AST_CLASS_DECL_LIST cdl = new AST_CLASS_DECL_LIST(cdleft); cdl.add(cd); RESULT=cdl; :}
+	| 
+	classDecl_list:cdl classDecl:cd
+	{: cdl.add(cd); RESULT=cdl; :}
+	;
+	
+classDecl ::=
+	CLASS:c CLASS_ID:clss EXTENDS CLASS_ID:parent LCBR classElem_list:ce RCBR
+	{: RESULT = new AST_CLASS_DECL(cleft,clss, parent, ce); :}
+	|
+	CLASS:c CLASS_ID:clss LCBR classElem_list:ce RCBR
+	{: RESULT = new AST_CLASS_DECL(cleft,clss, null, ce); :}
+	|
+	CLASS:c CLASS_ID:clss EXTENDS CLASS_ID:parent LCBR RCBR
+	{: RESULT = new AST_CLASS_DECL(cleft,clss, parent, null); :}
+	|
+	CLASS:c CLASS_ID:clss LCBR RCBR
+	{: RESULT = new AST_CLASS_DECL(cleft,clss, null, null); :}
+	;
+	
+classElem_list ::=
+	classElem:e
+	{: AST_CLASS_ELEMENT_LIST cel = new AST_CLASS_ELEMENT_LIST(eleft); cel.add(e); RESULT = cel; :}
+	|
+	classElem_list:cel classElem:e
+	{: cel.add(e); RESULT=cel; :}
+	;
+	
+classElem ::=
+	field:fd
+	{: RESULT = fd; :}
+	|
+	method:md
+	{: RESULT = md; :}
+	;
+	
+field ::=
+	type:tp id_list:idl SEMI
+	{: RESULT = new AST_CLASS_ELEMENT_FIELD(tpleft, tp, idl); :}
+	;
+	
+id_list ::=
+	ID:id
+	{: AST_ID_LIST idl = new AST_ID_LIST(idleft); idl.add(new AST_EXP_VAR_SIMPLE(idleft, id)); RESULT=idl; :}
+	|
+	id_list:idl COMMA ID:id
+	{: idl.add(new AST_EXP_VAR_SIMPLE(idleft, id)); RESULT=idl; :}
+	;
+
+method ::=
+	VOID:v ID:id  LP formals:fr RP  LCBR stmt_list:sl RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(vleft, null, new AST_EXP_VAR_SIMPLE(idleft, id), fr, sl); :}
+	|
+	type:tp  ID:id  LP formals:fr RP  LCBR stmt_list:sl RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), fr, sl); :}
+	|
+	VOID:v ID:id  LP RP  LCBR stmt_list:sl RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(vleft, null, new AST_EXP_VAR_SIMPLE(idleft, id), null, sl); :}
+	|
+	type:tp  ID:id  LP RP  LCBR stmt_list:sl RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), null, sl); :}
+	|
+	VOID:v ID:id  LP formals:fr RP  LCBR RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(vleft, null, new AST_EXP_VAR_SIMPLE(idleft, id), fr, null); :}
+	|
+	type:tp  ID:id  LP formals:fr RP  LCBR RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), fr, null); :}
+	|
+	VOID:v ID:id  LP RP  LCBR RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(vleft, null, new AST_EXP_VAR_SIMPLE(idleft, id), null, null); :}
+	|
+	type:tp  ID:id  LP RP  LCBR RCBR
+	{: RESULT = new AST_CLASS_ELEMENT_METHOD_VIRTUAL(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), null, null); :}
+	;
+	
+stmt_list ::= 
+	stmt:s
+	{: RESULT = new AST_STMTS_LIST(sleft, s); :}
+	| 
+	stmt_list:sl stmt:s
+	{: sl.addStmt(s); RESULT = sl; :}
+;
+
+formals ::=
+	formal:fr
+	{: AST_FORMAL_LIST fl = new AST_FORMAL_LIST(frleft); fl.add(fr); RESULT=fl; :}
+	| 
+	formals:fl COMMA formal:fr
+	{: fl.add(fr); RESULT=fl; :}
+	;
+	
+formal ::=
+	type:tp ID:id
+	{: AST_FORMAL fl = new AST_FORMAL(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id)); RESULT=fl; :}
+	;
+
+type ::=
+	primitive_type:pt
+	{: RESULT=pt; :}
+	|
+	class_type:ct
+	{: RESULT=ct; :}
+	|
+	type:tp LB RB	
+	{: tp.dim++; RESULT=tp; :}
+	;
+	
+primitive_type ::=
+	INT:i
+	{: RESULT=new AST_TYPE_PRIMITIVE(ileft, "int"); :}
+	|
+	STRING:s
+	{: RESULT=new AST_TYPE_PRIMITIVE(sleft, "string"); :}	
+	;
+	
+class_type ::=
+	CLASS_ID:id
+	{: RESULT=new AST_TYPE_CLASS(idleft, id); :}	
+	;
+
+stmt ::=
+	location:loc ASSIGN expr:ex SEMI
+	{: AST_STMT_ASSIGN a = new AST_STMT_ASSIGN(locleft, loc, ex); RESULT=a; :}
+	|
+	call:c SEMI
+	{: RESULT=new AST_STMT_CALL(cleft, c); :}
+	|
+	RETURN:r SEMI
+	{: AST_STMT_RETURN rt = new AST_STMT_RETURN(rleft, null); RESULT=rt; :}
+	|
+	RETURN:r expr:e SEMI
+	{: AST_STMT_RETURN rt = new AST_STMT_RETURN(rleft, e); RESULT=rt; :}
+	|
+	IF:ifx LP expr:e RP stmt:s
+	{: AST_STMT_IF i = new AST_STMT_IF(ifxleft, e, s); RESULT=i; :}
+	|
+	WHILE:wh LP expr:e RP stmt:s
+	{: AST_STMT_WHILE w = new AST_STMT_WHILE(whleft, e, s); RESULT=w; :}
+	|
+	LCBR:l stmt_list:sl RCBR
+	{: AST_STMT_LIST lst = new AST_STMT_LIST(lleft, sl); RESULT=lst; :}
+	|
+	LCBR:l RCBR
+	{: AST_STMT_LIST lst = new AST_STMT_LIST(lleft, new AST_STMTS_LIST(lleft)); RESULT = lst; :}
+	|
+	type:tp ID:id SEMI
+	{: RESULT=new AST_STMT_VAR(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), null); :}
+	|
+	type:tp ID:id ASSIGN expr:e SEMI
+	{: RESULT=new AST_STMT_VAR(tpleft, tp, new AST_EXP_VAR_SIMPLE(idleft, id), e); :}
+	;
+	
+expr ::=
+	location:loc
+	{: RESULT = loc; :}
+	|
+	call:c
+	{: RESULT = c; :}
+	|
+	NEW:n CLASS_ID:id LP RP
+	{: RESULT = new AST_EXP_NEW_CLASS(nleft, id); :}
+	|
+	NEW:n type:tp LB expr:sz RB
+	{: RESULT = new AST_EXP_NEW_ARR(nleft, tp, sz); :}
+	|
+	expr:e1 PLUS:p expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(pleft, "+"),e2); :}
+	|
+	expr:e1 MINUS:m expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(mleft, "-"),e2); :}
+	|
+	expr:e1 MULTIPLY:m expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(mleft, "*"),e2); :}
+	|
+	expr:e1 DIVIDE:d expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(dleft, "/"),e2); :}
+	|
+	expr:e1 LT:l expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(lleft, "<"),e2); :}
+	|
+	expr:e1 LTE:l expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(lleft, "<="),e2); :}
+	|
+	expr:e1 GT:g expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(gleft, ">"),e2); :}
+	|
+	expr:e1 GTE:g expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(gleft, ">="),e2); :}
+	|
+	expr:e1 EQUAL:e expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(eleft, "=="),e2); :}
+	|
+	expr:e1 NEQUAL:n expr:e2
+	{: RESULT = new AST_EXP_BINOP(e1left, e1,new AST_EXP_OP_BINOP(nleft, "!="),e2); :}
+	|
+	literal:l
+	{: RESULT=l; :}
+	|
+	LP:l expr:e RP
+	{: RESULT = new AST_EXP_PARENTHESES(lleft, e); :}
+	;
+	
+call ::=
+	virtualCall:vc
+	{: RESULT = vc; :}
+	;
+
+virtualCall ::=
+	expr:obj DOT ID:func LP RP
+	{: RESULT = new AST_EXP_CALL_VIRTUAL(objleft, obj, new AST_EXP_VAR_SIMPLE(funcleft, func), null); :}
+	|
+	expr:obj DOT ID:func LP expr_list:l RP
+	{: RESULT = new AST_EXP_CALL_VIRTUAL(objleft, obj, new AST_EXP_VAR_SIMPLE(funcleft, func), l); :}
+	|
+	ID:func LP RP
+	{: RESULT = new AST_EXP_CALL_VIRTUAL(funcleft, null, new AST_EXP_VAR_SIMPLE(funcleft, func), null); :}
+	|
+	ID:func LP expr_list:l RP
+	{: RESULT = new AST_EXP_CALL_VIRTUAL(funcleft, null, new AST_EXP_VAR_SIMPLE(funcleft, func), l); :}
+	;
+
+expr_list ::=
+	expr:e
+	{: AST_EXP_LIST el = new AST_EXP_LIST(eleft); el.add(e); RESULT = el; :}
+	|
+	expr_list:el COMMA expr:e
+	{: el.add(e); RESULT=el; :}
+	;
+	
+location ::=
+	ID:id
+	{: RESULT = new AST_EXP_VAR_SIMPLE(idleft, id); :}
+	|
+	expr:e DOT ID:id
+	{: RESULT = new AST_EXP_VAR_FIELD(eleft, e, new AST_EXP_VAR_SIMPLE(idleft, id)); :}
+	|
+	expr:arr LB expr:where RB
+	{: RESULT = new AST_EXP_VAR_SUBSCRIPT(arrleft, arr, where); :}
+	;
+	
+binop ::=
+	PLUS:p
+	{: RESULT = new AST_EXP_OP_BINOP(pleft, "+"); :}
+	|
+	MINUS:m
+	{: RESULT = new AST_EXP_OP_BINOP(mleft, "-"); :}
+	|
+	MULTIPLY:m
+	{: RESULT = new AST_EXP_OP_BINOP(mleft, "*"); :}
+	|
+	DIVIDE:d
+	{: RESULT = new AST_EXP_OP_BINOP(dleft, "/"); :}
+	|
+	LT:l
+	{: RESULT = new AST_EXP_OP_BINOP(lleft, "<"); :}
+	|
+	LTE:l
+	{: RESULT = new AST_EXP_OP_BINOP(lleft, "<="); :}
+	|
+	GT:g
+	{: RESULT = new AST_EXP_OP_BINOP(gleft, ">"); :}
+	|
+	GTE:g
+	{: RESULT = new AST_EXP_OP_BINOP(gleft, ">="); :}
+	|
+	EQUAL:e
+	{: RESULT = new AST_EXP_OP_BINOP(eleft, "=="); :}
+	|
+	NEQUAL:n
+	{: RESULT = new AST_EXP_OP_BINOP(nleft, "!="); :}
+	;
+	
+literal ::=
+	INTEGER:i
+	{: RESULT = new AST_EXP_LITERAL_INT(ileft, i); :}
+	|
+	QUOTE:str
+	{: RESULT = new AST_EXP_LITERAL_STRING(strleft, str); :}
+	|
+	NULL:n
+	{: RESULT = new AST_EXP_LITERAL_NULL(nleft); :}
+	;
