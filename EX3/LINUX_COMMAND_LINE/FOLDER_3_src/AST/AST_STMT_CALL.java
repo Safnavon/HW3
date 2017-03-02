@@ -21,4 +21,8 @@ public class AST_STMT_CALL extends AST_STMT {
         T_Exp ir = call != null ? call.isValid().IR : null;
         return new IR_TYPE_WRAPPER(null, ir);//TODO
     }
+
+    public T_Exp buildIr(){
+        return call.buildIr();
+    }
 }

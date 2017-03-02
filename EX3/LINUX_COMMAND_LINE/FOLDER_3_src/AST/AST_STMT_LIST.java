@@ -28,4 +28,11 @@ public class AST_STMT_LIST extends AST_STMT {
         T_Seq seq = new T_Seq(headIr,tailIr);
         return new IR_TYPE_WRAPPER(null, seq);
     }
+
+    public T_Seq buildIr(){
+        return new T_Seq(
+                head.buildIr(),
+                tail == null ? null : tail.buildIr()
+        );
+    }
 }
