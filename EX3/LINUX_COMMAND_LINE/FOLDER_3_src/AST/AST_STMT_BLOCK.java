@@ -1,4 +1,5 @@
 package AST; import IR.T_Exp;
+import IR.T_Seq;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
@@ -20,6 +21,13 @@ public class AST_STMT_BLOCK extends AST_STMT
         T_Exp ir = stmts.isValid(expectedReturnValue).IR;
         SymbolTable.closeScope();
 		return new IR_TYPE_WRAPPER(null,ir);
+	}
+
+	public T_Seq buildIr(){
+		IRUtils.openScope();
+		T_Seq seq = stmts.buildIr();
+		IRUtils.closeScope();
+		return seq;
 	}
 
 }

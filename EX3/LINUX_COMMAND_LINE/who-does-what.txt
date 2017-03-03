@@ -11,11 +11,11 @@ ast:
     AST_EXP_NEW_INSTANCE
     AST_EXP_NULL
     AST_EXP_STRING - nitzan
-    AST_EXP_VAR
+    AST_EXP_VAR - nitzan
     AST_FIELD - nitzan
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
-    AST_METHOD_CALL - dror
+    AST_METHOD_CALL - nitzan
     AST_METHOD_DECLARE - nitzan
     AST_Node
     AST_PROGRAM - dror
@@ -40,12 +40,12 @@ ast:
 
 cgen:
     T_Binop - dror - done
-    T_Call
+    T_Call - nitzan
     T_CJump - dror - done
     T_Const - dror
     T_Exp
     T_ExpList
-    T_Function
+    T_Function - nitzan
     T_JumpLabel
     T_JumpRegister
     T_Label - dror - done
