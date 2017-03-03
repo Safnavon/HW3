@@ -36,9 +36,11 @@ public class AST_CLASS_BODY extends AST_Node
 		throw new Error("unimplemented");
 	}
 
-	public T_Exp buildIr(){
+	//only CLASS_DECLARE uses CLASS_BODY and buildIR called directly from there.
+	public T_Exp buildIr() throws Exception{
 
-		return new T_Seq(this.first.buildIr(),this.rest.buildIr());
+		throw (new Error("buildIr is not defined for AST_CLASS_BODY"));
+		//return new T_Seq(this.first.buildIr(),this.rest.buildIr());
 	}
 
 
