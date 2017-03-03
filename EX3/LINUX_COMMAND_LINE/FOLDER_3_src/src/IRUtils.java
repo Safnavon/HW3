@@ -17,7 +17,7 @@ public class IRUtils {
         scopeStack = new LinkedList<Var>();
     }
 
-    private static Var getVar(String key) {
+    public static Var getVar(String key) {
         LinkedList<Var> matches = (LinkedList<Var>) varTable.get(key);
         if (matches != null) {
             Var symbol;
@@ -30,7 +30,8 @@ public class IRUtils {
         return null;
     }
 
-    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope, int offset) {
+    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
+        int offset = IRUtils.getOffset();
         Var newSymbol = new Var(name, type, scope, offset);
         LinkedList<Var> lst = varTable.get(name);
         if (lst == null) {
