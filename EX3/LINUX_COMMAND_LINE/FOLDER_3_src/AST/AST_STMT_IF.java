@@ -35,4 +35,14 @@ public class AST_STMT_IF extends AST_STMT
 //		return new IR_TYPE_WRAPPER(null,s1); //TODO
         throw new Error("TODO");
 	}
+
+	public T_Exp buildIr(){
+
+		T_Temp expVal = cond.buildIr();
+		T_Label label = new T_Label("EndIf");
+		T_Exp bodyIr = body.buildIr();
+		T_CJump jumpIr = new T_CJump(expVal, label);
+		return new T_Seq(jumpIr,new T_Seq(bodyIr,label));
+
+	}
 }
