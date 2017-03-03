@@ -38,7 +38,7 @@ public class AST_STMT_IF extends AST_STMT
 
 	public T_Exp buildIr(){
 
-		T_Temp expVal = cond.buildIr();
+		T_Exp expVal = cond.buildIr();
 		T_Label label = new T_Label("EndIf");
 		T_Exp bodyIr = body.buildIr();
 		T_CJump jumpIr = new T_CJump(expVal, label);

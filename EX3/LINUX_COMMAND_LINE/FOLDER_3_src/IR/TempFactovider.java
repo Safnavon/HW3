@@ -15,4 +15,5 @@ public class TempFactovider {
     public static String newLabel(String suffix) {
         return "Label_" + label_no++ + ((suffix != null && !suffix.isEmpty()) ? ("_" + suffix) : "");
     }
+
 }

@@ -1,6 +1,11 @@
-package AST; import src.ClassChecker;
+package AST; import IR.T_Exp;
+import IR.T_Seq;
+import src.ClassChecker;
+import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
+
+import java.util.ArrayList;
 
 public class AST_CLASS_DECLARE extends AST_Node
 {
@@ -33,5 +38,36 @@ public class AST_CLASS_DECLARE extends AST_Node
 		SymbolTable.closeScope();
 		
 		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null); //TODO
+	}
+
+	public T_Exp buildIr() throws Exception{
+		IRUtils.openScope();
+
+		ArrayList<T_Exp> methods= new ArrayList<T_Exp>();
+		AST_CLASS_BODY_ITEM item;
+		while ((item=this.body.first)!=null){
+			if(this.body.first.getClass().equals(AST_FIELD.class)){
+				item.buildIr();
+			}
+			else{
+				methods.add(item.buildIr());
+			}
+		}
+		IRUtils.closeScope();
+
+		if (methods.size()==0){
+			return null;
+		}
+		if(methods.size()==1){
+			return methods.get(0);
+		}
+		else{
+			T_Seq method_seq = new T_Seq(methods.get(0),methods.get(1));
+			for (int i=2;i<methods.size();i++){
+				method_seq = new T_Seq(method_seq,methods.get(i));
+			}
+			return method_seq;
+		}
+
 	}
 }
