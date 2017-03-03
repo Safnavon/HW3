@@ -17,6 +17,7 @@ public class AST_EXP_INT extends AST_EXP
 
 	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT), new T_Const(value)) ;
+		computedType = new AST_TYPE_TERM(TYPES.INT);
+		return new IR_TYPE_WRAPPER(computedType, new T_Const(value)) ;
 	}
 }

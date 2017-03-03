@@ -15,6 +15,7 @@ public class AST_EXP_STRING extends AST_EXP {
 	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
 		//TODO in the mips simulator, string labels must be prefixed with String_
-		return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.STRING), null); //TODO
+		computedType = new AST_TYPE_TERM(TYPES.STRING);
+		return new IR_TYPE_WRAPPER(computedType, null); //TODO
 	}
 }
