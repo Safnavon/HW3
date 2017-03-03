@@ -3,7 +3,7 @@ ast:
     AST_CLASS_BODY_ITEM - asaf
     AST_CLASS_DECLARE
     AST_EXP
-    AST_EXP_BINOP
+    AST_EXP_BINOP - dror - done
     AST_EXP_CALL - ??? - done?
     AST_EXP_INT
     AST_EXP_LIST
