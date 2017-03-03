@@ -15,7 +15,7 @@ public abstract class AST_CLASS_BODY_ITEM extends AST_Node {
 	}
 
 	public T_Exp buildIr()throws Exception {
-		throw (new Error("isValid is not defined for AST_CLASS_BODY_ITEM"));
+		throw (new Error("buildIr is not defined for AST_CLASS_BODY_ITEM"));
 
 	}
 }

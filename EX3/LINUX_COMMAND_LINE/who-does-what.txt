@@ -3,13 +3,13 @@ ast:
     AST_CLASS_BODY_ITEM - asaf
     AST_CLASS_DECLARE
     AST_EXP
-    AST_EXP_BINOP
+    AST_EXP_BINOP - dror - done
     AST_EXP_CALL - ??? - done?
-    AST_EXP_INT
-    AST_EXP_LIST
+    AST_EXP_INT - dror - done
+    AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY
     AST_EXP_NEW_INSTANCE
-    AST_EXP_NULL
+    AST_EXP_NULL - dror
     AST_EXP_STRING - nitzan
     AST_EXP_VAR - nitzan - done
     AST_FIELD - asaf

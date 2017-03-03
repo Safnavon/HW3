@@ -1,6 +1,7 @@
 package AST;
 
 import AST.AST_EXP;
+import IR.T_Temp;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
@@ -25,5 +26,6 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
         computedType = new AST_TYPE_ARRAY(type);
         return new IR_TYPE_WRAPPER(computedType, null); //TODO
     }
+
 
 }
