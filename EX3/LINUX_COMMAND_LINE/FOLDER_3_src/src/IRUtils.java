@@ -30,7 +30,8 @@ public class IRUtils {
         return null;
     }
 
-    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope, int offset) {
+    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
+        int offset = IRUtils.getOffset();
         Var newSymbol = new Var(name, type, scope, offset);
         LinkedList<Var> lst = varTable.get(name);
         if (lst == null) {
