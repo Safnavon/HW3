@@ -17,7 +17,7 @@ public class IRUtils {
         scopeStack = new LinkedList<Var>();
     }
 
-    private static Var getVar(String key) {
+    public static Var getVar(String key) {
         LinkedList<Var> matches = (LinkedList<Var>) varTable.get(key);
         if (matches != null) {
             Var symbol;
