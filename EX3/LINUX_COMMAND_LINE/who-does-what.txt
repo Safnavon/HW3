@@ -15,7 +15,7 @@ ast:
     AST_FIELD - nitzan
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
-    AST_METHOD_CALL - dror
+    AST_METHOD_CALL - nitzan
     AST_METHOD_DECLARE - nitzan
     AST_Node
     AST_PROGRAM - dror
