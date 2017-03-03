@@ -1,4 +1,7 @@
-package AST; import src.ClassChecker;
+package AST; import IR.T_Exp;
+import IR.T_Seq;
+import IR.T_Temp;
+import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
@@ -22,5 +25,21 @@ public class AST_FIELD extends AST_CLASS_BODY_ITEM
 		}
 		ClassChecker.addFields(className, this);
 		return new IR_TYPE_WRAPPER(null, null); //TODO
+	}
+
+	@Override
+	public T_Exp buildIr() throws Exception {
+
+		for (String name : names) {
+			if(type.getClass()==AST_TYPE_SIMPLE.class){
+				AST_TYPE_SIMPLE typeSimple = (AST_TYPE_SIMPLE)type;
+
+			}
+		}
+
+
+
+
+		return null;
 	}
 }
