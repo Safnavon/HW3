@@ -2,7 +2,6 @@ package AST; import IR.*;
 import IR.BINOPS;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
 
 public class AST_VAR_FIELD extends AST_VAR
 {
@@ -36,4 +35,20 @@ public class AST_VAR_FIELD extends AST_VAR
 		return new IR_TYPE_WRAPPER(fieldType, memNode);
 	}
 
+	@Override
+	public T_Exp buildIr() {
+
+		AST_TYPE_CLASS expClass = (AST_TYPE_CLASS) exp.computedType;
+		int offset;
+		try {
+			offset = ClassChecker.getFieldOffset(expClass.name, fieldName);
+		} catch (Exception e) {
+			throw new RuntimeException("invalid field");
+		}
+
+		T_Relop relop = new T_Relop(RELOPS.EQUAL, exp.buildIr(), new T_Const(0));
+		T_CJump accessViolationCheck = new T_CJump(relop, new T_Label("access_check_failed"));
+		T_Binop binop = new T_Binop(BINOPS.PLUS, exp.buildIr(), new T_Const(offset * 4));
+		return new T_Seq(accessViolationCheck, new T_Mem(binop));
+	}
 }
