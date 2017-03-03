@@ -14,11 +14,11 @@ public class AST_EXP_NEW_INSTANCE extends AST_EXP {
 
 	@Override
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		AST_TYPE type = SymbolTable.get(className);
-		if ( type == null || !type.getClass().equals(AST_TYPE_CLASS.class) ){
+		computedType = SymbolTable.get(className);
+		if ( computedType == null || !computedType.getClass().equals(AST_TYPE_CLASS.class) ){
 			throw new Exception("cannot create new instance of type " + className);
 		}
-		return new IR_TYPE_WRAPPER(type, null) ;//TODO
+		return new IR_TYPE_WRAPPER(computedType, null) ;//TODO
 	}
 
 }

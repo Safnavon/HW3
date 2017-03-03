@@ -45,4 +45,11 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		T_Move moveNode = new T_Move(expNode, varMem);
 		return new IR_TYPE_WRAPPER(null, moveNode);
 	}
+
+	@Override
+	public T_Exp buildIr() {
+		T_Exp varMem = var.buildIr();
+		T_Exp expNode = exp.buildIr();
+		return new T_Move(expNode, varMem);
+	}
 }
