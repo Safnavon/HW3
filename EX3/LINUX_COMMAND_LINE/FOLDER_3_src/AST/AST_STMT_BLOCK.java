@@ -1,6 +1,7 @@
 package AST; import IR.T_Exp;
 import IR.T_Seq;
 import src.ClassChecker;
+import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 

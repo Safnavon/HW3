@@ -12,6 +12,8 @@ public class AST_EXP_VAR extends AST_EXP
 	}
 	
 	public IR_TYPE_WRAPPER isValid() throws Exception {
-		return var.isValid();
+        IR_TYPE_WRAPPER wrapper = var.isValid();
+        computedType = wrapper.type;
+		return wrapper;
 	}
 }

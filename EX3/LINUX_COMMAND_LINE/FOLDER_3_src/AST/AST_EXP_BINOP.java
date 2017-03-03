@@ -25,7 +25,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		l = (AST_TYPE_CLASS) leftClass;
 		r = (AST_TYPE_CLASS) rightClass;
 		if(l.isExtending(r) || r.isExtending(l)){
-			return new IR_TYPE_WRAPPER(new AST_TYPE_TERM(TYPES.INT),null);
+			computedType = new AST_TYPE_TERM(TYPES.INT);
+			return new IR_TYPE_WRAPPER(computedType,null);
 		}
 		else{
 			throw new Exception("Tried to compare type "+l.name+" with type "+r.name);
