@@ -1,6 +1,9 @@
-package AST; import src.ClassChecker;
-import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
+package AST; import IR.*;
+import IR.BINOPS;
+import src.*;
+import src.IRUtils;
+
+import java.util.ArrayList;
 
 public class AST_STMT_DECLARE extends AST_STMT
 {
@@ -38,5 +41,13 @@ public class AST_STMT_DECLARE extends AST_STMT
 		}
 		SymbolTable.put(name, type);
 		return new IR_TYPE_WRAPPER(null,null);//TODO
+	}
+
+	public T_Exp buildIr() {
+		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL, IRUtils.getOffset());
+		ArrayList<T_Exp> seq = new ArrayList<>();
+		T_Binop temp = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
+		T_Move first = new T_Move(new T_Temp("$sp"), temp);
+
 	}
 }
