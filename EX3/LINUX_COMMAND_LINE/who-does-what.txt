@@ -12,7 +12,7 @@ ast:
     AST_EXP_NULL - dror - done
     AST_EXP_STRING - nitzan
     AST_EXP_VAR - nitzan - done
-    AST_FIELD - asaf
+    AST_FIELD - asaf the big - done
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
     AST_METHOD_CALL - nitzan
@@ -24,10 +24,10 @@ ast:
     AST_STMT_BLOCK - dror - done
     AST_STMT_CALL - dror - done
     AST_STMT_DECLARE - nitzan - done
-    AST_STMT_IF - asaf the big
+    AST_STMT_IF - asaf the big - done
     AST_STMT_LIST - dror - done
     AST_STMT_RETURN
-    AST_STMT_WHILE
+    AST_STMT_WHILE - asaf the big - done
     AST_TYPE
     AST_TYPE_ARRAY
     AST_TYPE_CLASS
