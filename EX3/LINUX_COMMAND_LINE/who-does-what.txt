@@ -8,8 +8,8 @@ ast:
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY
-    AST_EXP_NEW_INSTANCE
-    AST_EXP_NULL - dror
+    AST_EXP_NEW_INSTANCE - dror
+    AST_EXP_NULL - dror - done
     AST_EXP_STRING - nitzan
     AST_EXP_VAR - nitzan - done
     AST_FIELD - asaf
