@@ -54,21 +54,20 @@ public class AST_CLASS_DECLARE extends AST_Node
 				methods.add(item.buildIr());
 			}
 		}
-		IRUtils.closeScope();
+		T_Exp res = null;
 
-		if (methods.size()==0){
-			return null;
-		}
 		if(methods.size()==1){
-			return methods.get(0);
+			res = methods.get(0);
 		}
-		else{
+		else if(methods.size() > 1){
 			T_Seq method_seq = new T_Seq(methods.get(0),methods.get(1));
 			for (int i=2;i<methods.size();i++){
 				method_seq = new T_Seq(method_seq,methods.get(i));
 			}
-			return method_seq;
+			res = method_seq;
 		}
 
+		IRUtils.closeScope();
+		return res;
 	}
 }
