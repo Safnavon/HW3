@@ -26,7 +26,7 @@ ast:
     AST_STMT_DECLARE - nitzan - done
     AST_STMT_IF - asaf the big - done
     AST_STMT_LIST - dror - done
-    AST_STMT_RETURN
+    AST_STMT_RETURN  nitzan
     AST_STMT_WHILE - asaf the big - done
     AST_TYPE
     AST_TYPE_ARRAY
