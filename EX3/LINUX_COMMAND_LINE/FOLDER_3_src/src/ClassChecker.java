@@ -33,7 +33,7 @@ public class ClassChecker {
         public Function(AST_METHOD_DECLARE method, String className) {
             this.method = method;
             //IR
-            this.funcLabel = new T_Label(className + "_Function_" + method.name);
+            this.funcLabel = new T_Label(className + "_Function_" + method.name,true);
         }
 
         public boolean isSameArgsTypes(List<AST_TYPE> types) throws Exception {
@@ -81,8 +81,6 @@ public class ClassChecker {
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
         public LinkedList<Field> fields = new LinkedList<Field>();
-        //IR
-        public T_Label classTableLabel = null;
 
         public Class(AST_CLASS_DECLARE cDec, Class parent) {
             this.name = cDec.name;
@@ -94,8 +92,6 @@ public class ClassChecker {
                 }
                 this.fields.addAll(parent.fields);
             }
-            //IR
-            this.classTableLabel = new T_Label("ClassTable_" + this.name);
         }
 
         void addFunction(AST_METHOD_DECLARE f) throws Exception {
@@ -286,6 +282,11 @@ public class ClassChecker {
 //        }
 //    }
 
+    /**
+     *
+     * @return label of main class
+     * @throws Exception when program implements more or less than one main function
+     */
     public static T_Label ensureOneMain() throws Exception {
         List<AST_TYPE> args = new ArrayList<AST_TYPE>();
         Class mainClass = null;
@@ -313,7 +314,7 @@ public class ClassChecker {
         if (mainClass == null) {
             throw e;
         }
-        return mainClass.classTableLabel;
+        return mainClass.getFunctionByName("main").funcLabel;
     }
 
     /**
