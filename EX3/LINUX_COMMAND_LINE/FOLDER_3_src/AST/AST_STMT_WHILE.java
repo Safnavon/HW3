@@ -1,4 +1,5 @@
-package AST; import src.ClassChecker;
+package AST; import IR.*;
+import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
@@ -26,9 +27,18 @@ public class AST_STMT_WHILE extends AST_STMT
 		return new IR_TYPE_WRAPPER(null,null);//TODO
 	}
 
-/*	@Override
-	public AST_TYPE isValid() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+	@Override
+	public T_Exp buildIr() throws Exception {
+
+		T_Exp expVal = cond.buildIr();
+		T_Label labelStart = new T_Label("StartWhile",true);
+		T_Label labelEnd = new T_Label("EndWhile",true);
+		T_Exp bodyIr = body.buildIr();
+		T_JumpLabel jumpStart = new T_JumpLabel(labelStart);
+		T_CJump jumpEnd = new T_CJump(expVal, labelEnd);
+
+		return new T_Seq(labelStart,new T_Seq(jumpEnd,new T_Seq(bodyIr,new T_Seq(jumpStart,labelEnd))));
+	}
 }
+
+

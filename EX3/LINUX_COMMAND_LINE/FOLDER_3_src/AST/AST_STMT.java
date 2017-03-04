@@ -10,7 +10,7 @@ public abstract class AST_STMT extends AST_Node
 		throw new Error("isValid(AST_TYPE expectedReturnValue) is not implemented for this type of AST_STMT");
 	}
 
-	public T_Exp buildIr(){
+	public T_Exp buildIr() throws Exception{
 		throw new Error("AST.AST_STMT.buildIr not implemented for this type of AST_STMT");
 	}
 }
