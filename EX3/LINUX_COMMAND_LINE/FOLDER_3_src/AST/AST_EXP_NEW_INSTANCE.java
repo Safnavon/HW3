@@ -1,9 +1,12 @@
 package AST;
 
 import IR.*;
+import IR.BINOPS;
 import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
+
+import java.util.ArrayList;
 
 
 public class AST_EXP_NEW_INSTANCE extends AST_EXP {
@@ -23,16 +26,23 @@ public class AST_EXP_NEW_INSTANCE extends AST_EXP {
         return new IR_TYPE_WRAPPER(computedType, null);//TODO
     }
 
-    public T_Temp buildIr() {
+    public T_ESeq buildIr() {
+        ArrayList<T_Exp> exps = new ArrayList<T_Exp>();
         //prepare leaves
         T_Temp result = new T_Temp("new" + this.className, true);
         T_Malloc malloc = new T_Malloc(ClassChecker.sizeOf(this.className));
         T_Label vftLabel = new T_Label("VFTable_" + this.className);
         T_Const zero = new T_Const(0);
         //
-        T_Move move = new T_Move(result, malloc);
 
-        throw new Error("WIP");
+        exps.add(new T_Move(result, malloc));
+        exps.add(new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, result, zero)), vftLabel));
+        for (int i = 1; i < ClassChecker.sizeOf(this.className); i++) {
+            exps.add(new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, result, new T_Const(i * 4))), zero));
+        }
+        //throw new Error("WIP");
+        exps.add(result);
+        return new T_ESeq(exps);
     }
 
 }

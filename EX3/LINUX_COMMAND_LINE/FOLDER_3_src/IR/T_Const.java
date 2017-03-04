@@ -1,5 +1,7 @@
 package IR;
 
+import src.CGen;
+
 public class T_Const implements T_Exp {
 	public int value;
 
@@ -9,6 +11,11 @@ public class T_Const implements T_Exp {
 
 	@Override
 	public T_Temp gen() {
-		throw new Error("unimplemented");
+		T_Temp temp = new T_Temp();
+        CGen.append(String.format(
+                "\tli\t%1$s, %2$s%n",
+                temp,value
+        ));
+        return temp;
 	}
 }
