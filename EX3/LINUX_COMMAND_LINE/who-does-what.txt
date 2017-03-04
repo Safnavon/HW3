@@ -1,17 +1,17 @@
 ast:
-    AST_CLASS_BODY - asaf
-    AST_CLASS_BODY_ITEM - asaf
-    AST_CLASS_DECLARE
+    AST_CLASS_BODY - asaf the big - done
+    AST_CLASS_BODY_ITEM - asaf - done
+    AST_CLASS_DECLARE - asaf the big - done
     AST_EXP
     AST_EXP_BINOP - dror - done
     AST_EXP_CALL - ??? - done?
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY
-    AST_EXP_NEW_INSTANCE - dror
-    AST_EXP_NULL - dror - done
+    AST_EXP_NEW_INSTANCE
+    AST_EXP_NULL - dror
     AST_EXP_STRING - nitzan
-    AST_EXP_VAR - nitzan - done
+    AST_EXP_VAR - nitzan
     AST_FIELD - asaf the big - done
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
@@ -35,7 +35,7 @@ ast:
     AST_TYPE_TERM
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
-    AST_VAR_SIMPLE - nitzan - done
+    AST_VAR_SIMPLE - nitzan
     AST_VAR_SUBSCRIPT - nitzan
 
 cgen:
