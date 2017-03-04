@@ -58,22 +58,18 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
         expList.add(loop);
         expList.add(cJumpExit);
 
+        T_Binop address = new T_Binop(BINOPS.PLUS, locationTemp, new T_Binop(BINOPS.PLUS, count, new T_Const(4)));
+        node = new T_Move(new T_Mem(address), new T_Const(0));
+        expList.add(node);
 
-
+        node = new T_Move(count, new T_Binop(BINOPS.PLUS, count, new T_Const(1)));
+        expList.add(node);
 
         expList.add(jumpLoop);
         expList.add(exit);
 
-        T_Binop address = new T_Binop("+", new T_Temp(x), new T_Binop("*", new T_Temp(count), new T_Const(4)));
-        node = new T_Move(new T_Mem(address), new T_Const(0));
-        expList.add(node);
-
-        node = new T_Move(new T_Temp(count), new T_Binop("+", new T_Temp(count), new T_Const(1)));
-        expList.add(node);
-        expList.add(cjump);
-        expList.add(new T_Label(exit));
-
-        return new T_ESeq(expList, new T_Temp(x));
+        expList.add(locationTemp);
+        return new T_ESeq(expList);
 
     }
 
