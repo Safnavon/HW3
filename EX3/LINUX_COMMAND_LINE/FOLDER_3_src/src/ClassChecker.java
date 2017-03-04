@@ -346,7 +346,7 @@ public class ClassChecker {
         return (i) * 4;
     }
 
-    public String generateAllVFTables() {
+    public static String generateAllVFTables() {
         StringBuilder sb = new StringBuilder();
         String nl = String.format("%n");
         for (Class c : map.values()) {
@@ -368,7 +368,7 @@ public class ClassChecker {
      * @param className
      * @return number of bytes to malloc
      */
-    public int sizeOf(String className) {
+    public static int sizeOf(String className) {
         Class c = map.get(className);
         assert c != null;
         return (c.fields.size() + 1) * 4;

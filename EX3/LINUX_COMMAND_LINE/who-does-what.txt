@@ -8,11 +8,11 @@ ast:
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY
-    AST_EXP_NEW_INSTANCE
-    AST_EXP_NULL - dror
+    AST_EXP_NEW_INSTANCE - dror
+    AST_EXP_NULL - dror - done
     AST_EXP_STRING - nitzan
-    AST_EXP_VAR - nitzan
-    AST_FIELD - nitzan
+    AST_EXP_VAR - nitzan - done
+    AST_FIELD - asaf
     AST_FORMAL
     AST_FORMAL_LIST - nitzan
     AST_METHOD_CALL - nitzan
@@ -35,7 +35,7 @@ ast:
     AST_TYPE_TERM
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
-    AST_VAR_SIMPLE - nitzan
+    AST_VAR_SIMPLE - nitzan - done
     AST_VAR_SUBSCRIPT - nitzan
 
 cgen:

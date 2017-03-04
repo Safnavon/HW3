@@ -1,10 +1,7 @@
 package AST; import IR.T_Exp;
 import IR.T_Mem;
 import IR.T_Move;
-import IR.T_Temp;
-import src.ClassChecker;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
 
 public class AST_STMT_ASSIGN extends AST_STMT
 {
@@ -42,7 +39,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		// create IR nodes
 		T_Mem varMem = (T_Mem) varData.IR;
 		T_Exp expNode = expData.IR;
-		T_Move moveNode = new T_Move(expNode, varMem);
+		T_Move moveNode = new T_Move(varMem, expNode);
 		return new IR_TYPE_WRAPPER(null, moveNode);
 	}
 
@@ -50,6 +47,6 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	public T_Exp buildIr() {
 		T_Exp varMem = var.buildIr();
 		T_Exp expNode = exp.buildIr();
-		return new T_Move(expNode, varMem);
+		return new T_Move(varMem, expNode);
 	}
 }

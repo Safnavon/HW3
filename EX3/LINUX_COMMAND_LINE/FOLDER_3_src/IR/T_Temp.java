@@ -8,7 +8,15 @@ public class T_Temp implements T_Exp {
     }
 
     public T_Temp(String specialName) {
-        this.name = specialName;
+        this(specialName, false);
+    }
+
+    public T_Temp(String specialName, boolean forceFactovider) {
+        if (forceFactovider) {
+            this.name = TempFactovider.newTemp() + "$" + specialName;
+        } else {
+            this.name = specialName;
+        }
     }
 
     public String getName() {
@@ -24,7 +32,7 @@ public class T_Temp implements T_Exp {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.getName();
     }
 }

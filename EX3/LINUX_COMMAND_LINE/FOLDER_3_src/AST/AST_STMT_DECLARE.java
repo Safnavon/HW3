@@ -3,8 +3,6 @@ import IR.BINOPS;
 import src.*;
 import src.IRUtils;
 
-import java.util.ArrayList;
-
 public class AST_STMT_DECLARE extends AST_STMT
 {
 	public AST_TYPE type;
@@ -46,7 +44,7 @@ public class AST_STMT_DECLARE extends AST_STMT
 	public T_Exp buildIr() {
 		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL);
 		T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
-		T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
+		T_Move move_sp = new T_Move(addr, new T_Temp("$sp"));
 
 		T_Exp val;
 		if (exp == null) {
@@ -54,8 +52,8 @@ public class AST_STMT_DECLARE extends AST_STMT
 		} else {
 			val = exp.buildIr();
 		}
-		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(IRUtils.getOffset() * (-4)))),
-				val);
+		T_Move move_value = new T_Move(val, new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(IRUtils.getOffset() * (-4))))
+        );
 		return new T_Seq(move_sp, move_value);
 	}
 }

@@ -8,7 +8,6 @@ public class IRUtils {
 
     private static int offset;
 
-
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
 
