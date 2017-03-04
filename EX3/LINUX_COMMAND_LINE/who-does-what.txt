@@ -35,7 +35,7 @@ ast:
     AST_TYPE_TERM
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
-    AST_VAR_SIMPLE - nitzan
+    AST_VAR_SIMPLE - nitzan - done
     AST_VAR_SUBSCRIPT - nitzan
 
 cgen:
