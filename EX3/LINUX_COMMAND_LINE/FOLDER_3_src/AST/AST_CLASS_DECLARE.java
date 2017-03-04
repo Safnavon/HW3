@@ -41,6 +41,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 	}
 
 	public T_Exp buildIr() throws Exception{
+		IRUtils.currentClass = name;
 		IRUtils.openScope();
 
 		ArrayList<T_Exp> methods= new ArrayList<T_Exp>();

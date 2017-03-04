@@ -10,6 +10,7 @@ public class IRUtils {
 
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
+    public static String currentClass;
 
     public static void init() {
         varTable = new HashMap<String, LinkedList<Var> >();

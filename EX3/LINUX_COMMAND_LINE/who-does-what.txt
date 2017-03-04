@@ -13,7 +13,7 @@ ast:
     AST_EXP_STRING - nitzan
     AST_EXP_VAR - nitzan - done
     AST_FIELD - asaf the big - done
-    AST_FORMAL
+    AST_FORMAL - nitzan
     AST_FORMAL_LIST - nitzan
     AST_METHOD_CALL - nitzan
     AST_METHOD_DECLARE - nitzan
