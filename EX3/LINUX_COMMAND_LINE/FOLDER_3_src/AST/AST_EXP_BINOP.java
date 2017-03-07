@@ -79,7 +79,7 @@ public class AST_EXP_BINOP extends AST_EXP {
         if (left.computedType instanceof AST_TYPE_TERM) {
             AST_TYPE_TERM termLeft = (AST_TYPE_TERM) left.computedType;
             if (OP == BINOPS.PLUS && termLeft.type == TYPES.STRING) {
-                return new T_Concat((T_String) left.buildIr(), (T_String) right.buildIr());
+                return new T_Concat( (T_Temp)left.buildIr(), (T_Temp)right.buildIr());
             } else {
                 if (OP == BINOPS.PLUS) {
                     return new T_Binop(IR.BINOPS.PLUS, left.buildIr(), right.buildIr());
