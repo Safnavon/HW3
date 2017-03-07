@@ -56,7 +56,7 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
         resExpList.add(loop);
         resExpList.add(cJumpExit);
 
-        T_Binop address = new T_Binop(BINOPS.PLUS, locationTemp, new T_Binop(BINOPS.PLUS, count, new T_Const(4)));
+        T_Binop address = new T_Binop(BINOPS.PLUS, locationTemp, new T_Binop(BINOPS.TIMES, count, new T_Const(4)));
         resExp = new T_Move(new T_Mem(address), new T_Const(0));
         resExpList.add(resExp);
 
