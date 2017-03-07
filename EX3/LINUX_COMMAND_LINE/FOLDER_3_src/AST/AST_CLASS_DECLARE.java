@@ -40,7 +40,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 		return new IR_TYPE_WRAPPER(new AST_TYPE_CLASS(name), null); //TODO
 	}
 
-	public T_Exp buildIr() throws Exception{
+	public T_Exp buildIr(){
 		IRUtils.currentClass = name;
 		IRUtils.openScope();
 
