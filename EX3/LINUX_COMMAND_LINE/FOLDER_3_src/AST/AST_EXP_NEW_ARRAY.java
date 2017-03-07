@@ -29,14 +29,14 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
         return new IR_TYPE_WRAPPER(computedType, null); //TODO
     }
 
-    public T_Exp buildIr() throws Exception{
+    public T_Exp buildIr(){
 
         // Allocating the array:
         ArrayList<T_Exp> expList = new ArrayList<>();
         T_Temp locationTemp =new T_Temp();
         T_Temp sizeTemp = (T_Temp)size.buildIr();
         ArrayList<T_Exp> expList2 = new ArrayList<>();
-        expList2.add(sizeTemp);
+        //expList2.add(sizeTemp);
         T_Binop bin=new T_Binop(BINOPS.PLUS, sizeTemp, new T_Const(1));
         expList2.add( new T_Binop(BINOPS.TIMES,bin,new T_Const(4)));
         T_ESeq size = new T_ESeq(expList2);
