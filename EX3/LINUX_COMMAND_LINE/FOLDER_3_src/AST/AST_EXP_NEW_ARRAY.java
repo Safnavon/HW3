@@ -8,7 +8,6 @@ import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 import java.util.ArrayList;
 
-
 public class AST_EXP_NEW_ARRAY extends AST_EXP {
 
     public AST_TYPE type;
@@ -30,6 +29,7 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
     }
 
     public T_Exp buildIr(){
+
 
 
         ArrayList<T_Exp> resExpList = new ArrayList<>();
