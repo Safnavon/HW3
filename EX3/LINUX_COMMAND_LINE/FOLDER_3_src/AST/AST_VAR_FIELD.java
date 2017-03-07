@@ -47,7 +47,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		}
 
 		T_Temp expTemp = new T_Temp();
-		T_Move moveExp = new T_Move(exp.buildIr(), expTemp);
+		T_Move moveExp = new T_Move(expTemp, exp.buildIr());
 		T_Relop relop = new T_Relop(RELOPS.EQUAL, expTemp, new T_Const(0));
 		T_CJump accessViolationCheck = new T_CJump(relop, new T_Label("access_violation"));
 

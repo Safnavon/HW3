@@ -1,6 +1,6 @@
-package AST; import src.ClassChecker;
+package AST;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
+import java.util.ArrayList;
 
 public class AST_FORMAL_LIST extends AST_Node
 {
@@ -24,5 +24,16 @@ public class AST_FORMAL_LIST extends AST_Node
 			rest.isValid();
 		}
 		return new IR_TYPE_WRAPPER(null, null); //TODO
+	}
+
+	public ArrayList<AST_FORMAL> toArrayList() {
+		ArrayList<AST_FORMAL> formals = new ArrayList<AST_FORMAL>();
+		formals.add(this.first);
+		AST_FORMAL_LIST rest = this.rest;
+		while (rest != null) {
+			formals.add(rest.first);
+			rest = rest.rest;
+		}
+		return formals;
 	}
 }

@@ -6,11 +6,11 @@ import java.util.LinkedList;
 
 public class IRUtils {
 
-    private static int offset;
-
+    private static int offset = 0;
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
     public static String currentClass;
+    public static boolean isInMain = false;
 
     public static void init() {
         varTable = new HashMap<String, LinkedList<Var> >();
@@ -30,8 +30,7 @@ public class IRUtils {
         return null;
     }
 
-    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
-        int offset = IRUtils.getOffset();
+    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope, int offset) {
         Var newSymbol = new Var(name, type, scope, offset);
         LinkedList<Var> lst = varTable.get(name);
         if (lst == null) {
@@ -40,6 +39,11 @@ public class IRUtils {
         }
         lst.addFirst(newSymbol);
         scopeStack.addFirst(newSymbol);
+    }
+
+    public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
+        int offset = IRUtils.getOffset();
+        pushVar(name, type, scope, offset);
     }
 
     private static void remove(Var symbol) {
@@ -62,6 +66,10 @@ public class IRUtils {
 
     public static int getOffset() {
         return offset;
+    }
+
+    public static void resetOffset() {
+        offset = 0;
     }
 }
 
