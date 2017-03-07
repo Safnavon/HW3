@@ -4,14 +4,14 @@ ast:
     AST_CLASS_DECLARE - asaf the big - done
     AST_EXP
     AST_EXP_BINOP - dror - done
-    AST_EXP_CALL - ??? - done?
+    AST_EXP_CALL - nitzan
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY - asaf - done
     AST_EXP_NEW_INSTANCE - dror - done
     AST_EXP_NULL - dror - done
-    AST_EXP_STRING - nitzan
-    AST_EXP_VAR - nitzan
+    AST_EXP_STRING - asaf the big - done
+    AST_EXP_VAR - nitzan - done
     AST_FIELD - asaf the big - done
     AST_FORMAL - nitzan
     AST_FORMAL_LIST - nitzan
@@ -26,7 +26,7 @@ ast:
     AST_STMT_DECLARE - nitzan - done
     AST_STMT_IF - asaf the big - done
     AST_STMT_LIST - dror - done
-    AST_STMT_RETURN  nitzan
+    AST_STMT_RETURN - nitzan
     AST_STMT_WHILE - asaf the big - done
     AST_TYPE
     AST_TYPE_ARRAY
@@ -54,7 +54,8 @@ cgen:
     T_Relop
     T_Seq - dror - done
     T_Temp - dror - done
-    T_Malloc = dror - done
+    T_Malloc - dror - done
+    T_Concat - dror
 misc:
     class checker support for function tables - dror - done
     class checker offsets - dror - done
