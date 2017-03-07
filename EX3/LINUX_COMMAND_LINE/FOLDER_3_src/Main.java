@@ -48,8 +48,7 @@ public class Main
 			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
 			program.isValidProgram();
 			T_Seq progIr = program.buildProgram();
-			progIr.gen();//fills up data into CGen
-			CGen.done();//TODO maybe this function returns a string?
+			CGen.gen(progIr);//TODO maybe this function returns a string?
 
 
 			/**************************/
