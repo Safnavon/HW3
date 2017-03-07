@@ -51,6 +51,12 @@ cgen:
     T_Temp - dror - done
     T_Malloc - dror - done
     T_Concat - dror
+    T_Exit - nitzan - done
+    T_PrintInt -
+
+program prologue:
+    exit on access violation (access violation label)
+
 misc:
     class checker support for function tables - dror - done
     class checker offsets - dror - done
