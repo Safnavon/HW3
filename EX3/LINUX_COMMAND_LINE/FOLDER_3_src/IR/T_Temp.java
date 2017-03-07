@@ -28,7 +28,7 @@ public class T_Temp implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        throw new Error("unimplemented");//Dror thinks this should stay like this
+        return this;
     }
 
     @Override

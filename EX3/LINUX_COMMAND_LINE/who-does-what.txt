@@ -7,10 +7,10 @@ ast:
     AST_EXP_CALL - ??? - done?
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
-    AST_EXP_NEW_ARRAY
-    AST_EXP_NEW_INSTANCE
-    AST_EXP_NULL - dror
-    AST_EXP_STRING -
+    AST_EXP_NEW_ARRAY - asaf - done
+    AST_EXP_NEW_INSTANCE - dror - done
+    AST_EXP_NULL - dror - done
+    AST_EXP_STRING - nitzan
     AST_EXP_VAR - nitzan
     AST_FIELD - asaf the big - done
     AST_FORMAL - nitzan

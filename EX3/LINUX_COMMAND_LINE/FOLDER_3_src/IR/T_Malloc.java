@@ -4,9 +4,13 @@ import src.CGen;
 
 public class T_Malloc implements T_Exp {
 
-    int size;
+    T_Exp size;
 
     public T_Malloc(int size) {
+        this.size = new T_Const(size);
+    }
+
+    public T_Malloc(T_Exp size) {
         this.size = size;
     }
 
@@ -17,12 +21,13 @@ public class T_Malloc implements T_Exp {
     @Override
     public T_Temp gen() {
         T_Temp res = new T_Temp();
+        T_Temp size = this.size.gen();
         CGen.append(String.format(
                 "\tli\t$v0, 9%n"+
-                "\tli\t$a0, %1$d%n"+
+                "\taddi\t$a0, %1$s, 0%n"+
                 "\t\tsyscall%n"+
                 "\taddi\t%2$s, $v0, 0%n",
-                this.size, res
+                size, res
         ));
         return res;
     }
