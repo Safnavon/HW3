@@ -18,7 +18,7 @@ ast:
     AST_METHOD_CALL - nitzan
     AST_METHOD_DECLARE - nitzan
     AST_Node
-    AST_PROGRAM - dror
+    AST_PROGRAM - dror - done
     AST_STMT - dror - done
     AST_STMT_ASSIGN - nitzan -done
     AST_STMT_BLOCK - dror - done
@@ -36,7 +36,7 @@ ast:
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
     AST_VAR_SIMPLE - nitzan - done
-    AST_VAR_SUBSCRIPT - asaf
+    AST_VAR_SUBSCRIPT - asaf the big - done
 
 cgen:
     T_Binop - dror - done

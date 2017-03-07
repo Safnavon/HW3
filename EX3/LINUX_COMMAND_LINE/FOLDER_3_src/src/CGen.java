@@ -19,9 +19,20 @@ public class CGen {
      * call when done writing (can return the code or close file...)
      */
     public static void done(){
+
+
         throw new Error("unimplemented");
     }
 
+    public static void gen(T_Seq program){
+        String nl = String.format("%n");
+        append(".data"+nl);
+        append(ClassChecker.generateAllVFTables() + nl);
+        //TODO strings
+        append(".text"+nl);
+        program.gen();//calls append
+
+    }
 
 
 

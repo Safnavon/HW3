@@ -1,7 +1,10 @@
 import AST.*;
 import java.io.*;
 import java.io.PrintWriter;
+
+import IR.T_Seq;
 import java_cup.runtime.Symbol;
+import src.CGen;
 import src.SymbolTable;
 public class Main
 {
@@ -43,14 +46,11 @@ public class Main
 			/* [5] Main reading tokens loop */
 			/********************************/
 			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
-
-		//	while (program != null)
-		//	{
-			//	System.out.print(program.PrintMe());
-				//System.out.print("\n");
-			//	program = program.rest;
-		//	}
 			program.isValidProgram();
+			T_Seq progIr = program.buildProgram();
+			CGen.gen(progIr);//TODO maybe this function returns a string?
+
+
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
