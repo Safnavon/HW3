@@ -42,7 +42,7 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 	}
 
 	@Override
-	public T_Exp buildIr() throws Exception {
+	public T_Exp buildIr() {
 		IRUtils.resetOffset();
 		IRUtils.isInMain = name.equals("main");
 		T_Label funcLable = new T_Label(IRUtils.currentClass + "_" + name, true);

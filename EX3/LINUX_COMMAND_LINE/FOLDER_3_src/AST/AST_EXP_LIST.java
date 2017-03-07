@@ -21,7 +21,7 @@ public class AST_EXP_LIST extends AST_Node {
 		return new IR_TYPE_WRAPPER(null, new T_ExpList(firstIR.IR,(T_ExpList) restIR.IR));
 	}
 
-	public T_Seq buildIr(){
-		return new T_Seq(first.buildIr(),rest != null ? rest.buildIr() : null);
+	public T_ExpList buildIr(){
+		return new T_ExpList(first.buildIr(),rest != null ? rest.buildIr() : null);
 	}
 }

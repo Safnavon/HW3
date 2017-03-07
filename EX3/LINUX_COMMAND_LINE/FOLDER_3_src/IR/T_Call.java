@@ -1,11 +1,11 @@
 package IR;
 
 public class T_Call implements T_Exp {
-    public T_Label name;
+    public T_Temp methodAddrReg;
     public T_ExpList args;
 
-    public T_Call(T_Label name, T_ExpList args) {
-        this.name = name;
+    public T_Call(T_Temp reg, T_ExpList args) {
+        this.methodAddrReg = reg;
         this.args = args;
     }
 

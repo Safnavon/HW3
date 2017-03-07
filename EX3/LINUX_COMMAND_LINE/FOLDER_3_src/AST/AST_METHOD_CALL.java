@@ -2,9 +2,10 @@ package AST;
 
 import java.util.LinkedList;
 
-import IR.T_Arg;
-import IR.T_Exp;
+import IR.*;
+import IR.BINOPS;
 import src.ClassChecker;
+import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
 
@@ -88,5 +89,36 @@ public class AST_METHOD_CALL extends AST_Node {
         }
         return new IR_TYPE_WRAPPER(returnType, null);//TODO
 
+    }
+
+    public T_Exp buildIr() {
+        T_Exp thisInst;
+        int methodOffset;
+        String thisClass, method;
+
+        if (this.var.getClass().equals(AST_VAR_SIMPLE.class)) {
+            thisInst = new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(0)));
+            thisClass = IRUtils.currentClass;
+            method = ((AST_VAR_SIMPLE) var).name;
+        } else if (this.var.getClass().equals(AST_VAR_FIELD.class)) {
+            AST_VAR_FIELD thisVar = ((AST_VAR_FIELD) var);
+            thisInst = thisVar.exp.buildIr();
+            thisClass = ((AST_TYPE_CLASS) thisVar.exp.computedType).name;
+            method = thisVar.fieldName;
+        } else {
+            throw new Error("invalid METHOD_CALL node");
+        }
+        try {
+            methodOffset = ClassChecker.getFunctionOffset(thisClass, method);
+        } catch (Exception e) {
+            throw new Error("Error: no such method");
+        }
+        T_Exp vfTable = new T_Mem(new T_Binop(BINOPS.PLUS, thisInst, new T_Const(0)));
+        T_Temp methodReg = new T_Temp();
+        T_Move moveAddress = new T_Move(methodReg, new T_Mem(new T_Binop(BINOPS.PLUS, vfTable, new T_Const(methodOffset))));
+
+        T_ExpList expList = (T_ExpList) exps.buildIr();
+
+        return new T_Seq(moveAddress, new T_Call(methodReg, expList));
     }
 }
