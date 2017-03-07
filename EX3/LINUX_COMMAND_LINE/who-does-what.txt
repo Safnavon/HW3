@@ -10,7 +10,7 @@ ast:
     AST_EXP_NEW_ARRAY
     AST_EXP_NEW_INSTANCE
     AST_EXP_NULL - dror
-    AST_EXP_STRING - nitzan
+    AST_EXP_STRING -
     AST_EXP_VAR - nitzan
     AST_FIELD - asaf the big - done
     AST_FORMAL - nitzan
@@ -35,8 +35,8 @@ ast:
     AST_TYPE_TERM
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
-    AST_VAR_SIMPLE - nitzan
-    AST_VAR_SUBSCRIPT - nitzan
+    AST_VAR_SIMPLE - nitzan - done
+    AST_VAR_SUBSCRIPT - asaf
 
 cgen:
     T_Binop - dror - done
