@@ -13,10 +13,10 @@ ast:
     AST_EXP_STRING - asaf the big - done
     AST_EXP_VAR - nitzan - done
     AST_FIELD - asaf the big - done
-    AST_FORMAL - nitzan
-    AST_FORMAL_LIST - nitzan
-    AST_METHOD_CALL - nitzan
-    AST_METHOD_DECLARE - nitzan
+    AST_FORMAL - nitzan - done
+    AST_FORMAL_LIST - nitzan - done
+    AST_METHOD_CALL - nitzan - done
+    AST_METHOD_DECLARE - nitzan - done
     AST_Node
     AST_PROGRAM - dror - done
     AST_STMT - dror - done
@@ -28,11 +28,6 @@ ast:
     AST_STMT_LIST - dror - done
     AST_STMT_RETURN - nitzan
     AST_STMT_WHILE - asaf the big - done
-    AST_TYPE
-    AST_TYPE_ARRAY
-    AST_TYPE_CLASS
-    AST_TYPE_METHOD
-    AST_TYPE_TERM
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
     AST_VAR_SIMPLE - nitzan - done
@@ -44,10 +39,10 @@ cgen:
     T_CJump - dror - done
     T_Const - dror
     T_Exp
-    T_ExpList
+    T_ExpList - nitzan
     T_Function - nitzan
     T_JumpLabel
-    T_JumpRegister
+    T_JumpRegister - nitzan
     T_Label - dror - done
     T_Mem - dror - done
     T_Move
