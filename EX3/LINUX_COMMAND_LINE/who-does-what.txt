@@ -37,7 +37,8 @@ cgen:
     T_Binop - dror - done
     T_Call - nitzan
     T_CJump - dror - done
-    T_Const - dror
+    T_Concat - dror - done
+    T_Const - dror - done
     T_Exp
     T_ExpList - nitzan
     T_Function - nitzan
@@ -50,7 +51,6 @@ cgen:
     T_Seq - dror - done
     T_Temp - dror - done
     T_Malloc - dror - done
-    T_Concat - dror
     T_Exit - nitzan - done
     T_PrintInt -
 
