@@ -52,8 +52,8 @@ public class AST_STMT_DECLARE extends AST_STMT
 		} else {
 			val = exp.buildIr();
 		}
-		T_Move move_value = new T_Move(val, new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(IRUtils.getOffset() * (-4))))
-        );
+//		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(IRUtils.getOffset() * (-4)))), val);
+		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(0))), val);
 		return new T_Seq(move_sp, move_value);
 	}
 }
