@@ -45,13 +45,12 @@ public class AST_CLASS_DECLARE extends AST_Node
 		IRUtils.openScope();
 
 		ArrayList<T_Exp> methods= new ArrayList<T_Exp>();
-		AST_CLASS_BODY_ITEM item;
-		while ((item=this.body.first)!=null){
-			if(this.body.first.getClass().equals(AST_FIELD.class)){
-				item.buildIr();
+		for (AST_CLASS_BODY body = this.body; body != null && body.first != null; body = body.rest){
+			if(body.first.getClass().equals(AST_FIELD.class)){
+				body.first.buildIr();
 			}
 			else{
-				methods.add(item.buildIr());
+				methods.add(body.first.buildIr());
 			}
 		}
 		T_Exp res = null;
