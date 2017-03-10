@@ -4,7 +4,7 @@ ast:
     AST_CLASS_DECLARE - asaf the big - done
     AST_EXP
     AST_EXP_BINOP - dror - done
-    AST_EXP_CALL - nitzan
+    AST_EXP_CALL - nitzan - done
     AST_EXP_INT - dror - done
     AST_EXP_LIST - dror - done
     AST_EXP_NEW_ARRAY - asaf - done
@@ -26,7 +26,7 @@ ast:
     AST_STMT_DECLARE - nitzan - done
     AST_STMT_IF - asaf the big - done
     AST_STMT_LIST - dror - done
-    AST_STMT_RETURN - nitzan
+    AST_STMT_RETURN - nitzan - done
     AST_STMT_WHILE - asaf the big - done
     AST_VAR - nitzan - done
     AST_VAR_FIELD - nitzan - done
@@ -35,18 +35,18 @@ ast:
 
 cgen:
     T_Binop - dror - done
-    T_Call - nitzan
+    T_Call - nitzan - done
     T_CJump - dror - done
     T_Concat - dror - done
     T_Const - dror - done
     T_Exp
-    T_ExpList - nitzan
-    T_Function - nitzan
+    T_ExpList - nitzan - done
+    T_Function - nitzan - done
     T_JumpLabel - asaf the big - done
     T_JumpRegister - asaf the big - done
     T_Label - dror - done
     T_Mem - dror - done
-    T_Move
+    T_Move - dror - done
     T_Relop - asaf the big - done
     T_Seq - dror - done
     T_Temp - dror - done
