@@ -15,7 +15,9 @@ public class T_Function implements T_Exp{
 	@Override
 	public T_Temp gen() {
 		name.gen();
-		body.gen();
+		if (body != null) {
+			body.gen();
+		}
 		exit.gen();
 		return null;
 	}
