@@ -5,6 +5,7 @@ import IR.T_JumpLabel;
 import IR.T_Label;
 import IR.T_Seq;
 import src.ClassChecker;
+import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
 
 public class AST_PROGRAM extends AST_Node {
@@ -45,6 +46,7 @@ public class AST_PROGRAM extends AST_Node {
      * @return IR Node for the entire program
      */
     public T_Seq buildProgram() {
+    	IRUtils.init();
         T_Seq classes = this.buildIr();
         //don't generator vftables here.
         return new T_Seq(
