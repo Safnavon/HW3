@@ -31,7 +31,7 @@ public class T_Label implements T_Exp {
     @Override
     public T_Temp gen() {
         CGen.append(String.format(
-                "%s:%n\t",
+                "%s:%n",
                 this.getName()
         ));
         return null;

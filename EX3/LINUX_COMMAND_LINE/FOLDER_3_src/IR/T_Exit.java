@@ -7,7 +7,6 @@ import src.CGen;
  */
 public class T_Exit implements T_Exp {
 
-
     @Override
     public T_Temp gen() {
         CGen.append(String.format("\tli $v0,10%n"));

@@ -10,17 +10,17 @@ import AST.AST_TYPE_ARRAY;
 import AST.AST_TYPE_CLASS;
 import AST.AST_TYPE_TERM;
 import AST.TYPES;
-import IR.T_Function;
 import IR.T_Label;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 public class ClassChecker {
+
+
 
     public static class Function {
 
@@ -94,9 +94,15 @@ public class ClassChecker {
             }
         }
 
+        /**
+         * this function should be called exactly once for each function declaration found in the user code
+         * @param f
+         * @throws Exception
+         */
         void addFunction(AST_METHOD_DECLARE f) throws Exception {
             final Exception dup = new Exception("Duplicate function declaration");
             final Exception typeMismatch = new Exception("Return type must be similar to parent");
+            final Exception dupMain = new Exception("Found a second void main(String[]) declaration");
             Function func = new Function(f, this.name);
             Function fExisting = this.getFunctionByName(func.method.name);
 
@@ -107,6 +113,20 @@ public class ClassChecker {
                 if (!(func.method.type.isExtending(fExisting.method.type))) {
                     throw typeMismatch;
                 }
+                //check if main
+                List<AST_TYPE> args = new ArrayList<AST_TYPE>();
+                args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
+                AST_TYPE retType = this.hasFunction("main", args);
+                boolean thisIsAMainFunction = retType == null;
+                if(thisIsAMainFunction){
+                    if(ClassChecker.mainFunctionLabel != null){
+                        throw dupMain;
+                    }
+                    else {
+                        ClassChecker.mainFunctionLabel = func.funcLabel;
+                    }
+                }
+                //end check if main
                 int fLocation = this.funcs.indexOf(fExisting);
                 assert fLocation != -1;
                 this.funcs.set(fLocation, func);
@@ -169,6 +189,19 @@ public class ClassChecker {
 
     private static HashMap<String, Class> map = new HashMap<String, Class>();
 
+    //
+//    private static AST_TYPE isValidFieldInSpecificClass(String cName, String fName) throws Exception {
+//        Class c = map.get(cName);
+//        if (c == null) {
+//            throw new Exception("Cant find class " + cName);
+//        }
+//        return c.hasField(fName);
+//    private static void throwIfNotClass(String name) throws Exception {
+//        if (map.get(name) == null) {
+//            throw new Exception("Cant find class " + name);
+//        }
+    private static T_Label mainFunctionLabel = null;
+
     private static String currentClassName;
 
     public static Class get(String className) throws Exception {
@@ -202,7 +235,6 @@ public class ClassChecker {
         Class c = get(className);
         c.addFields(fields);
     }
-
     //    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
 //        if (c == null) {
 //            throw new Exception("Cant find class");
@@ -240,13 +272,7 @@ public class ClassChecker {
 //            throw ;
 //        }
     }
-//
-//    private static AST_TYPE isValidFieldInSpecificClass(String cName, String fName) throws Exception {
-//        Class c = map.get(cName);
-//        if (c == null) {
-//            throw new Exception("Cant find class " + cName);
-//        }
-//        return c.hasField(fName);
+
 //    }
 
     public static AST_TYPE isValidField(String cName, String fName) throws Exception {
@@ -276,10 +302,6 @@ public class ClassChecker {
 //        }
     }
 
-//    private static void throwIfNotClass(String name) throws Exception {
-//        if (map.get(name) == null) {
-//            throw new Exception("Cant find class " + name);
-//        }
 //    }
 
     /**
@@ -288,33 +310,10 @@ public class ClassChecker {
      * @throws Exception when program implements more or less than one main function
      */
     public static T_Label ensureOneMain() throws Exception {
-        List<AST_TYPE> args = new ArrayList<AST_TYPE>();
-        Class mainClass = null;
-        args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
-        boolean found = false;
-        Exception e = new Exception("Must declare exactly one void main(String[]) in program");
-        for (Map.Entry<String, Class> classTuple : map.entrySet()) {
-            Class c = classTuple.getValue();
-            boolean foundInThisIteration;
-            try {
-                AST_TYPE retType = c.hasFunction("main", args);
-                foundInThisIteration = retType == null;
-            } catch (Exception ex) {
-                foundInThisIteration = false;
-            }
-            if (foundInThisIteration) {
-                mainClass = c;
-                if (found) {
-                    throw e;
-                } else {
-                    found = true;
-                }
-            }
+        if(mainFunctionLabel == null){
+            throw new Exception("Must declare exactly one void main(String[]) in program");
         }
-        if (mainClass == null) {
-            throw e;
-        }
-        return mainClass.getFunctionByName("main").funcLabel;
+        return mainFunctionLabel;
     }
 
     /**
@@ -374,5 +373,4 @@ public class ClassChecker {
         assert c != null;
         return (c.fields.size() + 1) * 4;
     }
-
 }

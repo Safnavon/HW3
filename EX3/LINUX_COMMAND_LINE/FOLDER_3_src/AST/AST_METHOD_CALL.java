@@ -142,7 +142,8 @@ public class AST_METHOD_CALL extends AST_Node {
         ArrayList<T_Exp> seq = new ArrayList<>();
         seq.add(putThisInTemp);
         seq.add(getMethodAddr);
-        seq.add(new T_Call(methodReg, exps.buildIr(), thisTemp, prologue, epilogue));
+        T_ExpList expList = exps == null ? null : exps.buildIr();
+        seq.add(new T_Call(methodReg, expList, thisTemp, prologue, epilogue));
         return new T_ESeq(seq);
     }
 

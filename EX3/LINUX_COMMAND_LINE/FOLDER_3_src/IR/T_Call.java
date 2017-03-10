@@ -19,7 +19,9 @@ public class T_Call implements T_Exp {
     @Override
     public T_Temp gen() {
         // push args to stack
-        args.gen();
+        if (args != null) {
+        	args.gen();
+        }
         // add this as "first argument"
         CGen.append(String.format("\taddi $sp,$sp,-4%n"));
         CGen.append(String.format("\tsw " + thisTemp + ",0($sp)%n"));
