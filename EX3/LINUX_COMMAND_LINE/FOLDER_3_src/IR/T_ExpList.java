@@ -14,9 +14,9 @@ public class T_ExpList implements T_Exp {
 	@Override
 	public T_Temp gen() {
 		if (head != null) {
-			CGen.append("\taddi $sp,$sp,-4\n");
+			CGen.append(String.format("\taddi $sp,$sp,-4%n"));
 			T_Temp expTemp = head.gen();
-			CGen.append("\tsw " + expTemp + ",0($sp)\n");
+			CGen.append(String.format("\tsw " + expTemp + ",0($sp)%n"));
 			if (tail != null) {
 				tail.gen();
 			}

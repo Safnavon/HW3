@@ -26,11 +26,15 @@ public class T_Seq implements T_Exp {
     @Override
     public T_Temp gen() {
         if (this.right!=null) {
-            this.left.gen();
+            if(this.left!=null)
+                this.left.gen();
             this.right.gen();
         }
         else{
-            left.gen();
+            if(left!=null){
+                left.gen();
+
+            }
         }
         return null;
     }
