@@ -47,7 +47,7 @@ public class ClassChecker {
                         return false;
                     }
                 } else {
-                    return i + 1 == types.size();//same size of data structures
+                    return i == types.size();//same size of data structures
                 }
             }
             return myRest == null;//same size of data structures
