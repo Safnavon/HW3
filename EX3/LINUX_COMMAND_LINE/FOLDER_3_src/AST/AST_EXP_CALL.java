@@ -1,8 +1,7 @@
 package AST;
 
-import src.ClassChecker;
+import IR.T_Exp;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
 
 public class AST_EXP_CALL extends AST_EXP {
     public AST_METHOD_CALL call;
@@ -20,5 +19,10 @@ public class AST_EXP_CALL extends AST_EXP {
         IR_TYPE_WRAPPER wrapper = call.isValid();
         computedType = wrapper.type;
         return wrapper;
+    }
+
+    @Override
+    public T_Exp buildIr() {
+        return call.buildIr();
     }
 }

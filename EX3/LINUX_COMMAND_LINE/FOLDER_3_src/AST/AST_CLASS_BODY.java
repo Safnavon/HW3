@@ -1,11 +1,6 @@
 package AST;
 
-
-import java.util.ArrayList;
-
 import IR.T_Exp;
-import IR.T_ExpList;
-import IR.T_Seq;
 import src.IR_TYPE_WRAPPER;
 
 

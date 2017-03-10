@@ -1,6 +1,8 @@
-package AST; import src.ClassChecker;
+package AST; import IR.*;
+import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
+
+import java.util.ArrayList;
 
 public class AST_STMT_RETURN extends AST_STMT
 {
@@ -33,5 +35,21 @@ public class AST_STMT_RETURN extends AST_STMT
 			}
 		}
 		return new IR_TYPE_WRAPPER(null,null);//TODO
+	}
+
+	@Override
+	public T_Exp buildIr() throws Exception {
+		if (IRUtils.isInMain) {
+			return new T_Exit();
+		} else {
+			if (exp == null) {
+				return new T_JumpRegister(new T_Temp("$ra"));
+			} else {
+				ArrayList<T_Exp> seq = new ArrayList<>();
+				seq.add(new T_Move(new T_Temp("a0"), exp.buildIr()));
+				seq.add(new T_JumpRegister(new T_Temp("$ra")));
+				return new T_Seq(seq);
+			}
+		}
 	}
 }
