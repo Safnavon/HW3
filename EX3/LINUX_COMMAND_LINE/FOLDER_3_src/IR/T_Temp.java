@@ -13,7 +13,7 @@ public class T_Temp implements T_Exp {
 
     public T_Temp(String specialName, boolean forceFactovider) {
         if (forceFactovider) {
-            this.name = TempFactovider.newTemp() + "$" + specialName;
+            this.name = TempFactovider.newTemp();
         } else {
             this.name = specialName;
         }
