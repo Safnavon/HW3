@@ -26,7 +26,12 @@ public class T_ESeq implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        this.left.gen();
-        return this.right.gen();
+        if (this.right!=null) {
+            this.left.gen();
+            return this.right.gen();
+        }
+        else{
+            return  left.gen();
+        }
     }
 }

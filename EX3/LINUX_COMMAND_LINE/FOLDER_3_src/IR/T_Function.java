@@ -9,6 +9,7 @@ public class T_Function implements T_Exp{
 	public T_Function(T_Exp body, T_Label name, T_Exp exit){
 		this.body=body;
 		this.name=name;
+		this.exit=exit;
 	}
 
 	@Override
