@@ -20,7 +20,7 @@ ast:
     AST_Node
     AST_PROGRAM - dror - done
     AST_STMT - dror - done
-    AST_STMT_ASSIGN - nitzan -done
+    AST_STMT_ASSIGN - nitzan - done
     AST_STMT_BLOCK - dror - done
     AST_STMT_CALL - dror - done
     AST_STMT_DECLARE - nitzan - done
@@ -46,7 +46,7 @@ cgen:
     T_JumpRegister - nitzan
     T_Label - dror - done
     T_Mem - dror - done
-    T_Move
+    T_Move - dror
     T_Relop
     T_Seq - dror - done
     T_Temp - dror - done
