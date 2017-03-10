@@ -44,7 +44,7 @@ public class AST_STMT_DECLARE extends AST_STMT
 	public T_Exp buildIr() {
 		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL);
 		T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
-		T_Move move_sp = new T_Move(addr, new T_Temp("$sp"));
+		T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
 
 		T_Exp val;
 		if (exp == null) {

@@ -1,5 +1,7 @@
 package IR;
 
+import src.CGen;
+
 public class T_JumpRegister implements T_Exp {
     T_Temp temp;
 
@@ -9,6 +11,14 @@ public class T_JumpRegister implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        throw new Error("unimplemented");
+
+
+        CGen.append(String.format(
+                "\tjr\t%s%n",
+                temp
+        ));
+
+        return null;
+
     }
 }

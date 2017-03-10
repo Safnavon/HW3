@@ -1,5 +1,7 @@
 package IR;
 
+import src.CGen;
+
 public class T_ExpList implements T_Exp {
 	T_Exp head;
 	T_ExpList tail;
@@ -11,6 +13,14 @@ public class T_ExpList implements T_Exp {
 
 	@Override
 	public T_Temp gen() {
-		throw new Error("unimplemented");
+		if (head != null) {
+			CGen.append("\taddi $sp,$sp,-4\n");
+			T_Temp expTemp = head.gen();
+			CGen.append("\tsw " + expTemp + ",0($sp)\n");
+			if (tail != null) {
+				tail.gen();
+			}
+		}
+		return null;
 	}
 }
