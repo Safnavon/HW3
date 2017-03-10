@@ -113,23 +113,23 @@ public class ClassChecker {
                 if (!(func.method.type.isExtending(fExisting.method.type))) {
                     throw typeMismatch;
                 }
-                //check if main
-                List<AST_TYPE> args = new ArrayList<AST_TYPE>();
-                args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
-                if (f.name.equals("main") && func.isSameArgsTypes(args) && f.type == null) {//if this function has a main signature
-                    if (ClassChecker.mainFunctionLabel != null) {
-                        throw dupMain;
-                    } else {
-                        ClassChecker.mainFunctionLabel = func.funcLabel;
-                    }
-                }
-                //end check if main
                 int fLocation = this.funcs.indexOf(fExisting);
                 assert fLocation != -1;
                 this.funcs.set(fLocation, func);
             } else {
                 this.funcs.add(func);
             }
+            //check if main
+            List<AST_TYPE> args = new ArrayList<AST_TYPE>();
+            args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
+            if (f.name.equals("main") && func.isSameArgsTypes(args) && f.type == null) {//if this function has a main signature
+                if (ClassChecker.mainFunctionLabel != null) {
+                    throw dupMain;
+                } else {
+                    ClassChecker.mainFunctionLabel = func.funcLabel;
+                }
+            }
+            //end check if main
         }
 
         AST_TYPE hasFunction(String name, List<AST_TYPE> argTypes) throws Exception {
