@@ -3,6 +3,7 @@ Created-By: 1.8.0_65 (Oracle Corporation)
 Class-Path: ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar
   ./FOLDER_4_bin/*.class
   ./FOLDER_4_bin/AST/*.class
+  ./FOLDER_4_BIN/IR/*.class
   ./FOLDER_4_bin/src/*.class
 Main-Class: Main
 

@@ -31,7 +31,6 @@ public class T_Move implements T_Exp {
             srcTemp = src.gen();
         }
         if (dest instanceof T_Mem) {
-            //TODO dest is not null?
             T_Temp destAddress = ((T_Mem) dest).location.gen();
             assert destAddress != null;
             accessViolation(destAddress).gen();
