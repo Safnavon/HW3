@@ -18,7 +18,7 @@ public class AST_STMT_WHILE extends AST_STMT
 	}
 	
 	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
-		if (! cond.isValid().equals(new AST_TYPE_TERM(TYPES.INT))) {
+		if (! cond.isValid().type.equals(new AST_TYPE_TERM(TYPES.INT))) {
 			throw new Exception("while statement condition must be an integer");
 		}
 		SymbolTable.openScope();

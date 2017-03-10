@@ -33,8 +33,8 @@ public class AST_EXP_NEW_ARRAY extends AST_EXP {
 
 
         ArrayList<T_Exp> resExpList = new ArrayList<>();
-        T_Temp locationTemp =new T_Temp();
-        T_Temp sizeTemp = (T_Temp)size.buildIr();
+        T_Exp locationTemp =new T_Temp();
+        T_Exp sizeTemp = size.buildIr();
         ArrayList<T_Exp> calcSizeExps = new ArrayList<>();
 
         T_Binop op=new T_Binop(BINOPS.PLUS, sizeTemp, new T_Const(1));

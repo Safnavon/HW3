@@ -23,6 +23,6 @@ public class AST_STMT_CALL extends AST_STMT {
     }
 
     public T_Exp buildIr(){
-        return call.buildIr();
+        return call != null ? call.buildIr() : null;
     }
 }
