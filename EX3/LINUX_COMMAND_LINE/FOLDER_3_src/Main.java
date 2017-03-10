@@ -1,9 +1,7 @@
 import AST.*;
 import java.io.*;
 import java.io.PrintWriter;
-
 import IR.T_Seq;
-import java_cup.runtime.Symbol;
 import src.CGen;
 import src.SymbolTable;
 public class Main
@@ -12,7 +10,6 @@ public class Main
 	{
 		Lexer l;
 		Parser p;
-		Symbol s;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
@@ -48,14 +45,14 @@ public class Main
 			AST_PROGRAM program = (AST_PROGRAM) p.parse().value;
 			program.isValidProgram();
 			T_Seq progIr = program.buildProgram();
-			CGen.gen(progIr);//TODO maybe this function returns a string?
+			CGen.gen(progIr, file_writer);// maybe this function returns a string?
 
 
 			/**************************/
 			/* [10] Close output file */
 			/**************************/
 
-			file_writer.print("OK");
+//			file_writer.print("OK");
 			file_writer.close();
 
 
