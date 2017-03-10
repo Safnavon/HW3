@@ -79,30 +79,29 @@ public class AST_EXP_BINOP extends AST_EXP {
         if (left.computedType instanceof AST_TYPE_TERM) {
             AST_TYPE_TERM termLeft = (AST_TYPE_TERM) left.computedType;
             if (OP == BINOPS.PLUS && termLeft.type == TYPES.STRING) {
-                return new T_Concat( (T_Temp)left.buildIr(), (T_Temp)right.buildIr());
-            } else {
-                if (OP == BINOPS.PLUS) {
-                    return new T_Binop(IR.BINOPS.PLUS, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.MINUS) {
-                    return new T_Binop(IR.BINOPS.MINUS, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.DIVIDE) {
-                    return new T_Binop(IR.BINOPS.DIVIDE, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.TIMES) {
-                    return new T_Binop(IR.BINOPS.TIMES, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.EQUAL) {
-                    return new T_Relop(RELOPS.EQUAL, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.NEQUAL) {
-                    return new T_Relop(RELOPS.NEQUAL, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.GT) {
-                    return new T_Relop(RELOPS.GT, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.GTE) {
-                    return new T_Relop(RELOPS.GTE, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.LT) {
-                    return new T_Relop(RELOPS.LT, left.buildIr(), right.buildIr());
-                } else if (OP == BINOPS.LTE) {
-                    return new T_Relop(RELOPS.LTE, left.buildIr(), right.buildIr());
-                }
+                return new T_Concat((T_Temp) left.buildIr(), (T_Temp) right.buildIr());
             }
+        }
+        if (OP == BINOPS.PLUS) {
+            return new T_Binop(IR.BINOPS.PLUS, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.MINUS) {
+            return new T_Binop(IR.BINOPS.MINUS, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.DIVIDE) {
+            return new T_Binop(IR.BINOPS.DIVIDE, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.TIMES) {
+            return new T_Binop(IR.BINOPS.TIMES, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.EQUAL) {
+            return new T_Relop(RELOPS.EQUAL, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.NEQUAL) {
+            return new T_Relop(RELOPS.NEQUAL, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.GT) {
+            return new T_Relop(RELOPS.GT, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.GTE) {
+            return new T_Relop(RELOPS.GTE, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.LT) {
+            return new T_Relop(RELOPS.LT, left.buildIr(), right.buildIr());
+        } else if (OP == BINOPS.LTE) {
+            return new T_Relop(RELOPS.LTE, left.buildIr(), right.buildIr());
         }
         throw new Error(String.format("failed building AST_BINOP: %s %s %s",
                 left.computedType.getClass(),
