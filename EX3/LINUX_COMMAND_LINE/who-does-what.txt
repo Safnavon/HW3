@@ -42,17 +42,17 @@ cgen:
     T_Exp
     T_ExpList - nitzan
     T_Function - nitzan
-    T_JumpLabel
-    T_JumpRegister - nitzan
+    T_JumpLabel - asaf the big - done
+    T_JumpRegister - asaf the big - done
     T_Label - dror - done
     T_Mem - dror - done
     T_Move
-    T_Relop
+    T_Relop - asaf the big - done
     T_Seq - dror - done
     T_Temp - dror - done
     T_Malloc - dror - done
     T_Exit - nitzan - done
-    T_PrintInt -
+    T_PrintInt - asaf the big - done
 
 program prologue:
     exit on access violation (access violation label)
