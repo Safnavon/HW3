@@ -29,7 +29,9 @@ public class AST_EXP_STRING extends AST_EXP {
 		 AST_EXP size = new AST_EXP_INT(value.length());
 		ArrayList<T_Exp> resExpList = new ArrayList<>();
 		T_Temp locationTemp =new T_Temp();
-		T_Temp sizeTemp = (T_Temp)size.buildIr();
+		T_Temp sizeTemp = new T_Temp("string_size", true);
+		T_Move putSizeInTemp = new T_Move(sizeTemp, size.buildIr());
+		resExpList.add(putSizeInTemp);
 		ArrayList<T_Exp> calcSizeExps = new ArrayList<>();
 
 		T_Binop op=new T_Binop(IR.BINOPS.PLUS, sizeTemp, new T_Const(1));
