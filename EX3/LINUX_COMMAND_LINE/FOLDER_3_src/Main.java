@@ -52,7 +52,7 @@ public class Main
 			/* [10] Close output file */
 			/**************************/
 
-			file_writer.print("OK");
+//			file_writer.print("OK");
 			file_writer.close();
 
 
