@@ -38,7 +38,7 @@ public class AST_STMT_RETURN extends AST_STMT
 	}
 
 	@Override
-	public T_Exp buildIr() throws Exception {
+	public T_Exp buildIr() {
 		if (IRUtils.isInMain) {
 			return new T_Exit();
 		} else {

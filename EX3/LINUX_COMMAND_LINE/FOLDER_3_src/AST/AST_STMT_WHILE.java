@@ -28,7 +28,7 @@ public class AST_STMT_WHILE extends AST_STMT
 	}
 
 	@Override
-	public T_Exp buildIr() throws Exception {
+	public T_Exp buildIr() {
 
 		T_Exp expVal = cond.buildIr();
 		T_Label labelStart = new T_Label("StartWhile",true);
