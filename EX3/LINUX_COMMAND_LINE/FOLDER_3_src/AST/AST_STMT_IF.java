@@ -24,7 +24,6 @@ public class AST_STMT_IF extends AST_STMT
 			throw new Exception("if statement condition must be an integer");
 		}
 		SymbolTable.openScope();
-        T_Exp bodyIR = body.isValid(expectedReturnValue).IR;
         SymbolTable.closeScope();
 
 //		T_CJump irJump;//TODO
@@ -33,7 +32,7 @@ public class AST_STMT_IF extends AST_STMT
 //		T_Seq s1 = new T_Seq(s2 ,new T_Label("f"));
 //
 //		return new IR_TYPE_WRAPPER(null,s1); //TODO
-        throw new Error("TODO");
+        return null;
 	}
 
 	public T_Exp buildIr(){

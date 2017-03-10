@@ -23,10 +23,11 @@ public class AST_STMT_LIST extends AST_STMT {
     }
 
     public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
-        T_Exp headIr = head.isValid(expectedReturnValue).IR;
-        T_Exp tailIr = tail != null ? tail.isValid(expectedReturnValue).IR : null;
-        T_Seq seq = new T_Seq(headIr,tailIr);
-        return new IR_TYPE_WRAPPER(null, seq);
+        head.isValid(expectedReturnValue);
+        if (tail != null) {
+        	return tail.isValid(expectedReturnValue);
+        }
+        return null;
     }
 
     public T_Seq buildIr(){
