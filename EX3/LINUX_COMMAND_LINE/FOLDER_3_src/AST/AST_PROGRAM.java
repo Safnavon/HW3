@@ -1,9 +1,6 @@
 package AST;
 
-import IR.T_Exp;
-import IR.T_JumpLabel;
-import IR.T_Label;
-import IR.T_Seq;
+import IR.*;
 import src.ClassChecker;
 import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
@@ -48,13 +45,21 @@ public class AST_PROGRAM extends AST_Node {
     public T_Seq buildProgram() {
     	IRUtils.init();
         T_Seq classes = this.buildIr();
-        //don't generator vftables here.
+        T_Seq accessViolation = new T_Seq(
+                new T_Label("access-violation"),
+                new T_Exit()
+        );
+        T_Seq main = new T_Seq(
+                new T_Label("main"),
+                new T_JumpLabel(this.programMain)
+        );
         return new T_Seq(
                 classes,
                 new T_Seq(
-                        new T_Label("main"),
-                        new T_JumpLabel(this.programMain)
+                        main,
+                        accessViolation
                 )
+
         );
     }
 

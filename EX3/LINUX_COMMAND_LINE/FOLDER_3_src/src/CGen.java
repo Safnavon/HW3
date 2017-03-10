@@ -36,6 +36,7 @@ public class CGen {
         //TODO strings
         append(".text"+nl);
         program.gen();//calls append
+
     }
 
 }
