@@ -23,15 +23,15 @@ public class T_Call implements T_Exp {
         	args.gen();
         }
         // add this as "first argument"
-        CGen.append("\taddi $sp,$sp,-4\n");
-        CGen.append("\tsw " + thisTemp + ",0($sp)\n");
+        CGen.append(String.format("\taddi $sp,$sp,-4%n"));
+        CGen.append(String.format("\tsw " + thisTemp + ",0($sp)%n"));
 
         prologue.gen();
 
-        CGen.append("\tjalr " + methodAddrReg + "\n");
+        CGen.append(String.format("\tjalr " + methodAddrReg + "%n"));
 
         T_Temp resTemp = new T_Temp("return_value", true);
-        CGen.append("\taddi " + resTemp + ",$a0,0\n");
+        CGen.append(String.format("\taddi " + resTemp + ",$a0,0%n"));
 
         epilogue.gen();
 

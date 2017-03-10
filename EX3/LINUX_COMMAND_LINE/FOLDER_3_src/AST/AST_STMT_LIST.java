@@ -31,8 +31,12 @@ public class AST_STMT_LIST extends AST_STMT {
     }
 
     public T_Seq buildIr(){
-        return new T_Seq(
-                head.buildIr(),
-                (tail == null ? null : tail.buildIr()));
+        T_Exp headIR = head.buildIr();
+
+            return new T_Seq(
+                    headIR,
+                    (tail == null ? null : tail.buildIr()));
+
+
     }
 }

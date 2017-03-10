@@ -9,8 +9,8 @@ public class T_Exit implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        CGen.append("\tli $v0,10\n");
-        CGen.append("\tsyscall\n");
+        CGen.append(String.format("\tli $v0,10%n"));
+        CGen.append(String.format("\tsyscall%n"));
         return null;
     }
 }
