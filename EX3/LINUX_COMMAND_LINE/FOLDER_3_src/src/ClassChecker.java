@@ -21,7 +21,6 @@ import java.util.Map;
 public class ClassChecker {
 
 
-
     public static class Function {
 
         public AST_METHOD_DECLARE method;
@@ -33,7 +32,7 @@ public class ClassChecker {
         public Function(AST_METHOD_DECLARE method, String className) {
             this.method = method;
             //IR
-            this.funcLabel = new T_Label(className + "_Function_" + method.name,true);
+            this.funcLabel = new T_Label(className + "_Function_" + method.name, true);
         }
 
         public boolean isSameArgsTypes(List<AST_TYPE> types) throws Exception {
@@ -96,6 +95,7 @@ public class ClassChecker {
 
         /**
          * this function should be called exactly once for each function declaration found in the user code
+         *
          * @param f
          * @throws Exception
          */
@@ -116,13 +116,10 @@ public class ClassChecker {
                 //check if main
                 List<AST_TYPE> args = new ArrayList<AST_TYPE>();
                 args.add(new AST_TYPE_ARRAY(new AST_TYPE_TERM(TYPES.STRING)));
-                AST_TYPE retType = this.hasFunction("main", args);
-                boolean thisIsAMainFunction = retType == null;
-                if(thisIsAMainFunction){
-                    if(ClassChecker.mainFunctionLabel != null){
+                if (f.name.equals("main") && func.isSameArgsTypes(args) && f.type == null) {//if this function has a main signature
+                    if (ClassChecker.mainFunctionLabel != null) {
                         throw dupMain;
-                    }
-                    else {
+                    } else {
                         ClassChecker.mainFunctionLabel = func.funcLabel;
                     }
                 }
@@ -235,6 +232,7 @@ public class ClassChecker {
         Class c = get(className);
         c.addFields(fields);
     }
+
     //    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
 //        if (c == null) {
 //            throw new Exception("Cant find class");
@@ -305,12 +303,11 @@ public class ClassChecker {
 //    }
 
     /**
-     *
      * @return label of main class
      * @throws Exception when program implements more or less than one main function
      */
     public static T_Label ensureOneMain() throws Exception {
-        if(mainFunctionLabel == null){
+        if (mainFunctionLabel == null) {
             throw new Exception("Must declare exactly one void main(String[]) in program");
         }
         return mainFunctionLabel;
