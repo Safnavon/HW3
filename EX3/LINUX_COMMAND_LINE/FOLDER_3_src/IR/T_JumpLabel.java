@@ -1,5 +1,7 @@
 package IR;
 
+import src.CGen;
+
 public class T_JumpLabel implements T_Exp {
     T_Label label;
 
@@ -9,6 +11,13 @@ public class T_JumpLabel implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        throw new Error("unimplemented");
+
+        CGen.append(String.format(
+                "\tj\t%s%n",
+                label.getName()
+        ));
+
+
+        return null;
     }
 }
