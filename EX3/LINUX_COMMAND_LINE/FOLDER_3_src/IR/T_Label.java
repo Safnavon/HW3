@@ -15,7 +15,7 @@ public class T_Label implements T_Exp {
 
     public T_Label(String specialName, boolean forceFactovider) {
         if (forceFactovider) {
-            this.name = TempFactovider.newLabel(name);
+            this.name = TempFactovider.newLabel(specialName);
         } else {
             this.name = specialName;
         }
