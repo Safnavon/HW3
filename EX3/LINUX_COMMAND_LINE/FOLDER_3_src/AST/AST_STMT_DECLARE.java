@@ -33,7 +33,7 @@ public class AST_STMT_DECLARE extends AST_STMT
 					}
 				}
 			}
-			else if(!type.isExtending(expWrapper.type)) {
+			else if(!expWrapper.type.isExtending(type)) {
 				throw new Exception("wrong value type assigned to variable '" + name + "'");
 			}
 		}
