@@ -34,7 +34,7 @@ java -jar ./FOLDER_5_CUP_JARS/java-cup-11b.jar -nowarn -destdir ./FOLDER_3_src -
 @echo #                                                      #
 @echo #                                                      #
 @echo ########################################################
-javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java 2>nul
+javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/src/*.java FOLDER_3_src/AST/*.java FOLDER_3_src/IR/*.java 2>nul
 @echo.
 @echo ###########################################################
 @echo #                                                         #
