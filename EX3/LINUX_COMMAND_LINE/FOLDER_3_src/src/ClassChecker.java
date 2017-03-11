@@ -144,7 +144,7 @@ public class ClassChecker {
             }
         }
 
-        Function getFunctionByName(String name) {
+        public Function getFunctionByName(String name) {
             for (Function function : this.funcs) {
                 if (function.method.name.equals(name)) {
                     return function;

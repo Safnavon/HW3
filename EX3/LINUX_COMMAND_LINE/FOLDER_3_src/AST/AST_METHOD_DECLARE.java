@@ -45,7 +45,12 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 	public T_Exp buildIr() {
 		IRUtils.resetOffset();
 		IRUtils.isInMain = name.equals("main");
-		T_Label funcLable = new T_Label(IRUtils.currentClass + "_" + name, true);
+		T_Label funcLable = null;
+		try {
+			funcLable = ClassChecker.get(className).getFunctionByName(name).funcLabel;
+		} catch (Exception e) {
+			throw new Error(e.getMessage());
+		}
 		IRUtils.openScope();
 
 		// add formals to scope
