@@ -15,7 +15,6 @@ public class CGen {
      * @param code to be appended to the mips
      */
     public static void append(String code){
-
         writer.print(code);
     }
 
