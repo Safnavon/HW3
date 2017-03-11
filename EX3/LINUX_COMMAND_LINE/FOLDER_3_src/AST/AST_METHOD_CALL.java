@@ -46,7 +46,7 @@ public class AST_METHOD_CALL extends AST_Node {
             if (varType == null || !varType.getClass().equals(AST_TYPE_METHOD.class)) {
                 throw (new Exception("no method found for name" + this.var.getClass().getName()));
             }
-            instanceType = varType;
+            instanceType = new AST_TYPE_CLASS(ClassChecker.get(null).name);
         }
         else if (this.var.getClass().equals(AST_VAR_FIELD.class)) {
             AST_VAR_FIELD varField = (AST_VAR_FIELD) var;

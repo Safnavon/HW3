@@ -233,12 +233,6 @@ public class ClassChecker {
         c.addFields(fields);
     }
 
-    //    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
-//        if (c == null) {
-//            throw new Exception("Cant find class");
-//        }
-//        return c.hasFunction(fName, argTypes);
-//
     public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception {
         if (!(classType instanceof AST_TYPE_CLASS)) {
             throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
@@ -250,25 +244,6 @@ public class ClassChecker {
             throw notFound;
         }
         return c.hasFunction(fName, argTypes);
-
-//        boolean found = false;
-//        for (String c = map.get(cType.name) != null ? map.get(cType.name).name : null;
-//             c != null;
-//             c = ((map.get(c) != null && map.get(c).parent != null) ? map.get(c).parent.name : null)) {
-//            try {
-//                t = isValidMethodInSpecificClass(c, fName, argTypes);
-//                found = true;
-//            } catch (Exception e) {
-//                continue;
-//            }
-//            ;
-//            break;
-//        }
-//        if (found) {
-//            return t;
-//        } else {
-//            throw ;
-//        }
     }
 
 //    }
@@ -280,24 +255,6 @@ public class ClassChecker {
             throw notFound;
         }
         return c.hasField(fName);
-//        AST_TYPE t = null;
-//        throwIfNotClass(cName);
-//        boolean found = false;
-//        for (String c = map.get(cName).name; c != null; c = ((map.get(c) != null && map.get(c).parent != null) ? map.get(c).parent.name : null)) {
-//            try {
-//                t = isValidFieldInSpecificClass(c, fName);
-//                found = true;
-//            } catch (Exception e) {
-//                continue;
-//            }
-//            ;
-//            break;
-//        }
-//        if (found) {
-//            return t;
-//        } else {
-//            throw new Exception("Cant find field " + fName + " on class " + cName + " or its parents.");
-//        }
     }
 
 //    }
