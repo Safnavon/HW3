@@ -22,7 +22,7 @@ public class T_Mem implements T_Exp {
         T_Temp dst = new T_Temp();
         accessViolation(src).gen();
         CGen.append(String.format(
-                "\tlw\t%s, (%s)",
+                "\tlw\t%s, (%s)%n",
                 dst,
                 src
         ));
