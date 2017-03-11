@@ -355,7 +355,9 @@ public class ClassChecker {
             for (Function function : c.funcs) {
                 sb.append(function.funcLabel.getName() + "," + nl + "\t");
             }
-            sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            if ( c.funcs.size() > 0) {
+            	sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            }
             sb.append(nl + nl);
         }
         return sb.append(nl).toString();
