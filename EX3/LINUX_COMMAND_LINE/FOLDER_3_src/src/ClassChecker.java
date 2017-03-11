@@ -348,7 +348,7 @@ public class ClassChecker {
         String nl = String.format("%n");
         for (Class c : map.values()) {
             boolean hasFunctions = c.funcs.size() != 0;
-            String VFTableLabel = "Label_0_VFTable_" + c.name;
+            String VFTableLabel = "VFTable_" + c.name;
             //print VF table
             sb.append(VFTableLabel + ":" + nl)
                     .append(hasFunctions ? "\t.word " : "");

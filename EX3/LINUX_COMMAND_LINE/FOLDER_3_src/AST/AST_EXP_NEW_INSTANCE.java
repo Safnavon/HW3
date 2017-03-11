@@ -31,7 +31,7 @@ public class AST_EXP_NEW_INSTANCE extends AST_EXP {
         //prepare leaves
         T_Temp result = new T_Temp("new" + this.className, true);
         T_Malloc malloc = new T_Malloc(ClassChecker.sizeOf(this.className));
-        T_Label vftLabel = new T_Label("VFTable_" + this.className);
+        T_Label vftLabel = new T_VFTableLabel("VFTable_" + this.className);
         T_Const zero = new T_Const(0);
         //
 
