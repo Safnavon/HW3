@@ -50,7 +50,7 @@ public class AST_PROGRAM extends AST_Node {
                 new T_Exit()
         );
         T_Seq main = new T_Seq(
-                new T_Label("main"),
+                new T_Label("main"),//TODO dror
                 new T_JumpLabel(this.programMain)
         );
         return new T_Seq(
