@@ -3,13 +3,11 @@ package IR;
 import src.CGen;
 
 public class T_Call implements T_Exp {
-    public T_Temp methodAddrReg;
     T_Temp thisTemp;
     public T_ExpList args;
     public T_Exp prologue, epilogue;
 
-    public T_Call(T_Temp reg, T_ExpList args, T_Temp thisTemp, T_Exp prologue, T_Exp epilogue) {
-        this.methodAddrReg = reg;
+    public T_Call(T_ExpList args, T_Temp thisTemp, T_Exp prologue, T_Exp epilogue) {
         this.args = args;
         this.thisTemp = thisTemp;
         this.prologue=prologue;
@@ -28,7 +26,7 @@ public class T_Call implements T_Exp {
 
         prologue.gen();
 
-        CGen.append(String.format("\tjalr " + methodAddrReg + "%n"));
+        CGen.append(String.format("\tjalr $a1%n"));
 
         T_Temp resTemp = new T_Temp("return_value", true);
         CGen.append(String.format("\taddi " + resTemp + ",$a0,0%n"));
