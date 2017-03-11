@@ -26,7 +26,7 @@ public class T_Malloc implements T_Exp {
         CGen.append(String.format(
                 "\taddi\t$a0, %1$s, 0%n"+
                 "\tli\t$v0,9%n"+
-                "\tsyscall%n"+
+                "\t\tsyscall%n"+
                 "\taddi\t%2$s, $v0, 0%n",
                 size, res
         ));
