@@ -12,7 +12,7 @@ public class T_Move implements T_Exp {
 
     private T_CJump accessViolation(T_Temp temp) {
         T_Relop relop = new T_Relop(RELOPS.EQUAL, temp, new T_Const(0));
-        return new T_CJump(relop, new T_Label("access_violation"));
+        return new T_CJump(relop, new T_Label("Label_0_access_violation"));
     }
 
     @Override
