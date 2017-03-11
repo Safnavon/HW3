@@ -21,6 +21,19 @@ public class AST_EXP_BINOP extends AST_EXP {
     }
 
     private IR_TYPE_WRAPPER validateClassTypes(AST_TYPE leftClass, AST_TYPE rightClass) throws Exception {
+        if(leftClass == null || rightClass == null){
+            AST_TYPE maybeNull = rightClass != null ? rightClass : leftClass;
+            if(maybeNull == null){
+                return new IR_TYPE_WRAPPER(null,null);
+            }
+            else{
+                if(maybeNull instanceof AST_TYPE_CLASS){
+                    return new IR_TYPE_WRAPPER(maybeNull,null);
+                }else{
+                    throw new Exception("Tried to compare null with type "+maybeNull+", but expected class or null");
+                }
+            }
+        }
         AST_TYPE_CLASS l, r;
         if (!(leftClass instanceof AST_TYPE_CLASS) || !(rightClass instanceof AST_TYPE_CLASS)) {
             throw new Exception("Expected both sides of op to be classes");
@@ -42,14 +55,13 @@ public class AST_EXP_BINOP extends AST_EXP {
         AST_TYPE_TERM leftTypeTerm;
         AST_TYPE_TERM rightTypeTerm;
 
-        if (leftType.getClass().equals(AST_TYPE_TERM.class))
+        if (leftType != null && leftType.getClass().equals(AST_TYPE_TERM.class))
             leftTypeTerm = (AST_TYPE_TERM) leftType;
         else {
             //computedType implemented inside
             return validateClassTypes(leftType, rightType); //TODO
-
         }
-        if (rightType.getClass().equals(AST_TYPE_TERM.class))
+        if (rightType!= null && rightType.getClass().equals(AST_TYPE_TERM.class))
             rightTypeTerm = (AST_TYPE_TERM) rightType;
         else {
             throw (new Exception("right expression is not term"));
