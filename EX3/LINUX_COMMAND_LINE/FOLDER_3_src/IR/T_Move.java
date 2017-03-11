@@ -35,7 +35,7 @@ public class T_Move implements T_Exp {
             assert destAddress != null;
             accessViolation(destAddress).gen();
             CGen.append(String.format(
-                    "\tsw\t%1$s, (%2$s)%n",
+                    "\tsw\t%1$s, 0(%2$s)%n",
                     srcTemp, destAddress
             ));
             return null;
