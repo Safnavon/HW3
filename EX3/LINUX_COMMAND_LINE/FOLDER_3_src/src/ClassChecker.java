@@ -79,7 +79,7 @@ public class ClassChecker {
         public String name;
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
-        public LinkedList<Field> fields = new LinkedList<Field>();
+        public ArrayList<Field> fields = new ArrayList<>();
 
         public Class(AST_CLASS_DECLARE cDec, Class parent) {
             this.name = cDec.name;
