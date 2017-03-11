@@ -33,10 +33,8 @@ public class CGen {
         String nl = String.format("%n");
         append(".data"+nl);
         append(ClassChecker.generateAllVFTables() + nl);
-        //TODO strings
         append(".text"+nl);
         program.gen();//calls append
-
     }
 
 }
