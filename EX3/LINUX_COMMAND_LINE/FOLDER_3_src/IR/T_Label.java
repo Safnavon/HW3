@@ -3,7 +3,7 @@ package IR;
 import src.CGen;
 
 public class T_Label implements T_Exp {
-    private String name;
+    String name;
 
     public T_Label() {
         this.name = null;
