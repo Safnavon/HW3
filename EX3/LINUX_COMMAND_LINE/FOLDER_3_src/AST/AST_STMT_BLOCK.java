@@ -19,7 +19,9 @@ public class AST_STMT_BLOCK extends AST_STMT
 
 	public IR_TYPE_WRAPPER isValid(AST_TYPE expectedReturnValue) throws Exception {
 		SymbolTable.openScope();
-        stmts.isValid(expectedReturnValue);
+        if (stmts != null ) {
+        	stmts.isValid(expectedReturnValue);
+        }
         SymbolTable.closeScope();
 		return null;
 	}
