@@ -45,10 +45,7 @@ public class AST_PROGRAM extends AST_Node {
     public T_Seq buildProgram() {
     	IRUtils.init();
         T_Seq classes = this.buildIr();
-        T_Seq accessViolation = new T_Seq(
-                new T_Label("access-violation"),
-                new T_Exit()
-        );
+        T_Exp accessViolation = new T_AccessViolation();
         T_Seq main = new T_Seq(
                 new T_Label("main"),//TODO dror
                 new T_JumpLabel(this.programMain)
