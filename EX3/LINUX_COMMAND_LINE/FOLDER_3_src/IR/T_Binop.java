@@ -37,7 +37,7 @@ public class T_Binop implements T_Exp {
                 break;
             case TIMES:
                 CGen.append(String.format(
-                        "\tmult\t%2$s, %3$s%n"+
+                        "\tmul\t%2$s, %3$s%n"+
                         "\tmflo\t%1$s%n",//takes only first 32 bits of the result
                         res,left,right
                 ));
