@@ -85,6 +85,14 @@ public class AST_METHOD_CALL extends AST_Node {
             throw new Error("Error: no such method");
         }
 
+        // SPECIAL CASE - CALLING printInt()
+        if (method.equals("printInt")) {
+            T_Temp intTemp = new T_Temp();
+            T_Move putExpInTemp = new T_Move(intTemp, exps.first.buildIr());
+            return new T_Seq(putExpInTemp, new T_PrintInt(intTemp));
+        }
+
+
         // PROLOGUE
         // get "this" and method address
         T_Temp thisTemp = new T_Temp("for_passing_this", true);
