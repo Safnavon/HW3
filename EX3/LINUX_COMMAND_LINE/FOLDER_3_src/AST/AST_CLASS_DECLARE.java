@@ -4,8 +4,8 @@ import src.ClassChecker;
 import src.IRUtils;
 import src.IR_TYPE_WRAPPER;
 import src.SymbolTable;
-
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class AST_CLASS_DECLARE extends AST_Node
 {
@@ -31,7 +31,11 @@ public class AST_CLASS_DECLARE extends AST_Node
 		
 		SymbolTable.put(name, new AST_TYPE_CLASS(name));
 		SymbolTable.openScope();
-		ClassChecker.newClass(this);
+		LinkedList<ClassChecker.Field> fields = ClassChecker.newClass(this).fields;
+		for ( ClassChecker.Field field : fields) {
+			SymbolTable.put(field.name, field.type);
+		}
+
 		if (body != null) { // ic syntax doesn't require a non empty class body
 			body.isValid(name);
 		}
