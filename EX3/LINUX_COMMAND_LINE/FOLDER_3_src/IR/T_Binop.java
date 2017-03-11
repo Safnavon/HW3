@@ -36,16 +36,14 @@ public class T_Binop implements T_Exp {
                 ));
                 break;
             case TIMES:
-//                CGen.append(String.format(
-//                        "\tmul\t%2$s, %3$s%n"+
-//                        "\tmflo\t%1$s%n",//takes only first 32 bits of the result
-//                        res,left,right
-//                ));
+                CGen.append(String.format(
+                        "\tmul\t%s, %s, %s%n",
+                        res,left,right
+                ));
                 break;
             case DIVIDE:
                 CGen.append(String.format(
-                        "\tdiv\t%2$s, %3$s%n"+
-                        "\tmflo\t%1$s%n",
+                        "\tdiv\t%s, %s, %s%n",
                         res,left,right
                 ));
                 break;
