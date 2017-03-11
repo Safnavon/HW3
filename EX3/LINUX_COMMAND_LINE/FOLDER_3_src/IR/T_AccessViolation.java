@@ -10,7 +10,7 @@ public class T_AccessViolation implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        CGen.append(String.format("\tLabel_0_access_violation:%n"));
+        CGen.append(String.format("Label_0_access_violation:%n"));
 
         // print 666
         CGen.append(String.format("\tli $a0,666"));
