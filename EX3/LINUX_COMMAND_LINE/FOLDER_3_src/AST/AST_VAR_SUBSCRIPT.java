@@ -46,7 +46,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
     T_Move initSubscript = new T_Move(subscriptTemp,subscript.buildIr());
     resList.add(initSubscript);
 
-    T_Label accessViolationLabel = new T_Label("Label_0_access_violation",false);
+    T_Label accessViolationLabel = new T_Label("access_violation",false);
     T_CJump nullCheckJump = new T_CJump(new T_Relop(RELOPS.EQUAL,expTemp,new T_Const(0)),accessViolationLabel);
     resList.add(nullCheckJump);
 
