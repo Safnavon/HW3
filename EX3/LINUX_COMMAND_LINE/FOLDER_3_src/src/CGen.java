@@ -15,7 +15,6 @@ public class CGen {
      * @param code to be appended to the mips
      */
     public static void append(String code){
-
         writer.print(code);
     }
 
@@ -33,10 +32,8 @@ public class CGen {
         String nl = String.format("%n");
         append(".data"+nl);
         append(ClassChecker.generateAllVFTables() + nl);
-        //TODO strings
         append(".text"+nl);
         program.gen();//calls append
-
     }
 
 }
