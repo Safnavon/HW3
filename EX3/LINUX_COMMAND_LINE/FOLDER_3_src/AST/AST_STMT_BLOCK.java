@@ -26,7 +26,7 @@ public class AST_STMT_BLOCK extends AST_STMT
 
 	public T_Seq buildIr(){
 		IRUtils.openScope();
-		T_Seq seq = stmts.buildIr();
+		T_Seq seq = (stmts != null) ? stmts.buildIr():null;
 		IRUtils.closeScope();
 		return seq;
 	}

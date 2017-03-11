@@ -120,6 +120,7 @@ stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v
 					| IF    LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_IF(   cond,s); :}
 					| WHILE LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_WHILE(cond,s); :}
 					| LBRACE stmtList:body RBRACE								{: RESULT = new AST_STMT_BLOCK(body); :}
+					| LBRACE RBRACE								                {: RESULT = new AST_STMT_BLOCK(null); :}
 					| type:t ID:name ASSIGN exp:e SEMICOLON                     {: RESULT = new AST_STMT_DECLARE(t, name, e); :}
 					| type:t ID:name SEMICOLON            				        {: RESULT = new AST_STMT_DECLARE(t, name, null); :}					
 					;
