@@ -105,13 +105,16 @@ public class ClassChecker {
             final Exception dupMain = new Exception("Found a second void main(String[]) declaration");
             Function func = new Function(f, this.name);
             Function fExisting = this.getFunctionByName(func.method.name);
-
             if (fExisting != null) {
                 if (!fExisting.inherited) {
                     throw dup;
                 }
-                if (!(func.method.type.isExtending(fExisting.method.type))) {
-                    throw typeMismatch;
+                if (func.method.type != null) {
+                    if (!func.method.type.isExtending(fExisting.method.type))
+                        throw typeMismatch;
+                } else {
+                    if (fExisting.method.type != null)
+                        throw typeMismatch;
                 }
                 int fLocation = this.funcs.indexOf(fExisting);
                 assert fLocation != -1;
@@ -312,8 +315,8 @@ public class ClassChecker {
             for (Function function : c.funcs) {
                 sb.append(function.funcLabel.getName() + "," + nl + "\t");
             }
-            if ( c.funcs.size() > 0) {
-            	sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            if (c.funcs.size() > 0) {
+                sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
             }
             sb.append(nl + nl);
         }
