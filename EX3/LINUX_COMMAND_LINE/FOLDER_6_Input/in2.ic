@@ -1,5 +1,6 @@
 class MainClass {
-    int n,m;
+    int n;
+    string a,b,c;
     int foo(int i){
     return i + 1;
     }
@@ -8,8 +9,9 @@ class MainClass {
 
     }
 
-    void main(String[] args){
+    void main(string[] args){
         int x;
+        int y;
         x = n;
         y = foo(6);
         printInt(y);
