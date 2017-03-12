@@ -52,7 +52,7 @@ public class AST_VAR_FIELD extends AST_VAR
 		T_CJump accessViolationCheck = new T_CJump(relop, new T_Label("access_violation"));
 
 		T_ESeq checkAndGetVar = new T_ESeq(moveExp, accessViolationCheck);
-		T_Binop binop = new T_Binop(BINOPS.PLUS, checkAndGetVar, new T_Const(offset * 4));
+		T_Binop binop = new T_Binop(BINOPS.PLUS, checkAndGetVar, new T_Const(offset));
 		return new T_Mem(binop);
 	}
 }
