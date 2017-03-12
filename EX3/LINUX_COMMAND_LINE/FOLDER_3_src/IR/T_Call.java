@@ -29,7 +29,7 @@ public class T_Call implements T_Exp {
         CGen.append(String.format("\tjalr $a1%n"));
 
         T_Temp resTemp = new T_Temp("return_value", true);
-        CGen.append(String.format("\taddi " + resTemp + ",$a0,0%n"));
+        CGen.append(String.format("\taddi " + resTemp + ",$a2,0%n"));
 
         epilogue.gen();
 
