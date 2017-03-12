@@ -1,21 +1,24 @@
-class MainClass {
-    int n;
-    string a,b,c;
+class A {
     int foo(int i){
-    return i + 1;
+        return i + 1;
     }
 
     void printInt(int i){
 
     }
 
+}
+
+
+class B {
     void main(string[] args){
+        int  y = 777;
         int x;
-        int y;
-        x = n;
-        y = foo(6);
-        printInt(y);
+        x = y;
+        A a = new A();
+        a.printInt(x);
     }
+
 
 
 

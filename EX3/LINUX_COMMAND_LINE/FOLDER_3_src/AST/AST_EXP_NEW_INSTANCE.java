@@ -37,7 +37,7 @@ public class AST_EXP_NEW_INSTANCE extends AST_EXP {
 
         exps.add(new T_Move(result, malloc));
         exps.add(new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, result, zero)), vftLabel));
-        for (int i = 1; i*4 < ClassChecker.sizeOf(this.className); i++) {
+        for (int i = 1; i * 4 < ClassChecker.sizeOf(this.className); i++) {
             exps.add(new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, result, new T_Const(i * 4))), zero));
         }
         //throw new Error("WIP");
