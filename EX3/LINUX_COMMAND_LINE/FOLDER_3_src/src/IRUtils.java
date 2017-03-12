@@ -42,8 +42,8 @@ public class IRUtils {
     }
 
     public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
-        int offset = IRUtils.getOffset();
-        pushVar(name, type, scope, offset);
+        int offset2 = IRUtils.getOffset();
+        pushVar(name, type, scope, offset2);
         offset++;
     }
 
