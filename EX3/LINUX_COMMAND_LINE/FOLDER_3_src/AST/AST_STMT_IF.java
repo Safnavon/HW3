@@ -24,6 +24,7 @@ public class AST_STMT_IF extends AST_STMT
 			throw new Exception("if statement condition must be an integer");
 		}
 		SymbolTable.openScope();
+		body.isValid(expectedReturnValue);
         SymbolTable.closeScope();
 
 //		T_CJump irJump;//TODO

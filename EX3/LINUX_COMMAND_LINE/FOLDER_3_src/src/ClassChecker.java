@@ -55,8 +55,8 @@ public class ClassChecker {
 
     public static class Field {
 
-        AST_TYPE type;
-        String name;
+        public AST_TYPE type;
+        public String name;
 
         public Field(AST_TYPE type, String name) {
 
@@ -79,7 +79,7 @@ public class ClassChecker {
         public String name;
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
-        public LinkedList<Field> fields = new LinkedList<Field>();
+        public ArrayList<Field> fields = new ArrayList<>();
 
         public Class(AST_CLASS_DECLARE cDec, Class parent) {
             this.name = cDec.name;
@@ -216,7 +216,7 @@ public class ClassChecker {
         return c;
     }
 
-    public static void newClass(AST_CLASS_DECLARE classDec) {
+    public static Class newClass(AST_CLASS_DECLARE classDec) {
         Class parent = null;
         if (classDec.extend != null) {
             parent = map.get(classDec.extend);
@@ -224,6 +224,7 @@ public class ClassChecker {
         Class c = new ClassChecker.Class(classDec, parent);
         currentClassName = c.name;
         map.put(c.name, c);
+        return c;
     }
 
     public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception {

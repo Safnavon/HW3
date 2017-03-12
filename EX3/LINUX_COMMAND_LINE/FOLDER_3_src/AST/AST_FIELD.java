@@ -28,9 +28,9 @@ public class AST_FIELD extends AST_CLASS_BODY_ITEM
 	@Override
 	public T_Exp buildIr()  {
 
-		for (String name : names) {
-				IRUtils.pushVar(name,this.type, SCOPE_TYPE.FIELD);
-		}
+//		for (String name : names) {
+//				IRUtils.pushVar(name,this.type, SCOPE_TYPE.FIELD);
+//		}
 
 		return null;
 	}
