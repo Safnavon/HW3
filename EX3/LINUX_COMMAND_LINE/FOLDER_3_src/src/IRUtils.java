@@ -6,8 +6,7 @@ import java.util.LinkedList;
 
 public class IRUtils {
 
-    private static int offset = 0;
-    public static int loopNesting = 0;
+    private static int offset = 1;
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
     public static String currentClass;
@@ -43,9 +42,9 @@ public class IRUtils {
     }
 
     public static void pushVar(String name, AST_TYPE type, SCOPE_TYPE scope) {
-        int offset = IRUtils.getOffset();
-        pushVar(name, type, scope, offset);
-
+        int offset2 = IRUtils.getOffset();
+        pushVar(name, type, scope, offset2);
+        offset++;
     }
 
     private static void remove(Var symbol) {

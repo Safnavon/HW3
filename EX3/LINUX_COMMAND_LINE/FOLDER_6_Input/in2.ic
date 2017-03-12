@@ -1,8 +1,7 @@
 class A {
-    int foo(int i){
-        return i + 1;
-    }
+ int foo(){
 
+}
     void printInt(int i){
 
     }
@@ -12,7 +11,7 @@ class A {
 
 class B {
     void main(string[] args){
-        int  y = 777;
+        int y = 777;
         int x;
         x = y;
         A a = new A();
