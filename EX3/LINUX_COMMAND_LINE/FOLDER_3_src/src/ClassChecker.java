@@ -182,7 +182,7 @@ public class ClassChecker {
 
         public Field getFieldByName(String fieldName) {
             for (Field field : this.fields) {
-                if (name.equals(fieldName)) {
+                if (field.name.equals(fieldName)) {
                     return field;
                 }
             }
