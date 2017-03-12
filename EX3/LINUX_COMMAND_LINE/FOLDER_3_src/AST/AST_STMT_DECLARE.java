@@ -59,9 +59,9 @@ public class AST_STMT_DECLARE extends AST_STMT
 			T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
 			T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
 			T_Label dontPushVarLabel = new T_Label("DontPushVar", true);
-			T_Temp varTemp = new T_Temp();
-
-			declareVarSeq.add(new T_CJump(new T_Relop(RELOPS.EQUAL, varTemp, new T_Const(0)), dontPushVarLabel));
+			T_Temp isFirstTimeInLoop = IRUtils.loopTemporaries.get(IRUtils.loopNesting);
+			// don't move $sp if not first time inside loop
+			declareVarSeq.add(new T_CJump(new T_Relop(RELOPS.EQUAL, isFirstTimeInLoop, new T_Const(0)), dontPushVarLabel));
 			declareVarSeq.add(move_sp);
 			declareVarSeq.add(dontPushVarLabel);
 		}

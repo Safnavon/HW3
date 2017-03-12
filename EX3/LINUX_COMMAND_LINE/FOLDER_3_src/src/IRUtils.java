@@ -1,6 +1,8 @@
 package src;
 
 import AST.AST_TYPE;
+import IR.T_Temp;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -8,6 +10,7 @@ public class IRUtils {
 
     private static int offset = 1;
     public static int loopNesting = 1;
+    public static HashMap<Integer, T_Temp> loopTemporaries;
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
     public static String currentClass;
@@ -16,6 +19,7 @@ public class IRUtils {
     public static void init() {
         varTable = new HashMap<String, LinkedList<Var> >();
         scopeStack = new LinkedList<Var>();
+        loopTemporaries = new HashMap<>();
     }
 
     public static Var getVar(String key) {
