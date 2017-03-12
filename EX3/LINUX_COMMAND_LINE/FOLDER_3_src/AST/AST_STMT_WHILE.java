@@ -43,7 +43,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		T_Exp bodyIr = body.buildIr();
 		T_JumpLabel jumpStart = new T_JumpLabel(labelStart);
 		T_CJump jumpEnd = new T_CJump(new T_Relop(RELOPS.EQUAL,expVal,new T_Const(0)), labelEnd);
-		IRUtils.loopNesting++;
+		IRUtils.loopNesting--;
 
 		ArrayList<T_Exp> seq = new ArrayList<>();
 		seq.add(setIsFirstLoop);
