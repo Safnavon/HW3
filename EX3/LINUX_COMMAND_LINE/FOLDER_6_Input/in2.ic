@@ -1,24 +1,40 @@
-class A {
- int foo(){
-
-}
+class PRINT {
     void printInt(int i){
 
     }
 
 }
-
-
-class B {
-    void main(string[] args){
-        int y = 777;
-        int x;
-        x = y;
-        A a = new A();
-        a.printInt(x);
+class ArrayThree{
+    int[] arr;
+    void set(int index, int value){
+        if(index >= 3){
+            return ;
+        }
+        arr[index] = value;
     }
 
+    void init(){
+        arr = new int[3];
+    }
 
-
-
+    int get(int index){
+        if(index >= 3){
+            return -1;
+        }
+        return arr[index];
+    }
+}
+class MainClass {
+    void main(string[] args){
+        PRINT a = new PRINT();
+        ArrayThree arr = new ArrayThree();
+        arr.init();
+        arr.set(2,22);
+        arr.set(1,11);
+        arr.set(0,999);
+        a.printInt(arr.get(8));
+        a.printInt(arr.get(0));
+        a.printInt(arr.get(1));
+        a.printInt(arr.get(2));
+    }
 }

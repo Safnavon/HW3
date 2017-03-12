@@ -72,7 +72,7 @@ import java_cup.runtime.*;
 /***********************/
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f] | \/\*(.|[\r\n])*?\*\/ | \/\/.*
-INTEGER			= 0 | [1-9][0-9]*
+INTEGER			= 0 | \-?[1-9][0-9]*
 ID				= [a-z]+
 CLASS_ID= [A-Z][a-zA-Z0-9_]*
 ID= [a-z][a-zA-Z0-9_]*

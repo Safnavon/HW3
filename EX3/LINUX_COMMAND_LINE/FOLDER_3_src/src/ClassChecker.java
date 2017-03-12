@@ -24,8 +24,8 @@ public class ClassChecker {
     public static class Function {
 
         public AST_METHOD_DECLARE method;
-        boolean inherited = false;//used for inheritance checking. this flag is changed according to context
 
+        boolean inherited = false;//used for inheritance checking. this flag is changed according to context
         //IR
         public T_Label funcLabel;
 
@@ -51,11 +51,13 @@ public class ClassChecker {
             }
             return myRest == null;//same size of data structures
         }
+
     }
 
     public static class Field {
 
         public AST_TYPE type;
+
         public String name;
 
         public Field(AST_TYPE type, String name) {
@@ -72,11 +74,13 @@ public class ClassChecker {
             return this.type.equals(_other.type) &&
                     this.name.equals(_other.name);
         }
+
     }
 
     public static class Class {
 
         public String name;
+
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
         public ArrayList<Field> fields = new ArrayList<>();
@@ -176,7 +180,6 @@ public class ClassChecker {
             throw new Exception("Class " + Class.this.name + " doesnt have field " + name + " with this type");
         }
 
-
         public Field getFieldByName(String fieldName) {
             for (Field field : this.fields) {
                 if (name.equals(fieldName)) {
@@ -185,6 +188,8 @@ public class ClassChecker {
             }
             return null;
         }
+
+
     }
 
     private static HashMap<String, Class> map = new HashMap<String, Class>();
@@ -203,6 +208,11 @@ public class ClassChecker {
     private static T_Label mainFunctionLabel = null;
 
     private static String currentClassName;
+
+    public static Class getForIr(String className) {
+        assert className != null;
+        return map.get(className);
+    }
 
     public static Class get(String className) throws Exception {
         if (className == null) {
