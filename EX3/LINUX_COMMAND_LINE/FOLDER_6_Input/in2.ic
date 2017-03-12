@@ -1,0 +1,20 @@
+class MainClass {
+    int n,m;
+    int foo(int i){
+    return i + 1;
+    }
+
+    void printInt(int i){
+
+    }
+
+    void main(String[] args){
+        int x;
+        x = n;
+        y = foo(6);
+        printInt(y);
+    }
+
+
+
+}

@@ -24,6 +24,7 @@ scan with
 {:
 	Symbol s;
 	s = lexer.next_token();
+	System.out.println(s.value);
 	return s; 
 :};
 

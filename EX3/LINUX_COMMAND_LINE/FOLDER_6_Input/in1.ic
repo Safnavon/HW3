@@ -10,7 +10,7 @@ class PrimesPrinter
 
 	int isPrime(int num)
 	{
-		PRINT printer;
+		PRINT printer = new PRINT();
 
 		int i = 2;
 		while ((i * i) <= num)
@@ -36,7 +36,7 @@ class PrimesPrinter
 
 	void printPrimes(int max)
 	{
-		PRINT printer;
+		PRINT printer = new PRINT();
 
 		// Printing '9999' to mark we entered this method
 		printer.printInt(9999);
@@ -61,7 +61,7 @@ class Mainclass
 {
 	void main(string[] args)
 	{
-		PRINT printer;
+		PRINT printer = new PRINT();
 
 		PrimesPrinter primesPrinter = new PrimesPrinter();
 		primesPrinter.printPrimes(50);
