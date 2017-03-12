@@ -68,7 +68,7 @@ public class AST_METHOD_CALL extends AST_Node {
         String thisClass, method;
 
         if (this.var.getClass().equals(AST_VAR_SIMPLE.class)) {
-            thisInst = new T_Temp("$fp");
+            thisInst = new T_Mem(new T_Binop(BINOPS.PLUS,new T_Temp("$fp"),new T_Const(0)));
             thisClass = IRUtils.currentClass;
             method = ((AST_VAR_SIMPLE) var).name;
         } else if (this.var.getClass().equals(AST_VAR_FIELD.class)) {

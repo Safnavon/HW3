@@ -29,12 +29,7 @@ class MainClass {
         PRINT a = new PRINT();
         ArrayThree arr = new ArrayThree();
         arr.init();
-        arr.set(2,22);
-        arr.set(1,11);
         arr.set(0,999);
-        a.printInt(arr.get(8));
         a.printInt(arr.get(0));
-        a.printInt(arr.get(1));
-        a.printInt(arr.get(2));
     }
 }
