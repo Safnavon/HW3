@@ -152,7 +152,7 @@ Label_13_TRUE:
 	bne	Temp_82,Temp_83,Label_0_access_violation
 	sw	Temp_77, 0(Temp_79)
 Label_5_StartWhile:
-	li	Temp_84, 0
+	li	Temp_84, -4
 	add	Temp_85, $fp, Temp_84
 	li	Temp_86, 0
 	li	Temp_87, 0
@@ -177,7 +177,7 @@ Label_15_TRUE:
 Label_16_TRUE:
 	li	Temp_97, 0
 	bne	Temp_96,Temp_97,Label_6_EndWhile
-	li	Temp_98, 0
+	li	Temp_98, -4
 	add	Temp_99, $fp, Temp_98
 	li	Temp_100, 0
 	li	Temp_101, 0
@@ -189,7 +189,7 @@ Label_17_TRUE:
 	bne	Temp_102,Temp_103,Label_0_access_violation
 	lw	Temp_104, 0(Temp_99)
 	addi	Temp_105, Temp_104, 0
-	li	Temp_106, 0
+	li	Temp_106, -4
 	add	Temp_107, $fp, Temp_106
 	li	Temp_108, 0
 	li	Temp_109, 0
@@ -201,7 +201,7 @@ Label_18_TRUE:
 	bne	Temp_110,Temp_111,Label_0_access_violation
 	lw	Temp_112, 0(Temp_107)
 	addi	Temp_105, Temp_112, 0
-	li	Temp_113, 0
+	li	Temp_113, -4
 	add	Temp_114, $fp, Temp_113
 	li	Temp_115, 0
 	li	Temp_116, 0
@@ -259,7 +259,7 @@ Label_23_TRUE:
 	addi	$a0,Temp_147,0
 	li $v0,1
 	syscall
-	li	Temp_148, 0
+	li	Temp_148, -4
 	add	Temp_149, $fp, Temp_148
 	li	Temp_150, 0
 	li	Temp_151, 0
@@ -272,7 +272,7 @@ Label_24_TRUE:
 	lw	Temp_154, 0(Temp_149)
 	li	Temp_155, 1
 	add	Temp_156, Temp_154, Temp_155
-	li	Temp_157, 0
+	li	Temp_157, -4
 	add	Temp_158, $fp, Temp_157
 	li	Temp_159, 0
 	li	Temp_160, 0
