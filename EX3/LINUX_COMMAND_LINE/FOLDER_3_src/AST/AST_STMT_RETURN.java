@@ -44,12 +44,12 @@ public class AST_STMT_RETURN extends AST_STMT
 		} else {
 			if (exp == null) {
 				ArrayList<T_Exp> seq = new ArrayList<>();
-				seq.add(new T_Move(new T_Temp("$a0"), new T_Const(0)));
+				seq.add(new T_Move(new T_Temp("$a2"), new T_Const(0)));
 				seq.add(new T_JumpRegister(new T_Temp("$ra")));
 				return new T_Seq(seq);
 			} else {
 				ArrayList<T_Exp> seq = new ArrayList<>();
-				seq.add(new T_Move(new T_Temp("$a0"), exp.buildIr()));
+				seq.add(new T_Move(new T_Temp("$a2"), exp.buildIr()));
 				seq.add(new T_JumpRegister(new T_Temp("$ra")));
 				return new T_Seq(seq);
 			}

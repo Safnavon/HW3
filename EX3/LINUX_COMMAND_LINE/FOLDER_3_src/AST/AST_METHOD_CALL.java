@@ -42,11 +42,11 @@ public class AST_METHOD_CALL extends AST_Node {
 
         if (this.var.getClass().equals(AST_VAR_SIMPLE.class)) {
             methodName = ((AST_VAR_SIMPLE) var).name;
-            AST_TYPE varType = SymbolTable.get(methodName);
-            if (varType == null || !varType.getClass().equals(AST_TYPE_METHOD.class)) {
-                throw (new Exception("no method found for name" + this.var.getClass().getName()));
-            }
-            instanceType = varType;
+//            AST_TYPE varType = SymbolTable.get(methodName);
+//            if (varType == null || !varType.getClass().equals(AST_TYPE_METHOD.class)) {
+//                throw (new Exception("no method found for name" + this.var.getClass().getName()));
+//            }
+            instanceType = new AST_TYPE_CLASS(ClassChecker.get(null).name);
         }
         else if (this.var.getClass().equals(AST_VAR_FIELD.class)) {
             AST_VAR_FIELD varField = (AST_VAR_FIELD) var;
@@ -98,8 +98,7 @@ public class AST_METHOD_CALL extends AST_Node {
         T_Temp thisTemp = new T_Temp("for_passing_this", true);
         T_Move putThisInTemp = new T_Move(thisTemp, thisInst);
         T_Exp vfTable = new T_Mem(new T_Binop(BINOPS.PLUS, thisTemp, new T_Const(0)));
-        T_Temp methodReg = new T_Temp();
-        T_Move getMethodAddr = new T_Move(methodReg, new T_Mem(new T_Binop(BINOPS.PLUS, vfTable, new T_Const(methodOffset))));
+        T_Move getMethodAddr = new T_Move(new T_Temp("$a1"), new T_Mem(new T_Binop(BINOPS.PLUS, vfTable, new T_Const(methodOffset))));
 
         ArrayList<T_Exp> prologueSeq = new ArrayList<T_Exp>();
         T_Exp push_$fp = pushReg("$fp");
@@ -121,7 +120,7 @@ public class AST_METHOD_CALL extends AST_Node {
         seq.add(putThisInTemp);
         seq.add(getMethodAddr);
         T_ExpList expList = exps == null ? null : exps.buildIr();
-        seq.add(new T_Call(methodReg, expList, thisTemp, prologue, epilogue));
+        seq.add(new T_Call(expList, thisTemp, prologue, epilogue));
         return new T_ESeq(seq);
     }
 

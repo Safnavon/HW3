@@ -30,9 +30,9 @@ public class AST_METHOD_DECLARE extends AST_CLASS_BODY_ITEM
 			type.isValid();
 		}
 		ClassChecker.addFunction(className, this);
-		if (SymbolTable.isInCurrentScope(name)) {
-			throw new Exception(name + " is already defined in this scope");				
-		}
+//		if (SymbolTable.isInCurrentScope(name)) {
+//			throw new Exception(name + " is already defined in this scope");
+//		}
 		SymbolTable.put(name, new AST_TYPE_METHOD(this));
 		SymbolTable.openScope();	// do not swap these lines
 		if(formals!=null)formals.isValid();			// do not swap these lines

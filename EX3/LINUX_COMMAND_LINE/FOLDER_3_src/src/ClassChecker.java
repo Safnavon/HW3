@@ -55,8 +55,8 @@ public class ClassChecker {
 
     public static class Field {
 
-        AST_TYPE type;
-        String name;
+        public AST_TYPE type;
+        public String name;
 
         public Field(AST_TYPE type, String name) {
 
@@ -79,7 +79,7 @@ public class ClassChecker {
         public String name;
         public Class parent;
         public LinkedList<Function> funcs = new LinkedList<Function>();
-        public LinkedList<Field> fields = new LinkedList<Field>();
+        public ArrayList<Field> fields = new ArrayList<>();
 
         public Class(AST_CLASS_DECLARE cDec, Class parent) {
             this.name = cDec.name;
@@ -105,13 +105,16 @@ public class ClassChecker {
             final Exception dupMain = new Exception("Found a second void main(String[]) declaration");
             Function func = new Function(f, this.name);
             Function fExisting = this.getFunctionByName(func.method.name);
-
             if (fExisting != null) {
                 if (!fExisting.inherited) {
                     throw dup;
                 }
-                if (!(func.method.type.isExtending(fExisting.method.type))) {
-                    throw typeMismatch;
+                if (func.method.type != null) {
+                    if (!func.method.type.isExtending(fExisting.method.type))
+                        throw typeMismatch;
+                } else {
+                    if (fExisting.method.type != null)
+                        throw typeMismatch;
                 }
                 int fLocation = this.funcs.indexOf(fExisting);
                 assert fLocation != -1;
@@ -213,7 +216,7 @@ public class ClassChecker {
         return c;
     }
 
-    public static void newClass(AST_CLASS_DECLARE classDec) {
+    public static Class newClass(AST_CLASS_DECLARE classDec) {
         Class parent = null;
         if (classDec.extend != null) {
             parent = map.get(classDec.extend);
@@ -221,6 +224,7 @@ public class ClassChecker {
         Class c = new ClassChecker.Class(classDec, parent);
         currentClassName = c.name;
         map.put(c.name, c);
+        return c;
     }
 
     public static void addFunction(String className, AST_METHOD_DECLARE func) throws Exception {
@@ -233,12 +237,6 @@ public class ClassChecker {
         c.addFields(fields);
     }
 
-    //    private static AST_TYPE isValidMethodInSpecificClass(Class c, String fName, List<AST_TYPE> argTypes) throws Exception {
-//        if (c == null) {
-//            throw new Exception("Cant find class");
-//        }
-//        return c.hasFunction(fName, argTypes);
-//
     public static AST_TYPE isValidMethod(AST_TYPE classType, String fName, List<AST_TYPE> argTypes) throws Exception {
         if (!(classType instanceof AST_TYPE_CLASS)) {
             throw new Exception("Cant convert to AST_TYPE_CLASS: " + classType);
@@ -250,25 +248,6 @@ public class ClassChecker {
             throw notFound;
         }
         return c.hasFunction(fName, argTypes);
-
-//        boolean found = false;
-//        for (String c = map.get(cType.name) != null ? map.get(cType.name).name : null;
-//             c != null;
-//             c = ((map.get(c) != null && map.get(c).parent != null) ? map.get(c).parent.name : null)) {
-//            try {
-//                t = isValidMethodInSpecificClass(c, fName, argTypes);
-//                found = true;
-//            } catch (Exception e) {
-//                continue;
-//            }
-//            ;
-//            break;
-//        }
-//        if (found) {
-//            return t;
-//        } else {
-//            throw ;
-//        }
     }
 
 //    }
@@ -280,24 +259,6 @@ public class ClassChecker {
             throw notFound;
         }
         return c.hasField(fName);
-//        AST_TYPE t = null;
-//        throwIfNotClass(cName);
-//        boolean found = false;
-//        for (String c = map.get(cName).name; c != null; c = ((map.get(c) != null && map.get(c).parent != null) ? map.get(c).parent.name : null)) {
-//            try {
-//                t = isValidFieldInSpecificClass(c, fName);
-//                found = true;
-//            } catch (Exception e) {
-//                continue;
-//            }
-//            ;
-//            break;
-//        }
-//        if (found) {
-//            return t;
-//        } else {
-//            throw new Exception("Cant find field " + fName + " on class " + cName + " or its parents.");
-//        }
     }
 
 //    }
@@ -355,7 +316,9 @@ public class ClassChecker {
             for (Function function : c.funcs) {
                 sb.append(function.funcLabel.getName() + "," + nl + "\t");
             }
-            sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            if (c.funcs.size() > 0) {
+                sb.delete(sb.lastIndexOf(","), sb.length());//remove last (,\n\t)
+            }
             sb.append(nl + nl);
         }
         return sb.append(nl).toString();

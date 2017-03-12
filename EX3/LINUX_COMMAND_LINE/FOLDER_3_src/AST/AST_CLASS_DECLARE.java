@@ -1,11 +1,9 @@
 package AST; import IR.T_Exp;
 import IR.T_Seq;
-import src.ClassChecker;
-import src.IRUtils;
-import src.IR_TYPE_WRAPPER;
-import src.SymbolTable;
+import src.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class AST_CLASS_DECLARE extends AST_Node
 {
@@ -31,7 +29,11 @@ public class AST_CLASS_DECLARE extends AST_Node
 		
 		SymbolTable.put(name, new AST_TYPE_CLASS(name));
 		SymbolTable.openScope();
-		ClassChecker.newClass(this);
+		ArrayList<ClassChecker.Field> fields = ClassChecker.newClass(this).fields;
+		for ( ClassChecker.Field field : fields) {
+			SymbolTable.put(field.name, field.type);
+		}
+
 		if (body != null) { // ic syntax doesn't require a non empty class body
 			body.isValid(name);
 		}
@@ -43,6 +45,16 @@ public class AST_CLASS_DECLARE extends AST_Node
 	public T_Exp buildIr(){
 		IRUtils.currentClass = name;
 		IRUtils.openScope();
+
+		// add inherited vars to scope
+		try {
+			ArrayList<ClassChecker.Field> fields = ClassChecker.get(name).fields;
+			for ( ClassChecker.Field field : fields) {
+				IRUtils.pushVar(field.name, field.type, SCOPE_TYPE.FIELD);
+			}
+		} catch (Exception e) {
+			throw new Error(e.getMessage());
+		}
 
 		ArrayList<T_Exp> methods= new ArrayList<T_Exp>();
 		for (AST_CLASS_BODY body = this.body; body != null && body.first != null; body = body.rest){
