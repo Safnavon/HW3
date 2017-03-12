@@ -35,7 +35,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		T_Label labelEnd = new T_Label("EndWhile",true);
 		T_Exp bodyIr = body.buildIr();
 		T_JumpLabel jumpStart = new T_JumpLabel(labelStart);
-		T_CJump jumpEnd = new T_CJump(expVal, labelEnd);
+		T_CJump jumpEnd = new T_CJump(new T_Relop(RELOPS.EQUAL,expVal,new T_Const(0)), labelEnd);
 
 		return new T_Seq(labelStart,new T_Seq(jumpEnd,new T_Seq(bodyIr,new T_Seq(jumpStart,labelEnd))));
 	}
