@@ -50,7 +50,7 @@ public class AST_CLASS_DECLARE extends AST_Node
 		try {
 			ArrayList<ClassChecker.Field> fields = ClassChecker.get(name).fields;
 			for ( ClassChecker.Field field : fields) {
-				IRUtils.pushVar(field.name, field.type, SCOPE_TYPE.FIELD);
+				IRUtils.pushVar(field.name, field.type, SCOPE_TYPE.FIELD, ClassChecker.getFieldOffset(name, field.name)/4);
 			}
 		} catch (Exception e) {
 			throw new Error(e.getMessage());

@@ -25,10 +25,10 @@ public class AST_VAR_SIMPLE extends AST_VAR
         Var var = IRUtils.getVar(name);
         switch (var.scope) {
             case FIELD:
-                T_Mem m = new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(8)));
+                T_Mem m = new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(0)));
                 return new T_Mem(new T_Binop(BINOPS.PLUS, m, new T_Const(var.offset * 4)));
             case PARAMETER:
-                return new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const((var.offset + 2) * 4)));
+                return new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const((var.offset) * 4)));
             case LOCAL:
                 return new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(var.offset * (-4))));
             default:
