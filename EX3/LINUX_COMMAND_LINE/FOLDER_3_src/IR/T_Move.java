@@ -44,7 +44,7 @@ public class T_Move implements T_Exp {
             assert destTemp != null;
             CGen.append(String.format(
                     "\taddi\t%1$s, %2$s, 0%n",
-                    srcTemp,destTemp
+                    destTemp ,srcTemp
             ));
             return destTemp;
         }

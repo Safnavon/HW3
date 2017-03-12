@@ -112,9 +112,9 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| exp:e DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(e,fieldName); :}
 					| exp:e1 LBRACK exp:e2 RBRACK		{: RESULT = new AST_VAR_SUBSCRIPT(e1,e2);     :}
 					;
-					
+
 stmt		::=		var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
-					| exp:e SEMICOLON	                                        {: RESULT = new AST_STMT_CALL(null); :}
+					| call:c SEMICOLON	                                        {: RESULT = new AST_STMT_CALL(c); :}
 					| RETURN SEMICOLON	                                        {: RESULT = new AST_STMT_RETURN(null); :}
 					| RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN(e); :}
 					| IF    LPAREN exp:cond RPAREN  stmt:s 						{: RESULT = new AST_STMT_IF(   cond,s); :}

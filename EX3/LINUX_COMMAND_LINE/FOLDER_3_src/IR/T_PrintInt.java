@@ -21,7 +21,7 @@ public class T_PrintInt implements  T_Exp {
                 temp
         ));
         CGen.append(String.format(
-                "\tli\t$v0,1%n"
+                "\tli $v0,1%n"
 
         ));
         CGen.append(String.format(
