@@ -3,6 +3,8 @@ import IR.BINOPS;
 import src.*;
 import src.IRUtils;
 
+import java.util.ArrayList;
+
 public class AST_STMT_DECLARE extends AST_STMT
 {
 	public AST_TYPE type;
@@ -42,18 +44,30 @@ public class AST_STMT_DECLARE extends AST_STMT
 	}
 
 	public T_Exp buildIr() {
-		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL);
-		T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
-		T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
-
 		T_Exp val;
 		if (exp == null) {
 			val = new T_Const(0);
 		} else {
 			val = exp.buildIr();
 		}
-//		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(IRUtils.getOffset() * (-4)))), val);
-		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(0))), val);
-		return new T_Seq(move_sp, move_value);
+
+		int currOffset = IRUtils.getOffset();
+		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL);
+
+		ArrayList<T_Exp> declareVarSeq = new ArrayList<>();
+		if (IRUtils.loopNesting > 0) {
+			T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
+			T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
+			T_Label dontPushVarLabel = new T_Label("DontPushVar", false);
+			T_Temp varTemp = new T_Temp();
+
+			declareVarSeq.add(new T_CJump(new T_Relop(RELOPS.EQUAL, varTemp, new T_Const(0)), dontPushVarLabel));
+			declareVarSeq.add(move_sp);
+			declareVarSeq.add(dontPushVarLabel);
+		}
+
+		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(currOffset * (-4)))), val);
+		declareVarSeq.add(move_value);
+		return new T_Seq(declareVarSeq);
 	}
 }
