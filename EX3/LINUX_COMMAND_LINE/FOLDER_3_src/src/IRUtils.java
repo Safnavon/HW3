@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class IRUtils {
 
     private static int offset = 1;
+    public static int loopNesting = 1;
     private static HashMap<String, LinkedList<Var> > varTable;
     private static LinkedList<Var> scopeStack;
     public static String currentClass;
