@@ -103,14 +103,19 @@ public class AST_METHOD_CALL extends AST_Node {
         ArrayList<T_Exp> prologueSeq = new ArrayList<T_Exp>();
         T_Exp push_$fp = pushReg("$fp");
         T_Exp push_$ra = pushReg("$ra");
+        T_Temp old$sp = new T_Temp();
         T_Exp set_$fp = new T_Move(new T_Temp("$fp"), new T_Temp("$sp"));
+        T_Exp store$sp = new T_Move(old$sp, new T_Temp("$sp"));
         prologueSeq.add(push_$fp);
         prologueSeq.add(push_$ra);
         prologueSeq.add(set_$fp);
+        prologueSeq.add(store$sp);
         T_Exp prologue = new T_Seq(prologueSeq);
 
         // EPILOGUE
         ArrayList<T_Exp> epilogueSeq = new ArrayList<T_Exp>();
+        T_Exp restore$sp = new T_Move(new T_Temp("$sp"), old$sp);
+        epilogueSeq.add(restore$sp);
         epilogueSeq.add(popToReg("$ra"));
         epilogueSeq.add(popToReg("$fp"));
         T_Exp epilogue = new T_Seq(prologueSeq);
