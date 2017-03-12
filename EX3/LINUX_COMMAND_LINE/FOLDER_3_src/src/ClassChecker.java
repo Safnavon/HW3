@@ -318,6 +318,7 @@ public class ClassChecker {
         StringBuilder sb = new StringBuilder();
         String nl = String.format("%n");
         for (Class c : map.values()) {
+            if (c.funcs.size()==0) continue;
             boolean hasFunctions = c.funcs.size() != 0;
             String VFTableLabel = "VFTable_" + c.name;
             //print VF table
