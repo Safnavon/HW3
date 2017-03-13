@@ -81,24 +81,39 @@ public class T_Call implements T_Exp {
         // set fp to sp
         // jalr
         // body
-        // set sp to fp + args.length + 4
-        // set ra to fp + args.length + 12
-        // set fp to fp + args.length + 8
-        // consume return value END
+        T_Temp fpTemp = new T_Temp("$fp");
+        T_Temp spTemp = new T_Temp("$sp");
+        T_Temp raTemp = new T_Temp("$ra");
+        T_Binop address;
+
+        // load sp from fp - args.length + 4
+        address = new T_Binop(BINOPS.PLUS,fpTemp,new T_Const(4-argsLength*4));
+        T_Move initSp = new T_Move(spTemp, new T_Mem(address));
+        initSp.gen();
+
+        // load ra from fp - args.length + 12
+        address = new T_Binop(BINOPS.PLUS,fpTemp,new T_Const(12-argsLength*4));
+        T_Move initRa = new T_Move(raTemp, new T_Mem(address));
+        initRa.gen();
+
+        // load fp from fp - args.length + 8
+        address = new T_Binop(BINOPS.PLUS,fpTemp,new T_Const(8-argsLength*4));
+        T_Move initFp = new T_Move(fpTemp, new T_Mem(address));
+        initFp.gen();
 
 
         // add this as "first argument"
-        CGen.append(String.format("\taddi $sp,$sp,-4%n"));
-        CGen.append(String.format("\tsw " + thisTemp + ",0($sp)%n"));
-
-        prologue.gen();
+//        CGen.append(String.format("\taddi $sp,$sp,-4%n"));
+//        CGen.append(String.format("\tsw " + thisTemp + ",0($sp)%n"));
+//
+//        prologue.gen();
 
         CGen.append(String.format("\tjalr $a1%n"));
 
         T_Temp resTemp = new T_Temp("return_value", true);
         CGen.append(String.format("\taddi " + resTemp + ",$a2,0%n"));
 
-        epilogue.gen();
+        //epilogue.gen();
 
         return resTemp; // holds the result
     }
