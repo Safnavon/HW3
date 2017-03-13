@@ -90,18 +90,18 @@ public class T_Call implements T_Exp {
         T_Temp raTemp = new T_Temp("$ra");
         T_Binop address;
 
-        // load sp from fp - args.length + 4
-        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(4 - argsLength * 4));
+        // load sp from fp + args.length + 4
+        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(4 + argsLength * 4));
         T_Move initSp = new T_Move(spTemp, new T_Mem(address));
         initSp.gen();
 
-        // load ra from fp - args.length + 12
-        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(12 - argsLength * 4));
+        // load ra from fp + args.length + 12
+        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(12 + argsLength * 4));
         T_Move initRa = new T_Move(raTemp, new T_Mem(address));
         initRa.gen();
 
-        // load fp from fp - args.length + 8
-        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(8 - argsLength * 4));
+        // load fp from fp + args.length + 8
+        address = new T_Binop(BINOPS.PLUS, fpTemp, new T_Const(8 + argsLength * 4));
         T_Move initFp = new T_Move(fpTemp, new T_Mem(address));
         initFp.gen();
 
