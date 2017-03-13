@@ -29,6 +29,9 @@ public class T_Call implements T_Exp {
         // set fp to sp
         // jalr
         // body (takes care of setting sp, fp and ra to previous values)
+        // set sp to fp - args.length - 4
+        // set ra to fp - args.length - 12
+        // set fp to fp - args.length - 8
         // consume return value END
 
 
