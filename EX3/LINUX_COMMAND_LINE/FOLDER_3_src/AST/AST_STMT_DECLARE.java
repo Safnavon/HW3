@@ -55,9 +55,10 @@ public class AST_STMT_DECLARE extends AST_STMT
 		IRUtils.pushVar(name, type, SCOPE_TYPE.LOCAL);
 
 		ArrayList<T_Exp> declareVarSeq = new ArrayList<>();
+		T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
+		T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
+
 		if (IRUtils.loopNesting > 0) {
-			T_Binop addr = new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4));
-			T_Move move_sp = new T_Move(new T_Temp("$sp"), addr);
 			T_Label dontPushVarLabel = new T_Label("DontPushVar", true);
 			T_Temp isFirstTimeInLoop = IRUtils.loopTemporaries.get(IRUtils.loopNesting);
 			// don't move $sp if not first time inside loop
@@ -65,7 +66,9 @@ public class AST_STMT_DECLARE extends AST_STMT
 			declareVarSeq.add(move_sp);
 			declareVarSeq.add(dontPushVarLabel);
 		}
-
+		else {
+			declareVarSeq.add(move_sp);
+		}
 		T_Move move_value = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, new T_Temp("$fp"), new T_Const(currOffset * (-4)))), val);
 		declareVarSeq.add(move_value);
 		return new T_Seq(declareVarSeq);
