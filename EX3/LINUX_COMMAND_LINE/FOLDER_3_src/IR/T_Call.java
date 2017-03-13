@@ -16,10 +16,27 @@ public class T_Call implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        // push args to stack
+        // set ra on sp+4
+        // set fp on sp+8
+        // set sp on sp+12
+        // set args on sp+16+(len - index) REVERSE ORDER
         if (args != null) {
+            //assume fp and sp are old
         	args.gen();
         }
+        // set "this" on sp + 16 + args.length + 4
+        // set sp to sp + 16 + args.length + 4
+        // set fp to sp
+        // jalr
+        // body (takes care of setting sp, fp and ra to previous values)
+        // set sp to fp - args.length - 4
+        // set ra to fp - args.length - 12
+        // set fp to fp - args.length - 8
+        // consume return value END
+
+
+
+
         // add this as "first argument"
         CGen.append(String.format("\taddi $sp,$sp,-4%n"));
         CGen.append(String.format("\tsw " + thisTemp + ",0($sp)%n"));
