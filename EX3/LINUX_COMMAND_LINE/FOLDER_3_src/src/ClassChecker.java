@@ -182,7 +182,7 @@ public class ClassChecker {
 
         public Field getFieldByName(String fieldName) {
             for (Field field : this.fields) {
-                if (name.equals(fieldName)) {
+                if (field.name.equals(fieldName)) {
                     return field;
                 }
             }
@@ -293,7 +293,7 @@ public class ClassChecker {
         Class c = get(className);
         assert c != null : className;
         Field f = c.getFieldByName(fieldName);
-        assert f != null : "className: " + className + "fieldName: " + fieldName;
+        assert f != null : "className: " + className + " fieldName: " + fieldName;
         int i = c.fields.indexOf(f);
         assert i > -1;
         return (i + 1) * 4;//+1 for skipping function table

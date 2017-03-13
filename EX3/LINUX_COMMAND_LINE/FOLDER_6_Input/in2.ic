@@ -1,35 +1,13 @@
-class PRINT {
-    void printInt(int i){
-
-    }
-
-}
-class ArrayThree{
-    int[] arr;
-    void set(int index, int value){
-        if(index >= 3){
-            return ;
-        }
-        arr[index] = value;
-    }
-
+class Glass{
+    int x;
     void init(){
-        arr = new int[3];
+        x = 777;
     }
 
-    int get(int index){
-        if(index >= 3){
-            return -1;
-        }
-        return arr[index];
-    }
 }
 class MainClass {
     void main(string[] args){
-        PRINT a = new PRINT();
-        ArrayThree arr = new ArrayThree();
-        arr.init();
-        arr.set(0,999);
-        a.printInt(arr.get(0));
+        Glass a = new Glass();
+        a.init();
     }
 }
