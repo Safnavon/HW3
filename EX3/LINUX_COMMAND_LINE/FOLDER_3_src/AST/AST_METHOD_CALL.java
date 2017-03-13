@@ -101,18 +101,20 @@ public class AST_METHOD_CALL extends AST_Node {
         T_Move getMethodAddr = new T_Move(new T_Temp("$a1"), new T_Mem(new T_Binop(BINOPS.PLUS, vfTable, new T_Const(methodOffset))));
 
         ArrayList<T_Exp> prologueSeq = new ArrayList<T_Exp>();
+        prologueSeq.add(putThisInTemp);
+        prologueSeq.add(getMethodAddr);
         T_Exp prologue = new T_Seq(prologueSeq);
 
-        // EPILOGUE
-        ArrayList<T_Exp> epilogueSeq = new ArrayList<T_Exp>();
-        T_Exp epilogue = new T_Seq(epilogueSeq);
+//        // EPILOGUE
+//        ArrayList<T_Exp> epilogueSeq = new ArrayList<T_Exp>();
+//        T_Exp epilogue = new T_Seq(epilogueSeq);
 
         // RESULT IR NODE
         ArrayList<T_Exp> seq = new ArrayList<>();
         seq.add(putThisInTemp);
         seq.add(getMethodAddr);
         T_ExpList expList = exps == null ? null : exps.buildIr();
-        seq.add(new T_Call(expList, thisTemp, prologue, epilogue));
+        seq.add(new T_Call(expList, thisTemp, prologue, null));
         return new T_ESeq(seq);
     }
 
