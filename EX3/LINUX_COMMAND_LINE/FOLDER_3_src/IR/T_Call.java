@@ -16,13 +16,15 @@ public class T_Call implements T_Exp {
 
     @Override
     public T_Temp gen() {
-        // set ra on sp+4
-        // set fp on sp+8
-        // set sp on sp+12
-        // set args on sp+16+(len - index) REVERSE ORDER
+        // set ra on sp + 4
+        // set fp on sp + 8
+        // set sp on sp + 12
+        // set args on sp + 16 + (len - index) REVERSE ORDER
+        int argsLength = 0;
         if (args != null) {
             //assume fp and sp are old
         	args.gen();
+        	argsLength = args.size;
         }
         // set "this" on sp + 16 + args.length + 4
         // set sp to sp + 16 + args.length + 4
