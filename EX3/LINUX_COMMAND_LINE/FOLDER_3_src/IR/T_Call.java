@@ -10,25 +10,74 @@ public class T_Call implements T_Exp {
     public T_Call(T_ExpList args, T_Temp thisTemp, T_Exp prologue, T_Exp epilogue) {
         this.args = args;
         this.thisTemp = thisTemp;
-        this.prologue=prologue;
-        this.epilogue=epilogue;
+        this.prologue = prologue;
+        this.epilogue = epilogue;
     }
 
     @Override
     public T_Temp gen() {
         // set ra on sp - 4
-        //new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS)))
+        new T_Move(
+                new T_Mem(
+                        new T_Binop(
+                                BINOPS.PLUS,
+                                new T_Temp("$sp"),
+                                new T_Const(-4)
+                        )
+                ),
+                new T_Temp("$ra")
+        ).gen();
         // set fp on sp - 8
+        new T_Move(
+                new T_Mem(
+                        new T_Binop(
+                                BINOPS.PLUS,
+                                new T_Temp("$sp"),
+                                new T_Const(-8)
+                        )
+                ),
+                new T_Temp("$fp")
+        ).gen();
         // set sp on sp - 12
+        new T_Move(
+                new T_Mem(
+                        new T_Binop(
+                                BINOPS.PLUS,
+                                new T_Temp("$sp"),
+                                new T_Const(-12)
+                        )
+                ),
+                new T_Temp("$sp")
+        ).gen();
         // set args on sp - 16 - (len - index) REVERSE ORDER
         int argsLength = 0;
         if (args != null) {
             //assume fp and sp are old
-        	args.gen();
-        	argsLength = args.size;
+            args.gen();
+            argsLength = args.size;
         }
-        // set "this" on sp - 16 - args.length - 4
-        // set sp to sp - 16 - args.length - 4
+        // set "this" on sp - 12 - args.length - 4
+        new T_Move(
+                new T_Mem(
+                        new T_Binop(
+                                BINOPS.PLUS,
+                                new T_Temp("$sp"),
+                                new T_Const(-12 - argsLength * 4 - 4)
+                        )
+                ),
+                thisTemp
+        ).gen();
+        // set sp to sp - 12 - args.length - 4
+        new T_Move(
+                new T_Mem(
+                        new T_Binop(
+                                BINOPS.PLUS,
+                                new T_Temp("$sp"),
+                                new T_Const(-12 - argsLength * 4 - 4)
+                        )
+                ),
+                new T_Temp("$sp")
+        ).gen();
         // set fp to sp
         // jalr
         // body
@@ -36,8 +85,6 @@ public class T_Call implements T_Exp {
         // set ra to fp + args.length + 12
         // set fp to fp + args.length + 8
         // consume return value END
-
-
 
 
         // add this as "first argument"
