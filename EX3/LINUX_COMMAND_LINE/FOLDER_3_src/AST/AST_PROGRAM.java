@@ -49,8 +49,8 @@ public class AST_PROGRAM extends AST_Node {
         T_Seq main = new T_Seq(
                 new T_Raw(String.format(
                         "main:%n" +
-                        "\taddi $fp, $sp, 0%n" +
-                        "\taddi $fp, $fp, 4%n"
+                        "\taddi $fp, $sp, 0%n" /*+
+                        "\taddi $fp, $fp, 4%n"*/
                 )),
                 new T_JumpLabel(this.programMain)
         );

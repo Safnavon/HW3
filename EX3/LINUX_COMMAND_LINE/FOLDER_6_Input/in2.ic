@@ -7,7 +7,8 @@ class Glass{
 }
 class MainClass {
     void main(string[] args){
-        Glass a = new Glass();
+        Glass a;
+        a = new Glass();
         a.init();
     }
 }

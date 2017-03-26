@@ -118,17 +118,4 @@ public class AST_METHOD_CALL extends AST_Node {
         return new T_ESeq(seq);
     }
 
-//    private T_Exp pushReg(String specialReg) {
-//        T_Exp $SP = new T_Temp("$sp");
-//        T_Exp decrementSP = new T_Move($SP, new T_Binop(BINOPS.PLUS, new T_Temp("$sp"), new T_Const(-4)));
-//        T_Exp push = new T_Move(new T_Mem(new T_Binop(BINOPS.PLUS, $SP, new T_Const(0))) ,new T_Temp(specialReg));
-//        return new T_Seq(decrementSP, push);
-//    }
-//
-//    private T_Exp popToReg(String specialReg) {
-//        T_Exp $SP = new T_Temp("$sp");
-//        T_Exp pop = new T_Move(new T_Temp(specialReg), new T_Mem(new T_Binop(BINOPS.PLUS, $SP, new T_Const(0))));
-//        T_Exp incrementSP = new T_Move($SP, new T_Binop(BINOPS.PLUS, $SP, new T_Const(4)));
-//        return new T_Seq(pop, incrementSP);
-//    }
 }
