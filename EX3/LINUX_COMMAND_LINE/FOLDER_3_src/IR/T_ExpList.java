@@ -43,7 +43,7 @@ public class T_ExpList implements T_Exp {
 			arr.add(first);
 			size++;
 			first = rest != null ? rest.head : null;
-			rest = rest != null ? rest.tail: null;
+			rest = rest != null ? rest.tail : null;
 		}
 		return arr;
 	}
