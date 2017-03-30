@@ -67,6 +67,9 @@ public class T_Call implements T_Exp {
                 ),
                 thisTemp
         ).gen();
+
+        this.prologue.gen();
+
         // set sp to sp - 12 - args.length - 4
         new T_Move(
                 new T_Temp("$sp"),
@@ -82,7 +85,6 @@ public class T_Call implements T_Exp {
                 new T_Temp("$sp")
         ).gen();
         // jalr
-        this.prologue.gen();
         CGen.append(String.format("\tjalr $a1%n"));
         //after return
         T_Temp fpTemp = new T_Temp("$fp");
