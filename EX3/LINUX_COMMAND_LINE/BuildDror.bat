@@ -52,4 +52,5 @@ jar cfm PARSER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
 @echo #                           #
 @echo #                           #
 @echo #############################
-@echo #java -jar PARSER.jar ./FOLDER_6_Input/Quicksort.ic ./FOLDER_7_Output/ParseStatus.txt
+java -jar PARSER.jar ./FOLDER_6_Input/in_1c.ic ./ParseStatus.txt
+@echo java -jar PARSER.jar ./FOLDER_6_Input/in_1c.ic ./ParseStatus.txt
