@@ -1,4 +1,4 @@
-class A{
+class A {
 
     int x=123;
 }
@@ -6,8 +6,8 @@ class A{
 class Quicksort {
      
 
-     void main(string[] args) {
-       // Quicksort s = new Quicksort();
+     void main(string[]        // Quicksort s = new Quicksort();
+args) {
 
 
       A a = new A();
