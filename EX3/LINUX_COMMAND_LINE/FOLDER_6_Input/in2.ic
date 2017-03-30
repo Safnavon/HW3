@@ -1,7 +1,7 @@
 class Glass{
     int x;
     void init(){
-        x = 777;
+        int x = 777;
     }
 
 }
