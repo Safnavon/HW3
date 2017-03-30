@@ -50,9 +50,9 @@ public class AST_STMT_WHILE extends AST_STMT
 		seq.add(labelStart);
 		seq.add(jumpEnd);
 		seq.add(bodyIr);
+		seq.add(setNotFirstLoop);
 		seq.add(jumpStart);
 		seq.add(labelEnd);
-		seq.add(setNotFirstLoop);
 		return new T_Seq(seq);
 	}
 }
