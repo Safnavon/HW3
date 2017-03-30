@@ -42,8 +42,8 @@ public class T_ExpList implements T_Exp {
 		while (first != null) {
 			arr.add(first);
 			size++;
-			first = rest.head;
-			rest = rest.tail;
+			first = rest != null ? rest.head : null;
+			rest = rest != null ? rest.tail : null;
 		}
 		return arr;
 	}

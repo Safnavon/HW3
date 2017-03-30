@@ -1,14 +1,37 @@
-class Glass{
-    int x;
-    void init(){
-        x = 777;
-    }
+/* prints all prime numbers from 2 to 10 */
 
+class PRINT {
+	void printInt(int i) {}
 }
-class MainClass {
-    void main(string[] args){
-        Glass a;
-        a = new Glass();
-        a.init();
-    }
+
+class PrimePrint {
+	
+	int isprime(int i) {
+		int j = 2;
+		while(j < i) {
+			int k = 2;
+			while(k <= j) {
+				if ((k*j) == i) {
+					return 0;
+				}
+				k = (k+1);
+			}
+			j = (j+1);
+		}
+		return 1;
+	}
+
+	void main(string[] args) {
+		PrimePrint pp = new PrimePrint();
+		PRINT p = new PRINT();
+		int i = 2;
+		while (i <= 10) {
+			if (pp.isprime(i) == 1) {
+				p.printInt(i);
+			}
+			i = (i+1);
+		}
+
+	}
+
 }
