@@ -7,7 +7,7 @@ echo +"                                                                         
 echo +"                                                                                      "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo rm -rf FOLDER_3_src/Lexer.java FOLDER_3_src/Parser.java FOLDER_3_src/TokenNames.java FOLDER_4_bin/*.class FOLDER_4_bin/AST/*.class FOLDER_4_bin/src/*.class
-     rm -rf FOLDER_3_src/Lexer.java FOLDER_3_src/Parser.java FOLDER_3_src/TokenNames.java FOLDER_4_bin/*.class FOLDER_4_bin/AST/*.class FOLDER_4_bin/src/*.class
+     rm -rf FOLDER_3_src/Lexer.java FOLDER_3_src/Parser.java FOLDER_3_src/TokenNames.java FOLDER_4_bin/*.class FOLDER_4_bin/AST/*.class FOLDER_4_bin/IR/*.class FOLDER_4_bin/src/*.class
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                          "+
 echo +"                                                          "+
@@ -34,7 +34,7 @@ echo +"                                                       "+
 echo +"                                                       "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java FOLDER_3_src/src/*.java
-     javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java FOLDER_3_src/src/*.java
+     javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java FOLDER_3_src/IR/*.java FOLDER_3_src/src/*.java
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                         "+
 echo +"                                                         "+
@@ -43,7 +43,7 @@ echo +"                                                         "+
 echo +"                                                         "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo jar cfm SEMANTIC_ANALYZER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
-     jar cfm SEMANTIC_ANALYZER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
+     jar cfm COMPILER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
 echo +++++++++++++++++++++++++++++
 echo +"                           "+
 echo +"                           "+
@@ -52,5 +52,5 @@ echo +"                           "+
 echo +"                           "+
 echo +++++++++++++++++++++++++++++
 echo java -jar SEMANTIC_ANALYZER.jar ./FOLDER_6_Input/in1.ic ./FOLDER_7_Output/ParseStatus.txt
-     java -jar SEMANTIC_ANALYZER.jar ./FOLDER_6_Input/in1.ic ./FOLDER_7_Output/ParseStatus.txt
+echo java -jar SEMANTIC_ANALYZER.jar ./FOLDER_6_Input/in1.ic ./FOLDER_7_Output/ParseStatus.txt
 

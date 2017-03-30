@@ -17,7 +17,7 @@ public class T_Seq implements T_Exp {
         }
         this.left = exps.get(0);
         T_Seq rightSeq = null;
-        for (int i = exps.size()-1; i >= 0; i--) {
+        for (int i = exps.size()-1; i > 0; i--) {
             rightSeq = new T_Seq(exps.get(i), rightSeq);
         }
         this.right = rightSeq;
